@@ -1,10 +1,39 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "cabinet-grotesk";
+  src:
+    url("/font/cabinet-grotesk/medium.woff2") format("woff2"),
+    url("/font/cabinet-grotesk/medium.woff") format("woff"),
+    url("/font/cabinet-grotesk/medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "cabinet-grotesk";
+  src:
+    url("/font/cabinet-grotesk/bold.woff2") format("woff2"),
+    url("/font/cabinet-grotesk/bold.woff") format("woff"),
+    url("/font/cabinet-grotesk/bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
 @theme {
   --color-*: initial;
+  --color-black: #00001f;
+  --color-white: #f5f5ff;
+  --color-blue: #0094e8;
+  --color-red: #db004f;
+
   --font-*: initial;
+  --font-title: "cabinet-grotesk", serif;
 }
 
 html,
 body {
+  @apply bg-white text-black;
 }
