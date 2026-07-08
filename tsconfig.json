@@ -22,5 +22,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
+  },
+  "mdx": {
+    "checkMdx": true
   }
 }

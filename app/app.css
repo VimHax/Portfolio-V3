@@ -22,6 +22,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "outfit";
+  src:
+    url("/font/outfit/regular.woff2") format("woff2"),
+    url("/font/outfit/regular.woff") format("woff"),
+    url("/font/outfit/regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
 @theme {
   --color-*: initial;
   --color-black: #00001f;
@@ -31,9 +42,11 @@
 
   --font-*: initial;
   --font-title: "cabinet-grotesk", serif;
+  --font-body: "outfit", sans-serif;
 }
 
 html,
 body {
-  @apply bg-white text-black;
+  @apply font-body bg-white text-black;
+  font-synthesis: none;
 }
