@@ -10,8 +10,8 @@ export async function loader({ url }: Route.LoaderArgs) {
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
-    <main className="work-grid text-lg [&_code]:text-base">
-      <h2 className="mt-16 mb-4 text-center text-xl">
+    <main className="work-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+      <h2 className="mt-12 mb-2 text-lg sm:mt-16 sm:mb-4 sm:text-center sm:text-xl">
         {loaderData.date.year}{" "}
         {
           [
@@ -31,16 +31,16 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         }
       </h2>
 
-      <h1 className="font-title mb-8 text-center text-8xl tracking-tight">
+      <h1 className="font-title mb-8 text-6xl tracking-tight sm:text-center sm:text-8xl">
         {loaderData.title}
       </h1>
 
-      <p className="max-w-2xl justify-self-center text-center">
+      <p className="justify-self-center sm:max-w-2xl sm:text-center">
         {loaderData.description}
       </p>
 
       <video
-        className="wide-content my-16 aspect-239/100 rounded-4xl object-cover shadow-2xl"
+        className="wide-content my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
         autoPlay
         loop
         muted
@@ -53,7 +53,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <div className="mb-16">
+      <div className="mb-12 sm:mb-16">
         <Outlet />
       </div>
     </main>

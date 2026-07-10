@@ -4,13 +4,13 @@ export function useMDXComponents() {
   return {
     h2: (props: ComponentProps<"h2">) => (
       <h2
-        className="font-title mt-16 mb-5 text-6xl tracking-tight"
+        className="font-title mt-12 mb-5 text-4xl tracking-tight sm:mt-16 sm:text-6xl"
         {...props}
       />
     ),
     h3: (props: ComponentProps<"h3">) => (
       <h3
-        className="font-title mt-12 mb-5 text-4xl tracking-tight"
+        className="font-title mt-8 mb-5 text-2xl tracking-tight sm:mt-12 sm:text-4xl"
         {...props}
       />
     ),
@@ -29,7 +29,7 @@ export function useMDXComponents() {
       return (
         <>
           <video
-            className="mt-8 mb-3 aspect-video rounded-3xl object-cover shadow-xl"
+            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
             autoPlay
             loop
             muted
@@ -41,7 +41,7 @@ export function useMDXComponents() {
           >
             <source src={src} type="video/mp4" />
           </video>
-          <div className="mb-8 text-center text-base opacity-50 [&_code]:text-sm">
+          <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
             {children}
           </div>
         </>
@@ -51,11 +51,11 @@ export function useMDXComponents() {
       return (
         <>
           <img
-            className="mt-8 mb-3 aspect-video rounded-3xl object-cover shadow-xl"
+            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
             src={src}
             loading="lazy"
           />
-          <div className="mb-8 text-center text-base opacity-50 [&_code]:text-sm">
+          <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
             {children}
           </div>
         </>
