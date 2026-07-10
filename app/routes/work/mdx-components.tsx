@@ -29,7 +29,7 @@ export function useMDXComponents() {
       return (
         <>
           <video
-            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
+            className="shadow-blue/10 mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
             autoPlay
             loop
             muted
@@ -51,7 +51,7 @@ export function useMDXComponents() {
       return (
         <>
           <img
-            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
+            className="shadow-blue/10 mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
             src={src}
             loading="lazy"
           />

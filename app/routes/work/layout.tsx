@@ -11,7 +11,7 @@ export async function loader({ url }: Route.LoaderArgs) {
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
     <main className="work-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
-      <h2 className="mt-12 mb-2 text-lg sm:mt-16 sm:mb-4 sm:text-center sm:text-xl">
+      <h2 className="mt-12 mb-2 text-center text-lg sm:mt-16 sm:mb-4 sm:text-xl">
         {loaderData.date.year}{" "}
         {
           [
@@ -31,16 +31,16 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         }
       </h2>
 
-      <h1 className="font-title mb-8 text-6xl tracking-tight sm:text-center sm:text-8xl">
+      <h1 className="font-title mb-8 text-center text-5xl tracking-tight text-balance sm:text-8xl">
         {loaderData.title}
       </h1>
 
-      <p className="justify-self-center sm:max-w-2xl sm:text-center">
+      <p className="max-w-2xs justify-self-center text-center sm:max-w-2xl">
         {loaderData.description}
       </p>
 
       <video
-        className="wide-content my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
+        className="wide-content shadow-blue/15 my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
         autoPlay
         loop
         muted
