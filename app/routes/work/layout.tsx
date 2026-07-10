@@ -10,7 +10,7 @@ export async function loader({ url }: Route.LoaderArgs) {
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
-    <main className="flex flex-col">
+    <main className="work-grid text-lg [&_code]:text-base">
       <h2 className="mt-16 mb-4 text-center text-xl">
         {loaderData.date.year}{" "}
         {
@@ -35,17 +35,12 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         {loaderData.title}
       </h1>
 
-      <p className="mb-16 max-w-[50ch] self-center text-center text-lg">
+      <p className="max-w-2xl justify-self-center text-center">
         {loaderData.description}
       </p>
 
-      {/* <img
-        className="aspect-2/1 w-300 self-center rounded-2xl object-cover"
-        src={HeroImg}
-        alt="MCProm"
-      /> */}
       <video
-        className="mb-16 aspect-239/100 w-7xl self-center rounded-4xl object-cover shadow-2xl"
+        className="wide-content my-16 aspect-239/100 rounded-4xl object-cover shadow-2xl"
         autoPlay
         loop
         muted
@@ -58,7 +53,9 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <Outlet />
+      <div className="mb-16">
+        <Outlet />
+      </div>
     </main>
   );
 }

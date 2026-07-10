@@ -1,15 +1,63 @@
+import SkyCoordinatesImg from "./sky-coordinates.png";
+import SkyStarsImg from "./sky-stars.png";
+
 export const title = "MCProm";
 export const description =
-  "Used my knowledge of GLSL shaders along with some math to contribute to the atmosphere of this awesome party thrown in Minecraft.";
+  "Used my knowledge of GLSL shaders along with some math to contribute to the atmosphere of this awesome party thrown in Minecraft 1.18.2.";
 export const date = { year: 2022, month: 9 };
 
-I was brought on to this project to add decorations to really sell the
-idea that this truly is a one of a kind party. To accomplish this I
-worked on 2 effects, both heavily depend on GLSL shaders added to the
-resource pack (which gets loaded by the client) but also a server-sided
-plugin I wrote in Java.
+I was brought on to this project to add decorations to further sell the idea that this truly is a one of a kind party. To accomplish this I worked on 2 decorations. Both heavily depend on [GLSL shaders](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the client) and a server-side [Spigot](https://www.spigotmc.org/) plugin written in Java.
 
-This event needed to be readily accessible therefore client-sided
-requirements needed to be minimized and various client configurations
-needed to be considered such as Optifine, Sodium and Apple silicon to
-name a few.
+In modern versions of Minecraft ([26.2](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-2) being the latest when writing this) many decorations are almost trivially achievable but unfortunately this wasn't the case for [Minecraft 1.18.2](https://www.minecraft.net/da-dk/article/minecraft-java-edition-1-18-2). Additionally this event needed to be readily accessible. Therefore client-side requirements needed to be minimized and various popular client configurations needed to be considered such as [Optifine](https://optifine.net), [Sodium](https://github.com/CaffeineMC/sodium) and [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) to name a few.
+
+## Lasers
+
+<Video src="/video/lasers.mp4">
+  Clips from [@JellyBean](https://www.youtube.com/live/yEgb-SQHvBA) and
+  [@TalonMC](https://youtu.be/dlI9rJjQVqM).
+</Video>
+
+The lasers, as simple as they may look, are actually quite feature packed;
+
+- 2 formations: a line formation and a disco formation,
+- 3 animations,
+- 4 color presets,
+- Can be toggled on or off,
+- Can be seen from afar (from much further than the maximum entity render distance),
+- Switching between color presets is smooth (does not reset the animation).
+
+### Implementation
+
+The most straightforward solution, using a block shader ([`rendertype_solid`](https://github.com/ShockMicro/Minecraft-Shaders/wiki/Core-Shaders#solid)), wasn't viable as clients using Sodium will not load this shader. Using [entities](https://minecraft.wiki/w/Entity) wasn't viable either because the maximum entity render distance is prohibitively small for this purpose. The solution that was chosen involved using a very unconventional item / shader combination which fit all the requirements.
+
+## Sky
+
+<Video src="/video/sky.mp4">
+  Clips from [@TalonMC](https://youtu.be/dlI9rJjQVqM).
+</Video>
+
+The sky is composed of multiple layers of effects;
+
+- Base layer with a subtle gradient,
+- Multiple layers of low frequency noise to simulate nebulae,
+- Layer of high frequency noise to simulate distant stars,
+- Layer of textured stars to simulate bright twinkling stars,
+- Layer of a textured Earth with a glow behind it.
+
+The layers move at different speeds to give the illusion of distance by simulating parallax. (Though in reality parallax wouldn't take place here the effect looks good nonetheless.)
+
+### Implementation
+
+It started off with attempts to incrementally improve the default night sky for the event but this lead to a dead end as only so much can be achieved with this approach. In search for more customization I discovered a way to gain control over the entire sky.
+
+<Image src={SkyCoordinatesImg}>
+  A debug shader demonstrating the full control of the sky.
+</Image>
+
+From this point onwards adding the rest of the effects was relatively straightforward. Out of all the effects though the twinkling stars were the most difficult to implement since it required me to UV map a sphere (the sky) procedurally.
+
+<Image src={SkyStarsImg}>
+  All possible positions for the twinkling stars in the sky.
+</Image>
+
+There were also performance issues in the initial implementation which were addressed by switching out an expensive noise function to a cheaper, though slightly lower quality, alternative and using a texture to draw the twinkling stars instead of generating it procedurally in the shader.
