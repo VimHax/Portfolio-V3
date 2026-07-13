@@ -54,10 +54,10 @@ It started off with attempts to incrementally improve the default night sky for 
   A debug shader demonstrating the full control of the sky.
 </Image>
 
-From this point onwards adding the rest of the effects was relatively straightforward. Out of all the effects though the twinkling stars were the most difficult to implement since it required me to UV map a sphere (the sky) procedurally.
+From this point onwards adding the rest of the effects was relatively straightforward. Out of all the effects the twinkling stars were the most difficult to implement since it required me to UV map a sphere (the sky) procedurally.
 
 <Image src={SkyStarsImg}>
   All possible positions for the twinkling stars in the sky.
 </Image>
 
-There were also performance issues in the initial implementation which were addressed by switching out an expensive noise function to a cheaper, though slightly lower quality, alternative and using a texture to draw the twinkling stars instead of generating it procedurally in the shader.
+There were also performance issues in the initial implementation which were addressed by switching out an expensive noise function to a cheaper, though slightly lower quality, alternative and using a texture to draw the twinkling stars instead of procedurally generating it in the shader.
