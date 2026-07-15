@@ -13,17 +13,19 @@ export default function Hero({ className }: { className?: string }) {
 
     const blueOffset = 0;
     const redOffset = 1_000_000;
+    const startTime = Date.now();
 
     function render(getColor: (opacity: number) => string, timeOffset: number) {
       const time = Date.now();
       const size = 50;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
-      const half = Math.ceil(Math.ceil(canvas.height / 2 - size / 2) / size);
-      const totalVertical = half * 2 + 1;
+      const verticalHalfCount = Math.ceil(
+        Math.ceil(canvas.height / 2 - size / 2) / size,
+      );
+      const verticalCount = verticalHalfCount * 2 + 1;
 
       let x = 0;
-      let idx = 0;
       while (x < canvas.width) {
         const width = x === 0 && xOffset !== 0 ? xOffset : size;
 
@@ -32,23 +34,30 @@ export default function Hero({ className }: { className?: string }) {
         while (y < canvas.height) {
           const height = y === 0 && yOffset !== 0 ? yOffset : size;
 
-          const f = yIdx / (totalVertical - 1);
-          const a = 1 - Math.abs(2 * (f - 0.5));
-          const b = Math.pow(0.25 + a * 0.75, 3);
-          const c = ImprovedNoise.noise(
+          const noise = ImprovedNoise.noise(
             x / 500,
             y / 500,
             time / 5000 + timeOffset,
           );
-          const o = b * c;
-          const color = getColor(o);
+
+          const distFromTop = yIdx / (verticalCount - 1);
+          const distFromCenter = Math.abs(2 * distFromTop - 1);
+          const opacity =
+            Math.pow(0.25 + (1 - distFromCenter) * 0.75, 3) * noise;
+
+          const fadeOpacity = Math.min((time - startTime) / 1000, 1);
+          const cutoffOpacity =
+            opacity >= 1 - Math.pow(fadeOpacity, 0.25)
+              ? opacity * fadeOpacity
+              : 0;
+
+          const color = getColor(cutoffOpacity);
           ctx.strokeStyle = color;
           ctx.fillStyle = color;
           ctx.lineWidth = 1;
 
           ctx.fillRect(x, y, width, height);
           y += height;
-          idx++;
           yIdx++;
         }
 
@@ -62,7 +71,7 @@ export default function Hero({ className }: { className?: string }) {
           canvas.width = canvas.clientWidth;
           canvas.height = canvas.clientHeight;
 
-          ctx.fillStyle = "#000005";
+          ctx.fillStyle = "#000000";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
           render((o) => `rgba(0, 148, 232, ${o.toFixed(2)})`, blueOffset);

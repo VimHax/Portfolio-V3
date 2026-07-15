@@ -11,7 +11,11 @@ import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import "./app.css";
 
-export const links: Route.LinksFunction = () => [];
+export const links: Route.LinksFunction = () => [
+  { rel: "icon", sizes: "32x32", href: "/favicon.ico" },
+  { rel: "icon", type: "image/svg+xml", href: "/icon.svg" },
+  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
