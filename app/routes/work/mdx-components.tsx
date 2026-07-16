@@ -23,13 +23,13 @@ export function useMDXComponents() {
     ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
-      <code className="bg-black/10 font-mono" {...props} />
+      <code className="bg-black/7.5 font-mono" {...props} />
     ),
     Video: ({ src, children }: { src: string; children: ReactNode }) => {
       return (
         <>
           <video
-            className="shadow-blue/10 mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
+            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl"
             autoPlay
             loop
             muted
@@ -51,7 +51,7 @@ export function useMDXComponents() {
       return (
         <>
           <img
-            className="shadow-blue/10 mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-3xl"
+            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl"
             src={src}
             loading="lazy"
           />

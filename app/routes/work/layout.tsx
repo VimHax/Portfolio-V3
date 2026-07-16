@@ -40,7 +40,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
       </p>
 
       <video
-        className="wide-content shadow-blue/15 my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
+        className="wide-content my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
         autoPlay
         loop
         muted

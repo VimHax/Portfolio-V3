@@ -45,7 +45,7 @@ export default function Hero({ className }: { className?: string }) {
           const opacity =
             Math.pow(0.25 + (1 - distFromCenter) * 0.75, 3) * noise;
 
-          const fadeOpacity = Math.min((time - startTime) / 1000, 1);
+          const fadeOpacity = Math.min((time - startTime) / 3000, 1);
           const cutoffOpacity =
             opacity >= 1 - Math.pow(fadeOpacity, 0.25)
               ? opacity * fadeOpacity
@@ -71,8 +71,7 @@ export default function Hero({ className }: { className?: string }) {
           canvas.width = canvas.clientWidth;
           canvas.height = canvas.clientHeight;
 
-          ctx.fillStyle = "#000000";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
 
           render((o) => `rgba(0, 148, 232, ${o.toFixed(2)})`, blueOffset);
           render((o) => `rgba(219, 0, 79, ${o.toFixed(2)})`, redOffset);
