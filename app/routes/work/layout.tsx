@@ -11,7 +11,7 @@ export async function loader({ url }: Route.LoaderArgs) {
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
     <main className="work-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
-      <h2 className="mt-12 mb-2 text-center text-lg sm:mt-16 sm:mb-4 sm:text-xl">
+      <h2 className="mt-12 mb-2 text-center text-lg font-semibold tracking-widest uppercase sm:mt-16 sm:mb-4 sm:text-xl">
         {loaderData.date.year}{" "}
         {
           [

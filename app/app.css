@@ -34,6 +34,17 @@
 }
 
 @font-face {
+  font-family: "outfit";
+  src:
+    url("/font/outfit/semibold.woff2") format("woff2"),
+    url("/font/outfit/semibold.woff") format("woff"),
+    url("/font/outfit/semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "jetbrains-mono";
   src:
     url("/font/jetbrains-mono/regular.woff2") format("woff2"),
