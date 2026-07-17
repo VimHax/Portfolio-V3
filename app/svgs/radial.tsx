@@ -7,10 +7,10 @@ const RadialSVG = (props: SVGProps<SVGSVGElement>) => (
     fill="none"
     {...props}
   >
-    <path fill="url(#a)" d="M0 0h450v800H0z" />
+    <path fill="url(#r)" d="M0 0h450v800H0z" />
     <defs>
       <radialGradient
-        id="a"
+        id="r"
         cx={0}
         cy={0}
         r={1}

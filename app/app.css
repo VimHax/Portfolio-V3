@@ -59,6 +59,7 @@
   --color-*: initial;
   --color-black: #00001f;
   --color-white: #f5f5ff;
+  --color-off-white: #e9e9f2;
   --color-blue: #0094e8;
   --color-red: #db004f;
 
@@ -72,6 +73,22 @@ html,
 body {
   @apply font-body selection:bg-blue bg-white text-black selection:text-white;
   font-synthesis: none;
+}
+
+.page-grid {
+  --content-margin: 16px;
+  --main: min(1536px, 100% - var(--content-margin) * 2);
+  --full: minmax(var(--content-margin), 1fr);
+
+  display: grid;
+  grid-template-columns:
+    [full-start] var(--full)
+    [main-start] var(--main) [main-end]
+    var(--full) [full-end];
+}
+
+.page-grid > * {
+  grid-column: main-start / main-end;
 }
 
 .work-grid {
