@@ -53,7 +53,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <div className="mb-12 sm:mb-16">
+      <div className="mb-12 sm:mb-32">
         <Outlet />
       </div>
     </main>

@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -29,6 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="pattern">
         <Navbar />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
