@@ -10,7 +10,7 @@ export async function loader({ url }: Route.LoaderArgs) {
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
-    <main className="page-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+    <>
       <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
         <div>
           <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
@@ -57,9 +57,9 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <div className="sm:mb-section mb-12">
+      <div className="sm:mb-section mb-12 sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
         <Outlet />
       </div>
-    </main>
+    </>
   );
 }

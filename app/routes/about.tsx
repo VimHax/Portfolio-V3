@@ -4,7 +4,7 @@ import MeImg from "./me.jpg";
 
 export default function About() {
   return (
-    <main className="page-grid">
+    <>
       <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
         <h1 className="font-title text-9xl leading-22 tracking-tight">About</h1>
         <p className="max-w-75 text-right text-xl leading-6 text-balance text-black/50">
@@ -30,6 +30,6 @@ export default function About() {
       </div>
 
       <TechnologiesSection />
-    </main>
+    </>
   );
 }

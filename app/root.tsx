@@ -28,9 +28,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="pattern">
-        <Navbar />
-        {children}
-        <Footer />
+        <main className="page-grid">
+          <Navbar />
+          {children}
+          <Footer />
+        </main>
         <ScrollRestoration />
         <Scripts />
       </body>
