@@ -67,6 +67,12 @@
   --font-title: "cabinet-grotesk", serif;
   --font-body: "outfit", sans-serif;
   --font-mono: "jetbrains-mono", sans-serif;
+
+  --spacing-navbar: calc(var(--spacing) * 21);
+  --spacing-section: calc(var(--spacing) * 32);
+  --spacing-sub-section: calc(var(--spacing) * 16);
+
+  --aspect-cinematic: 239/100;
 }
 
 html,
@@ -76,24 +82,8 @@ body {
 }
 
 .page-grid {
-  --content-margin: 16px;
-  --main: min(1536px, 100% - var(--content-margin) * 2);
-  --full: minmax(var(--content-margin), 1fr);
-
-  display: grid;
-  grid-template-columns:
-    [full-start] var(--full)
-    [main-start] var(--main) [main-end]
-    var(--full) [full-end];
-}
-
-.page-grid > * {
-  grid-column: main-start / main-end;
-}
-
-.work-grid {
   --content-width: 768px;
-  --wide-width: 1280px;
+  --wide-width: 1536px;
   --content-margin: 16px;
   --main: min(var(--content-width), 100% - var(--content-margin) * 2);
   --wide: minmax(0, calc((var(--wide-width) - var(--content-width)) / 2));
@@ -107,7 +97,7 @@ body {
     var(--full) [full-end];
 }
 
-.work-grid > * {
+.page-grid > * {
   grid-column: main-start / main-end;
 }
 

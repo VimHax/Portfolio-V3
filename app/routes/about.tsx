@@ -1,0 +1,35 @@
+import TechnologiesSection from "~/components/technologies-section";
+
+import MeImg from "./me.jpg";
+
+export default function About() {
+  return (
+    <main className="page-grid">
+      <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
+        <h1 className="font-title text-9xl leading-22 tracking-tight">About</h1>
+        <p className="max-w-75 text-right text-xl leading-6 text-balance text-black/50">
+          A self-taught full stack developer based in Sri Lanka.
+        </p>
+      </div>
+
+      <img
+        src={MeImg}
+        alt="Image of Vimukthi Weerabahu"
+        className="wide-content mb-sub-section aspect-cinematic rounded-4xl object-cover object-[100%_15%]"
+      />
+
+      <div className="mb-section">
+        <p className="text-lg">
+          It all started in 2018 when I came across Processing. Whilst I have
+          attempted programming a few times earlier it never really "clicked"
+          for me, but this time it was different. The visual nature of
+          Processing and the low barrier to entry was an addicting combo. P5JS
+          then was a natural stepping stone from Processing to the whole
+          frontend world.
+        </p>
+      </div>
+
+      <TechnologiesSection />
+    </main>
+  );
+}

@@ -4,7 +4,7 @@ export function useMDXComponents() {
   return {
     h2: (props: ComponentProps<"h2">) => (
       <h2
-        className="font-title mt-12 mb-5 text-4xl tracking-tight sm:mt-16 sm:text-6xl"
+        className="font-title sm:mt-sub-section mt-12 mb-5 text-4xl tracking-tight sm:text-6xl"
         {...props}
       />
     ),

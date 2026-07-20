@@ -65,7 +65,7 @@ function Work() {
 export default function Home() {
   return (
     <main className="page-grid">
-      <div className="full-wide-content relative -mt-21 mb-16 flex justify-center">
+      <div className="full-wide-content mb-sub-section -mt-navbar relative flex justify-center">
         <Hero className="absolute top-0 left-0 h-full w-full mix-blend-hard-light" />
         <h1 className="font-title z-20 my-64 text-center text-6xl leading-12 tracking-tight mix-blend-overlay sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
           Every detail
@@ -88,7 +88,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mb-32">
+      <div className="wide-content mb-section">
         <div className="mb-8 flex items-end justify-between">
           <h1 className="font-title text-7xl tracking-tight">Work</h1>
           <h2 className="font-title text-5xl tracking-tight">View all -&gt;</h2>

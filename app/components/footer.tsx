@@ -18,10 +18,10 @@ function NavigationLink({ to, name }: { to: To; name: string }) {
 
 export default function Footer() {
   return (
-    <footer className="mb-32 flex justify-center">
-      <div className="flex w-full max-w-384 justify-between rounded-4xl bg-black p-16 text-white shadow-2xl">
+    <footer className="page-grid mb-section">
+      <div className="wide-content flex w-full justify-between rounded-4xl bg-black p-16 text-white shadow-2xl">
         <div className="flex flex-col justify-between">
-          <LogoSVG className="size-22.5" />
+          <LogoSVG className="size-20" />
           <div>
             <h1 className="font-title mb-1 text-5xl">Vimukthi Weerabahu</h1>
             <p className="text-xl opacity-75">
@@ -43,12 +43,9 @@ export default function Footer() {
 
           <div className="flex flex-col gap-4">
             <h1 className="font-semibold tracking-widest uppercase opacity-50">
-              Contact
+              Social
             </h1>
-            <a
-              className="font-title text-5xl"
-              href="mailto: vimukthi.weerabahu@gmail.com"
-            >
+            <a className="font-title text-5xl" href="mailto: me@vimhax.com">
               Email
             </a>
             <a className="font-title text-5xl" href="https://github.com/VimHax">

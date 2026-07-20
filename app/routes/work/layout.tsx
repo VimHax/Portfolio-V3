@@ -10,37 +10,41 @@ export async function loader({ url }: Route.LoaderArgs) {
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
-    <main className="work-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
-      <h2 className="mt-12 mb-2 text-center text-lg font-semibold tracking-widest uppercase sm:mt-16 sm:mb-4 sm:text-xl">
-        {loaderData.date.year}{" "}
-        {
-          [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-          ][loaderData.date.month - 1]
-        }
-      </h2>
+    <main className="page-grid sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+      <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
+        <div>
+          <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
+            {loaderData.date.year}{" "}
+            {
+              [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+              ][loaderData.date.month - 1]
+            }
+          </h2>
 
-      <h1 className="font-title mb-8 text-center text-5xl tracking-tight text-balance sm:text-8xl">
-        {loaderData.title}
-      </h1>
+          <h1 className="font-title max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
+            {loaderData.title}
+          </h1>
+        </div>
 
-      <p className="max-w-2xs justify-self-center text-center sm:max-w-2xl">
-        {loaderData.description}
-      </p>
+        <p className="mb-1 max-w-2xs text-right text-xl leading-6 text-black/50 sm:max-w-xl">
+          {loaderData.description}
+        </p>
+      </div>
 
       <video
-        className="wide-content my-8 aspect-video rounded-2xl object-cover shadow-xl sm:my-16 sm:rounded-4xl lg:aspect-239/100 lg:shadow-2xl"
+        className="wide-content sm:mb-sub-section lg:aspect-cinematic mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
         autoPlay
         loop
         muted
@@ -53,7 +57,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <div className="mb-12 sm:mb-32">
+      <div className="sm:mb-section mb-12">
         <Outlet />
       </div>
     </main>

@@ -42,7 +42,7 @@ function Technology({
 
 export default function TechnologiesSection() {
   return (
-    <div className="mb-32">
+    <div className="wide-content mb-section">
       <h1 className="font-title mb-8 text-7xl tracking-tight">Technologies</h1>
 
       <div className="bg-off-white grid grid-cols-6 gap-px rounded-4xl shadow-2xl/10">
