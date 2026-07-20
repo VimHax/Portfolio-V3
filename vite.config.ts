@@ -10,7 +10,7 @@ export default defineConfig({
       enforce: "pre",
       ...mdx({
         rehypePlugins: [rehypeMdxImportMedia],
-        providerImportSource: "../mdx-components.tsx",
+        providerImportSource: __dirname + "/app/mdx-components.tsx",
       }),
     },
     tailwindcss(),

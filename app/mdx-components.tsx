@@ -1,7 +1,18 @@
 import type { ComponentProps, ReactNode } from "react";
 
+declare global {
+  type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
+}
+
 export function useMDXComponents() {
   return {
+    wrapper: ({ children }: { children: ReactNode }) => {
+      return (
+        <div className="mb-section sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+          {children}
+        </div>
+      );
+    },
     h2: (props: ComponentProps<"h2">) => (
       <h2
         className="font-title sm:mt-sub-section mt-12 mb-5 text-4xl tracking-tight sm:text-6xl"

@@ -57,9 +57,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <source src="/video/mcprom.mp4" type="video/mp4" />
       </video>
 
-      <div className="sm:mb-section mb-12 sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }

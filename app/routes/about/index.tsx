@@ -1,4 +1,5 @@
 import TechnologiesSection from "~/components/technologies-section";
+import Content from "./content.mdx";
 
 import MeImg from "./me.jpg";
 
@@ -18,16 +19,7 @@ export default function About() {
         className="wide-content mb-sub-section aspect-cinematic rounded-4xl object-cover object-[100%_15%]"
       />
 
-      <div className="mb-section">
-        <p className="text-lg">
-          It all started in 2018 when I came across Processing. Whilst I have
-          attempted programming a few times earlier it never really "clicked"
-          for me, but this time it was different. The visual nature of
-          Processing and the low barrier to entry was an addicting combo. P5JS
-          then was a natural stepping stone from Processing to the whole
-          frontend world.
-        </p>
-      </div>
+      <Content />
 
       <TechnologiesSection />
     </>
