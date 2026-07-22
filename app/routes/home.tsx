@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import RadialSVG from "~/svgs/radial";
 import type { ReactNode } from "react";
 import TechnologiesSection from "~/components/technologies-section";
+import ContactSection from "~/components/contact-section";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,7 +24,7 @@ function Tag({ children }: { children: ReactNode }) {
 function Work() {
   return (
     <Link
-      className="relative flex aspect-9/16 w-full flex-col justify-between rounded-4xl bg-black/5 shadow-xl transition duration-500 hover:scale-102 hover:shadow-2xl/50"
+      className="relative flex aspect-9/16 w-full flex-col justify-between rounded-4xl shadow-xl transition duration-500 hover:scale-102 hover:shadow-2xl/50"
       to="/work/mcprom"
     >
       <video
@@ -103,6 +104,8 @@ export default function Home() {
       </div>
 
       <TechnologiesSection />
+
+      <ContactSection />
     </>
   );
 }

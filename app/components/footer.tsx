@@ -44,7 +44,7 @@ export default function Footer() {
           <h1 className="font-semibold tracking-widest uppercase opacity-50">
             Social
           </h1>
-          <a className="font-title text-5xl" href="mailto: me@vimhax.com">
+          <a className="font-title text-5xl" href="mailto:me@vimhax.com">
             Email
           </a>
           <a className="font-title text-5xl" href="https://github.com/VimHax">

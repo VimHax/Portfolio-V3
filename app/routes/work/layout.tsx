@@ -38,7 +38,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           </h1>
         </div>
 
-        <p className="mb-1 max-w-2xs text-right text-xl leading-6 text-black/50 sm:max-w-xl">
+        <p className="mb-1 max-w-2xs text-right text-xl leading-6 opacity-50 sm:max-w-xl">
           {loaderData.description}
         </p>
       </div>

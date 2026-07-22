@@ -1,5 +1,6 @@
 import TechnologiesSection from "~/components/technologies-section";
 import Content from "./content.mdx";
+import ContactSection from "~/components/contact-section";
 
 import MeImg from "./me.jpg";
 
@@ -8,7 +9,7 @@ export default function About() {
     <>
       <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
         <h1 className="font-title text-9xl leading-22 tracking-tight">About</h1>
-        <p className="max-w-75 text-right text-xl leading-6 text-balance text-black/50">
+        <p className="max-w-75 text-right text-xl leading-6 text-balance opacity-50">
           A self-taught full stack developer based in Sri Lanka.
         </p>
       </div>
@@ -22,6 +23,8 @@ export default function About() {
       <Content />
 
       <TechnologiesSection />
+
+      <ContactSection />
     </>
   );
 }
