@@ -2,7 +2,7 @@ import TechnologiesSection from "~/components/technologies-section";
 import Content from "./content.mdx";
 import ContactSection from "~/components/contact-section";
 
-import MeImg from "./me.jpg";
+import MeImg from "./me.png";
 
 export default function About() {
   return (
@@ -14,11 +14,13 @@ export default function About() {
         </p>
       </div>
 
-      <img
-        src={MeImg}
-        alt="Image of Vimukthi Weerabahu"
-        className="wide-content mb-sub-section aspect-cinematic rounded-4xl object-cover object-[100%_15%]"
-      />
+      <div className="wide-content mb-sub-section aspect-cinematic relative rounded-4xl bg-linear-to-r from-[#ebb5ab] to-[#ffc7a4]">
+        <img
+          src={MeImg}
+          alt="Image of Vimukthi Weerabahu"
+          className="absolute -top-25 left-1/2 h-[calc(100%+100px)] -translate-x-1/2"
+        />
+      </div>
 
       <Content />
 

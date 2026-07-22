@@ -36,8 +36,8 @@ export default function Footer() {
           </h1>
           <NavigationLink to="/" name="Home" />
           <NavigationLink to="/work" name="Work" />
+          <NavigationLink to="/gallery" name="Gallery" />
           <NavigationLink to="/about" name="About" />
-          <NavigationLink to="/contact" name="Contact" />
         </div>
 
         <div className="flex flex-col gap-4">
