@@ -1,18 +1,22 @@
 import z from "zod";
+import { DateMonth } from "~/util";
 
-const Metadata = z
+const WorkMetadata = z
   .object({
     title: z.string().nonempty(),
     description: z.string().nonempty(),
-    date: z
-      .strictObject({ year: z.int().positive(), month: z.int().min(1).max(12) })
-      .readonly(),
+    video: z.string().nonempty(),
+    color: z.string().nonempty(),
+    date: DateMonth,
+    tags: z.array(z.string().nonempty()).nonempty().readonly(),
   })
   .readonly();
 
-export default function getWork(id: string): z.infer<typeof Metadata> | null {
+export type WorkMetadata = z.infer<typeof WorkMetadata>;
+
+export function getAllWork(): Readonly<Record<string, WorkMetadata>> {
   const modules = z
-    .record(z.string().nonempty(), Metadata)
+    .record(z.string().nonempty(), WorkMetadata)
     .readonly()
     .parse(
       import.meta.glob<unknown>(`./**/index.mdx`, {
@@ -20,8 +24,17 @@ export default function getWork(id: string): z.infer<typeof Metadata> | null {
       }),
     );
 
-  const path = `./${id}/index.mdx`;
-  if (!(path in modules)) return null;
+  const mapped = Object.fromEntries(
+    Object.entries(modules).map(([key, value]) => [
+      key.slice("./".length, -"/index.mdx".length),
+      value,
+    ]),
+  );
 
-  return modules[path];
+  return mapped;
+}
+
+export function getWork(id: string): WorkMetadata | null {
+  const modules = getAllWork();
+  return modules[id] ?? null;
 }

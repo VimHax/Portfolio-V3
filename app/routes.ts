@@ -12,6 +12,10 @@ export default [
   ...prefix("work", [
     layout("routes/work/layout.tsx", [
       route("mcprom", "routes/work/mcprom/index.mdx"),
+      route(
+        "journey-to-twitchcon",
+        "routes/work/journey-to-twitchcon/index.mdx",
+      ),
     ]),
   ]),
 ] satisfies RouteConfig;

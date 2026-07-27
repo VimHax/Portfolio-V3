@@ -1,11 +1,19 @@
 import { data, Outlet } from "react-router";
 import type { Route } from "./+types/layout";
-import getWork from "./get-work.server";
+import { getWork } from "./get-work.server";
+import dateToString from "~/util";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const work = getWork(url.pathname.slice("/work/".length));
   if (work === null) throw data("Work not found! URL: " + url, { status: 404 });
   return work;
+}
+
+export function meta({ loaderData }: Route.MetaArgs) {
+  return [
+    { title: `${loaderData.title} | VimHax` },
+    { name: "description", content: "Welcome to React Router!" },
+  ];
 }
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
@@ -14,23 +22,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
       <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
         <div>
           <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
-            {loaderData.date.year}{" "}
-            {
-              [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ][loaderData.date.month - 1]
-            }
+            {dateToString(loaderData.date)}
           </h2>
 
           <h1 className="font-title max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
@@ -54,7 +46,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         x-webkit-airplay="deny"
         preload="auto"
       >
-        <source src="/video/mcprom.mp4" type="video/mp4" />
+        <source src={loaderData.video} type="video/mp4" />
       </video>
 
       <Outlet />

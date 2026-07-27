@@ -1,10 +1,17 @@
 import Hero from "~/components/hero";
 import type { Route } from "./+types/home";
-import { Link } from "react-router";
+import { Link, type To } from "react-router";
 import RadialSVG from "~/svgs/radial";
 import type { ReactNode } from "react";
 import TechnologiesSection from "~/components/technologies-section";
 import ContactSection from "~/components/contact-section";
+import { getAllWork, type WorkMetadata } from "./work/get-work.server";
+import dateToString from "~/util";
+
+export async function loader({}: Route.LoaderArgs) {
+  const work = getAllWork();
+  return work;
+}
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -21,11 +28,11 @@ function Tag({ children }: { children: ReactNode }) {
   );
 }
 
-function Work() {
+function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
   return (
     <Link
       className="relative flex aspect-9/16 w-full flex-col justify-between rounded-4xl shadow-xl transition duration-500 hover:scale-102 hover:shadow-2xl/50"
-      to="/work/mcprom"
+      to={url}
     >
       <video
         className="absolute top-0 left-0 h-full w-full rounded-4xl object-cover"
@@ -38,32 +45,35 @@ function Work() {
         x-webkit-airplay="deny"
         preload="auto"
       >
-        <source src="/video/mcprom.mp4" type="video/mp4" />
+        <source src={metadata.video} type="video/mp4" />
       </video>
 
-      <RadialSVG className="absolute top-0 left-0 h-full w-full rounded-4xl text-[#d252f9]" />
+      <RadialSVG
+        className="absolute top-0 left-0 h-full w-full rounded-4xl"
+        style={{ color: metadata.color }}
+      />
 
       <div className="z-10 flex justify-end p-10">
         <div className="flex max-w-2/3 flex-wrap justify-end gap-2">
-          <Tag>Minecraft</Tag>
-          <Tag>Core Shaders</Tag>
-          <Tag>GLSL</Tag>
-          <Tag>Java</Tag>
-          <Tag>Spigot</Tag>
+          {metadata.tags.map((tag, idx) => (
+            <Tag key={idx}>{tag}</Tag>
+          ))}
         </div>
       </div>
 
       <div className="z-10 flex w-full flex-col rounded-b-4xl p-10">
         <h2 className="mb-1 text-sm font-semibold tracking-widest text-white uppercase">
-          2022 September
+          {dateToString(metadata.date)}
         </h2>
-        <h1 className="font-title text-5xl text-balance text-white">MCProm</h1>
+        <h1 className="font-title text-5xl text-balance text-white">
+          {metadata.title}
+        </h1>
       </div>
     </Link>
   );
 }
 
-export default function Home() {
+export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <div className="full-wide-content mb-sub-section -mt-navbar relative flex justify-center">
@@ -96,10 +106,9 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-4 gap-4">
-          <Work />
-          <Work />
-          <Work />
-          <Work />
+          {Object.entries(loaderData).map(([id, metadata], idx) => (
+            <Work key={idx} url={`/work/${id}`} metadata={metadata} />
+          ))}
         </div>
       </div>
 
