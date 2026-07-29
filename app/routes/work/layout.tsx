@@ -19,18 +19,18 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <div className="wide-content mt-sub-section mb-5 flex items-end justify-between">
+      <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
         <div>
           <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
             {dateToString(loaderData.date)}
           </h2>
 
-          <h1 className="font-title max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
+          <h1 className="font-title -mb-4 max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
             {loaderData.title}
           </h1>
         </div>
 
-        <p className="mb-1 max-w-2xs text-right text-xl leading-6 opacity-50 sm:max-w-xl">
+        <p className="-mb-1 max-w-2xs text-right text-xl leading-6 text-balance opacity-50 sm:max-w-xl">
           {loaderData.description}
         </p>
       </div>

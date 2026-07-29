@@ -7,6 +7,7 @@ import TechnologiesSection from "~/components/technologies-section";
 import ContactSection from "~/components/contact-section";
 import { getAllWork, type WorkMetadata } from "./work/get-work.server";
 import dateToString from "~/util";
+import ArrowRightSVG from "~/svgs/arrow-right";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -22,7 +23,7 @@ export function meta({}: Route.MetaArgs) {
 
 function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-lg bg-white px-1.75 pt-0.5 pb-0.75 text-xs font-semibold uppercase">
+    <span className="rounded-lg bg-white px-2 py-0.75 font-semibold uppercase">
       {children}
     </span>
   );
@@ -31,7 +32,7 @@ function Tag({ children }: { children: ReactNode }) {
 function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
   return (
     <Link
-      className="relative flex aspect-9/16 w-full flex-col justify-between rounded-4xl shadow-xl transition duration-500 hover:scale-102 hover:shadow-2xl/50"
+      className="aspect-cinematic relative flex w-full flex-col justify-between rounded-4xl p-16 shadow-2xl"
       to={url}
     >
       <video
@@ -53,21 +54,19 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
         style={{ color: metadata.color }}
       />
 
-      <div className="z-10 flex justify-end p-10">
-        <div className="flex max-w-2/3 flex-wrap justify-end gap-2">
-          {metadata.tags.map((tag, idx) => (
-            <Tag key={idx}>{tag}</Tag>
-          ))}
-        </div>
+      <div className="z-10 flex max-w-2/3 flex-wrap justify-end gap-3 self-end">
+        {metadata.tags.map((tag, idx) => (
+          <Tag key={idx}>{tag}</Tag>
+        ))}
       </div>
 
-      <div className="z-10 flex w-full flex-col rounded-b-4xl p-10">
-        <h2 className="mb-1 text-sm font-semibold tracking-widest text-white uppercase">
+      <div className="z-10">
+        <h4 className="mb-1 text-xl font-semibold tracking-widest text-white uppercase">
           {dateToString(metadata.date)}
-        </h2>
-        <h1 className="font-title text-5xl text-balance text-white">
+        </h4>
+        <h3 className="font-title -mb-4 max-w-175 text-8xl leading-23 tracking-tight text-balance text-white">
           {metadata.title}
-        </h1>
+        </h3>
       </div>
     </Link>
   );
@@ -78,34 +77,43 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <div className="full-wide-content mb-sub-section -mt-navbar relative flex justify-center">
         <Hero className="absolute top-0 left-0 h-full w-full mix-blend-hard-light" />
+
         <h1 className="font-title z-20 my-64 text-center text-6xl leading-12 tracking-tight mix-blend-overlay sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
           Every detail
           <br />
           accounted for.
         </h1>
+
         <div className="absolute top-0 left-0 h-full w-full">
-          <h1 className="font-title z-10 my-64 text-center text-6xl leading-12 tracking-tight mix-blend-overlay select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
+          <div className="font-title z-10 my-64 text-center text-6xl leading-12 tracking-tight mix-blend-overlay select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
             Every detail
             <br />
             accounted for.
-          </h1>
+          </div>
         </div>
+
         <div className="absolute top-0 left-0 h-full w-full">
-          <h1 className="font-title z-10 my-64 text-center text-6xl leading-12 tracking-tight opacity-20 select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
+          <div className="font-title z-10 my-64 text-center text-6xl leading-12 tracking-tight opacity-20 select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
             Every detail
             <br />
             accounted for.
-          </h1>
+          </div>
         </div>
       </div>
 
       <div className="wide-content mb-section">
         <div className="mb-8 flex items-end justify-between">
-          <h1 className="font-title text-7xl tracking-tight">Work</h1>
-          <h2 className="font-title text-5xl tracking-tight">View all -&gt;</h2>
+          <h2 className="font-title text-7xl tracking-tight">Work</h2>
+          <Link
+            className="font-title mb-1 border-b-2 border-solid text-5xl tracking-tight"
+            to="/work"
+          >
+            All work
+            <ArrowRightSVG className="ml-5 inline-block size-10" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex flex-col gap-8">
           {Object.entries(loaderData).map(([id, metadata], idx) => (
             <Work key={idx} url={`/work/${id}`} metadata={metadata} />
           ))}

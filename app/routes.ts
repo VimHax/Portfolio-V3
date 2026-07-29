@@ -8,6 +8,8 @@ import {
 
 export default [
   index("routes/home.tsx"),
+  route("work", "routes/work.tsx"),
+  route("gallery", "routes/gallery.tsx"),
   route("about", "routes/about/index.tsx"),
   ...prefix("work", [
     layout("routes/work/layout.tsx", [
@@ -16,6 +18,11 @@ export default [
         "journey-to-twitchcon",
         "routes/work/journey-to-twitchcon/index.mdx",
       ),
+      route(
+        "spiderverse-in-minecraft",
+        "routes/work/spiderverse-in-minecraft/index.mdx",
+      ),
+      route("undercrowned", "routes/work/undercrowned/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;

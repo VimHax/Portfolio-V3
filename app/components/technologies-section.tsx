@@ -35,7 +35,7 @@ function Technology({
       href={url}
     >
       <div className="flex h-20 items-center justify-center">{icon}</div>
-      <h1 className="text-sm font-semibold uppercase">{children}</h1>
+      <span className="text-sm font-semibold uppercase">{children}</span>
     </a>
   );
 }
@@ -43,7 +43,7 @@ function Technology({
 export default function TechnologiesSection() {
   return (
     <div className="wide-content mb-section">
-      <h1 className="font-title mb-8 text-7xl tracking-tight">Technologies</h1>
+      <h2 className="font-title mb-8 text-7xl tracking-tight">Technologies</h2>
 
       <div className="bg-off-white grid grid-cols-6 gap-px rounded-4xl shadow-2xl/10">
         <Technology

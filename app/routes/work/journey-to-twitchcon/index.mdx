@@ -3,12 +3,12 @@ export const title = "Journey to TwitchCon";
 export const description =
   "Enhanced this treacherous journey to destroy the artifact with a pinch of core shaders in Minecraft 1.18.2.";
 export const video = "/video/lotr.mp4";
-export const color = "#e8a500";
+export const color = "#d99a00";
 export const tags = ["Minecraft", "Core Shaders", "GLSL"];
 
 I was brought on to this project to add some visual effects to make the journey a touch more immersive and fun. To accomplish this I worked on 2 effects, both done with [GLSL shaders](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the Minecraft client).
 
-Unlike for most events I've contributed to, we had control over the Minecraft clients the players will be using throughout this event. To keep things simple we chose the vanilla Minecraft client. This choice is significant because this allows us to skip the many common compromises we make for other events, one of which is not using block shaders ([`rendertype_solid`](https://github.com/ShockMicro/Minecraft-Shaders/wiki/Core-Shaders#solid)) because some clients don't support them (such as clients using [Sodium](https://github.com/CaffeineMC/sodium)).
+Unlike for most events I've contributed to, we had control over the Minecraft clients the players will be using throughout this event. To keep things simple we chose the vanilla Minecraft client. This choice is significant because it allows us to avoid the many common compromises we make for other events, one of which is not using block shaders ([`rendertype_solid`](https://github.com/ShockMicro/Minecraft-Shaders/wiki/Core-Shaders#solid)) because some clients don't support them (such as clients using [Sodium](https://github.com/CaffeineMC/sodium)).
 
 ## Dynamic lighting
 
@@ -16,7 +16,7 @@ Unlike for most events I've contributed to, we had control over the Minecraft cl
   Clips from [jakenbakeLIVE](https://www.twitch.tv/videos/1609507291).
 </Video>
 
-When toggled this visual effect simulates light, from a torch, emanating from the player. This is done by reducing the light levels globally except for the blocks closer to the player. A yellow / orange tint and a faint flicker is also applied to simulate fire. To make the caves look more spooky the fog levels were also dramatically increased.
+When toggled, this visual effect simulates torch light emanating from the player. This is achieved by reducing the light levels globally except for the blocks close to the player. To simulate a flame a yellow / orange tint and a faint flicker is applied. Additionally the fog levels were increased dramatically, giving the caves a more spooky look.
 
 ## Checkpoints
 
@@ -24,4 +24,8 @@ When toggled this visual effect simulates light, from a torch, emanating from th
   Clips from [jakenbakeLIVE](https://www.twitch.tv/videos/1609507291).
 </Video>
 
-Visualizes the checkpoints the players need to fly through to reach the end of the course. These checkpoints come in 3 sizes and 8 rotations per size (so 24 variants in total). They can also be seen from very far, which is important to guide the player.
+Renders the checkpoints the players need to fly through to reach the end of the course. They come in 3 sizes and 8 rotations per size (so 24 variations in total). They can also be seen from very far, which is important to maintain a good user experience.
+
+<Video src="/video/checkpoint.mp4">A closeup of the checkpoint design.</Video>
+
+Every checkpoint consists of 3 rings with unique offsets (in the direction of travel), sizes and animations. This design ensures the checkpoints are easily distinguishable from the rest of the environment.

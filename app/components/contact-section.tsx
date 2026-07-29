@@ -25,10 +25,10 @@ function Contact({
           {icon}
         </div>
         <div className="ml-12 flex items-center">
-          <h2 className="font-title text-6xl">{name}</h2>
+          <h3 className="font-title text-5xl">{name}</h3>
         </div>
       </div>
-      <p className="mr-12 text-4xl opacity-50">{value}</p>
+      <span className="mr-12 text-3xl opacity-50">{value}</span>
     </a>
   );
 }
@@ -36,7 +36,7 @@ function Contact({
 export default function ContactSection() {
   return (
     <div className="wide-content mb-section">
-      <h1 className="font-title mb-8 text-7xl tracking-tight">Contact</h1>
+      <h2 className="font-title mb-8 text-7xl tracking-tight">Contact</h2>
 
       <div className="bg-off-white flex flex-col gap-px rounded-4xl shadow-2xl/10">
         <Contact

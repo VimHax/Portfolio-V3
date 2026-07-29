@@ -7,6 +7,7 @@ const RadialSVG = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 450 800"
       fill="none"
+      preserveAspectRatio="none"
       {...props}
     >
       <path fill={`url(#${radialGradientID})`} d="M0 0h450v800H0z" />
