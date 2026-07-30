@@ -6,7 +6,7 @@ export const video = "/video/lotr.mp4";
 export const color = "#d99a00";
 export const tags = ["Minecraft", "Core Shaders", "GLSL"];
 
-I was brought on to this project to add some visual effects to make the journey a touch more immersive and fun. To accomplish this I worked on 2 effects, both done with [GLSL shaders](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the Minecraft client).
+I was brought on to this project to add some visual effects to make the journey a touch more immersive and fun. To accomplish this I worked on 2 effects, both done with [GLSL shaders](https://wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the Minecraft client).
 
 Unlike for most events I've contributed to, we had control over the Minecraft clients the players will be using throughout this event. To keep things simple we chose the vanilla Minecraft client. This choice is significant because it allows us to avoid the many common compromises we make for other events, one of which is not using block shaders ([`rendertype_solid`](https://github.com/ShockMicro/Minecraft-Shaders/wiki/Core-Shaders#solid)) because some clients don't support them (such as clients using [Sodium](https://github.com/CaffeineMC/sodium)).
 
@@ -26,6 +26,6 @@ When toggled, this visual effect simulates torch light emanating from the player
 
 Renders the checkpoints the players need to fly through to reach the end of the course. They come in 3 sizes and 8 rotations per size (so 24 variations in total). They can also be seen from very far, which is important to maintain a good user experience.
 
-<Video src="/video/checkpoint.mp4">A closeup of the checkpoint design.</Video>
+<Video src="/video/checkpoint.mp4" />
 
 Every checkpoint consists of 3 rings with unique offsets (in the direction of travel), sizes and animations. This design ensures the checkpoints are easily distinguishable from the rest of the environment.

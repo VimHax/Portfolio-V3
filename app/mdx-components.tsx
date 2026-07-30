@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -25,22 +26,36 @@ export function useMDXComponents() {
         {...props}
       />
     ),
-    p: (props: ComponentProps<"p">) => <p className="mb-5" {...props} />,
+    p: (props: ComponentProps<"p">) => (
+      <p className="not-last:mb-5" {...props} />
+    ),
     a: (props: ComponentProps<"a">) => (
       <a className="text-blue underline" {...props} />
     ),
     ul: (props: ComponentProps<"ul">) => (
-      <ul className="mb-5 list-inside list-disc" {...props} />
+      <ul className="list-inside list-disc not-last:mb-5" {...props} />
     ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
       <code className="bg-black/7.5 font-mono" {...props} />
     ),
-    Video: ({ src, children }: { src: string; children: ReactNode }) => {
+    Video: ({
+      className,
+      src,
+      children,
+    }: {
+      className?: string;
+      src: string;
+      children?: ReactNode | null | undefined;
+    }) => {
       return (
         <>
           <video
-            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl"
+            className={twMerge(
+              "mt-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl",
+              children ? "mb-3" : "mb-8",
+              className,
+            )}
             autoPlay
             loop
             muted
@@ -52,23 +67,39 @@ export function useMDXComponents() {
           >
             <source src={src} type="video/mp4" />
           </video>
-          <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
-            {children}
-          </div>
+          {children && (
+            <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+              {children}
+            </div>
+          )}
         </>
       );
     },
-    Image: ({ src, children }: { src: string; children: ReactNode }) => {
+    Image: ({
+      className,
+      src,
+      children,
+    }: {
+      className?: string;
+      src: string;
+      children?: ReactNode | null | undefined;
+    }) => {
       return (
         <>
           <img
-            className="mt-8 mb-3 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl"
+            className={twMerge(
+              "mt-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl",
+              children ? "mb-3" : "mb-8",
+              className,
+            )}
             src={src}
             loading="lazy"
           />
-          <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
-            {children}
-          </div>
+          {children && (
+            <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+              {children}
+            </div>
+          )}
         </>
       );
     },

@@ -1,6 +1,99 @@
+import HatchingImg from "./hatching.png";
+import MCHatchingImg from "./mc-hatching.png";
+import HalftonesImg from "./halftones.png";
+import MCHalftonesImg from "./mc-halftones.png";
+import ChromaticAberrationImg from "./chromatic-aberration.png";
+import MCChromaticAberrationImg from "./mc-chromatic-aberration.png";
+import PostEffectImg from "./post-effect.png";
+import MiscellaneousImg from "./miscellaneous.png";
+
 export const date = { year: 2023, month: 6 };
 export const title = "Spiderverse in Minecraft";
-export const description = "A";
+export const description =
+  "We brought to life our vision of what the Spiderverse may look like in Minecraft 1.19.2 with core shaders.";
 export const video = "/video/spiderverse.mp4";
 export const color = "#0039d9";
 export const tags = ["Minecraft", "Core Shaders", "GLSL"];
+
+[NotNexus](https://notnexus.com) and I, in the hopes of expressing our love for [Spider-Man: Across the Spider-Verse](https://wikipedia.org/wiki/Spider-Man:_Across_the_Spider-Verse) as well as showcasing our skills, came to the decision to recreate the iconic [art style](https://wikipedia.org/wiki/Spider-Man:_Into_the_Spider-Verse#Animation_and_design) from the movie in Minecraft only using [shaders](https://minecraft.wiki/w/Shader) available in vanilla game.
+
+Since this project isn't meant to be playable by others we had the freedom to pick any client configuration we wished. We went with the vanilla client with graphics set to [`Fabulous!`](https://minecraft.wiki/w/Graphics_settings) to be able to use [post processing shaders](https://minecraft.wiki/w/Shader#Post-processing_effects) on top of all the other shaders.
+
+## Hatching
+
+<Image className="aspect-1920/800" src={HatchingImg} />
+
+We noticed the movie uses [hatching](https://wikipedia.org/wiki/Hatching) to shade dark areas. To recreate this effect we introduced a cross hatching pattern to blocks below a configurable light level.
+
+<Image src={MCHatchingImg}>
+  Note the transition from the light to the dark area.
+</Image>
+
+We ensured the hatching pattern fades in smoothly as the light level falls below the threshold. The pattern is generated procedurally and overlaid on top of the existing texture.
+
+## Halftones
+
+<Image className="aspect-1920/800" src={HalftonesImg} />
+
+For bright areas the movie instead uses [halftones](https://wikipedia.org/wiki/Halftone) for shading. When it comes to the implementation this effect is the same as the hatching effect but with a different pattern and threshold.
+
+<Image src={MCHalftonesImg}>
+  Note the transition from the dark to the light area.
+</Image>
+
+The halftone pattern, just like the hatching pattern, fades in smoothly as the light level rises above the configured threshold. Likewise a procedurally generated halftone pattern is simply being overlaid on the existing texture.
+
+## Chromatic aberration
+
+<Image className="aspect-1920/800" src={ChromaticAberrationImg}>
+  Note how the out of focus background is stylized.
+</Image>
+
+The movie uses [chromatic aberration](https://wikipedia.org/wiki/Chromatic_aberration) to represent out of focus elements in the scene. Since vanilla Minecraft does not have a depth of field feature we instead reinterpreted this effect as something to apply to distant elements.
+
+<Image src={MCChromaticAberrationImg} />
+
+In our recreation the chromatic aberration increases with distance. In the image above the buildings close to the player are left untouched whereas the buildings far and away are noticeably distorted.
+
+## Portal
+
+<Video className="aspect-1920/800" src="/video/portal.mp4" />
+
+The final major effect we recreated from the movie were the portals. For the recreation we only worried about the visuals of the portal from the front as that's the only angle we planned to use in the short movie.
+
+<Video src="/video/mc-portal.mp4" />
+
+There are 4 hexagons and 3 thin rings between each, all rotating at increasing speeds at increasing depths. Fast moving streaks were added to further emphasize the exotic nature of the portal.
+
+## Post effects
+
+<Video src="/video/zombie.mp4">Rendered with the glitch post effect.</Video>
+
+In the spirit of keeping things vanilla we decided to implement visual effects, that usually would be applied during the editing stage, in the game itself with [post processing shaders](https://minecraft.wiki/w/Shader#Post-processing_effects).
+
+<Image src={PostEffectImg}>
+  Another post effect that was implemented in-game.
+</Image>
+
+These post effects were used to indicate Spiderman's [spider-sense](https://marvelcinematicuniverse.fandom.com/wiki/Spider-Sense) getting triggered and also used for impact frames in the short movie.
+
+## Miscellaneous
+
+<Image src={MiscellaneousImg} />
+
+We ended up adding a few more effects to make Minecraft look even prettier;
+
+- Toon outlines to give a more comic book look,
+- Bloom to make bright elements pop,
+- Color banding for distant objects to further separate the foreground,
+- Blue fog with a halftone texture to represent light from traffic,
+- Custom sky to adjust colors and add a subtle gradient,
+- Color grade the whole final frame.
+
+## Credits
+
+- Creative direction by [NotNexus](https://notnexus.com).
+- [Cyberpunk Project](https://youtu.be/UtLun2-jOQ8) by [ElysiumFire](https://x.com/ElysiumFire).
+- [Bare Bones resource pack](https://www.planetminecraft.com/texture-pack/bare-bones) by [RobotPant](https://x.com/RobotPant).
+- [Parcool mod](https://www.curseforge.com/minecraft/mc-mods/parcool) by [alRex_U](https://www.curseforge.com/members/alrex_u).
+- [Replay for Forge mod](https://github.com/min2222/ReplayMod-Forge-Reborn) by [min01](https://github.com/min2222).
