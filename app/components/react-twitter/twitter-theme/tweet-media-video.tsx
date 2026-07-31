@@ -4,7 +4,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import type { MediaAnimatedGif, MediaVideo } from "../api/index.js";
 import {
-  EnrichedQuotedTweet,
+  type EnrichedQuotedTweet,
   type EnrichedTweet,
   getMediaUrl,
   getMp4Video,

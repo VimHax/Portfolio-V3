@@ -5,7 +5,7 @@ import {
   type EnrichedQuotedTweet,
   getMediaUrl,
 } from "../utils.js";
-import { MediaDetails } from "../api/index.js";
+import type { MediaDetails } from "../api/index.js";
 import type { TwitterComponents } from "./types.js";
 import { TweetMediaVideo } from "./tweet-media-video.js";
 import { MediaImg } from "./media-img.js";
