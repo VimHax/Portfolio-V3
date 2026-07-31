@@ -5,6 +5,19 @@ declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
 }
 
+function MediaDescription({
+  children,
+}: {
+  children?: ReactNode | null | undefined;
+}) {
+  if (!children) return;
+  return (
+    <div className="text-center text-sm opacity-50 not-last:mb-8 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+      {children}
+    </div>
+  );
+}
+
 export function useMDXComponents() {
   return {
     wrapper: ({ children }: { children: ReactNode }) => {
@@ -39,42 +52,6 @@ export function useMDXComponents() {
     code: (props: ComponentProps<"code">) => (
       <code className="bg-black/7.5 font-mono" {...props} />
     ),
-    Video: ({
-      className,
-      src,
-      children,
-    }: {
-      className?: string;
-      src: string;
-      children?: ReactNode | null | undefined;
-    }) => {
-      return (
-        <>
-          <video
-            className={twMerge(
-              "mt-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl",
-              children ? "mb-3" : "mb-8",
-              className,
-            )}
-            autoPlay
-            loop
-            muted
-            playsInline
-            disablePictureInPicture
-            disableRemotePlayback
-            x-webkit-airplay="deny"
-            preload="auto"
-          >
-            <source src={src} type="video/mp4" />
-          </video>
-          {children && (
-            <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
-              {children}
-            </div>
-          )}
-        </>
-      );
-    },
     Image: ({
       className,
       src,
@@ -83,25 +60,95 @@ export function useMDXComponents() {
       className?: string;
       src: string;
       children?: ReactNode | null | undefined;
-    }) => {
-      return (
-        <>
-          <img
-            className={twMerge(
-              "mt-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-3xl",
-              children ? "mb-3" : "mb-8",
-              className,
-            )}
-            src={src}
-            loading="lazy"
-          />
-          {children && (
-            <div className="mb-8 text-center text-sm opacity-50 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
-              {children}
-            </div>
+    }) => (
+      <>
+        <img
+          className={twMerge(
+            "media-style aspect-video object-cover",
+            children ? "mb-3" : "not-last:mb-8",
+            className,
           )}
-        </>
-      );
-    },
+          src={src}
+          loading="lazy"
+        />
+        <MediaDescription>{children}</MediaDescription>
+      </>
+    ),
+    Video: ({
+      className,
+      src,
+      children,
+    }: {
+      className?: string;
+      src: string;
+      children?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <video
+          className={twMerge(
+            "media-style aspect-video object-cover",
+            children ? "mb-3" : "not-last:mb-8",
+            className,
+          )}
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          disableRemotePlayback
+          x-webkit-airplay="deny"
+          preload="auto"
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+        <MediaDescription>{children}</MediaDescription>
+      </>
+    ),
+    YouTube: ({
+      className,
+      id,
+      children,
+    }: {
+      className?: string;
+      id: string;
+      children?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <iframe
+          className={twMerge(
+            "media-style aspect-video",
+            children ? "mb-3" : "not-last:mb-8",
+            className,
+          )}
+          src={`https://www.youtube-nocookie.com/embed/${id}`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+        <MediaDescription>{children}</MediaDescription>
+      </>
+    ),
+    Twitch: ({
+      className,
+      id,
+      children,
+    }: {
+      className?: string;
+      id: string;
+      children?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <iframe
+          className={twMerge(
+            "media-style aspect-video",
+            children ? "mb-3" : "not-last:mb-8",
+            className,
+          )}
+          src={`https://player.twitch.tv/?video=${id}&autoplay=false&parent=vimhax.com`}
+          allowFullScreen
+        ></iframe>
+        <MediaDescription>{children}</MediaDescription>
+      </>
+    ),
   };
 }
