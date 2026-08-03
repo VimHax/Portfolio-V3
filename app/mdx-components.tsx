@@ -1,5 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
+import { EmbeddedTweet } from "./components/react-twitter";
+import { useLoaderData } from "react-router";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -52,6 +54,10 @@ export function useMDXComponents() {
     code: (props: ComponentProps<"code">) => (
       <code className="bg-black/7.5 font-mono" {...props} />
     ),
+    Tweet: ({ id }: { id: string }) => {
+      const data = useLoaderData();
+      return <EmbeddedTweet className="my-8 shadow-2xl/15" tweet={data[id]} />;
+    },
     Image: ({
       className,
       src,

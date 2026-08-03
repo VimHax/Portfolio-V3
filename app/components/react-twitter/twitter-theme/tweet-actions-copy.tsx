@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import type { EnrichedTweet } from "../utils.js";
 import s from "./tweet-actions.module.css";

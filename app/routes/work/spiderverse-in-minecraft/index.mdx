@@ -6,6 +6,7 @@ import ChromaticAberrationImg from "./chromatic-aberration.png";
 import MCChromaticAberrationImg from "./mc-chromatic-aberration.png";
 import PostEffectImg from "./post-effect.png";
 import MiscellaneousImg from "./miscellaneous.png";
+import getTweet from "../get-tweet.server";
 
 export const date = { year: 2023, month: 6 };
 export const title = "Spiderverse in Minecraft";
@@ -15,11 +16,27 @@ export const video = "/video/spiderverse.mp4";
 export const color = "#0039d9";
 export const tags = ["Minecraft", "Core Shaders", "GLSL"];
 
+export async function loader() {
+  return { tweet: await getTweet("1668340004240920576") };
+}
+
 [NotNexus](https://notnexus.com) and I, in the hopes of expressing our love for [Spider-Man: Across the Spider-Verse](https://wikipedia.org/wiki/Spider-Man:_Across_the_Spider-Verse) as well as showcasing our skills, came to the decision to recreate the iconic [art style](https://wikipedia.org/wiki/Spider-Man:_Into_the_Spider-Verse#Animation_and_design) from the movie in Minecraft only using [shaders](https://minecraft.wiki/w/Shader) available in vanilla game.
 
-Since this project isn't meant to be playable by others we had the freedom to pick any client configuration we wished. We went with the vanilla client with graphics set to [`Fabulous!`](https://minecraft.wiki/w/Graphics_settings) to be able to use [post processing shaders](https://minecraft.wiki/w/Shader#Post-processing_effects) on top of all the other shaders.
+## Short film
 
-## Hatching
+<Video src="/video/short-film.mp4" />
+
+To showcase our work we made a short film telling a story related to the first and second movie. The short film was published on [X / Twitter](https://x.com/VimHax/status/1668340004240920576) and it was massive success. As of writing this, the video has garnered over 8,000 views and over 100 likes.
+
+<Tweet id="tweet" />
+
+## Implementation
+
+We analyzed the art style to be able to make our recreation as accurate as possible, however the movie employs many more effects than what we can hope to implement. Therefore we only considered the effects that made the largest difference visually for recreation.
+
+Additionally since this project wasn't meant to be playable by others we had the freedom to pick any client configuration we wished. We went with the vanilla client with graphics set to [`Fabulous!`](https://minecraft.wiki/w/Graphics_settings) to be able to use [post processing shaders](https://minecraft.wiki/w/Shader#Post-processing_effects) on top of all the other shaders.
+
+### Hatching
 
 <Image className="aspect-1920/800" src={HatchingImg} />
 
@@ -31,7 +48,7 @@ We noticed the movie uses [hatching](https://wikipedia.org/wiki/Hatching) to sha
 
 We ensured the hatching pattern fades in smoothly as the light level falls below the threshold. The pattern is generated procedurally and overlaid on top of the existing texture.
 
-## Halftones
+### Halftones
 
 <Image className="aspect-1920/800" src={HalftonesImg} />
 
@@ -43,7 +60,7 @@ For bright areas the movie instead uses [halftones](https://wikipedia.org/wiki/H
 
 The halftone pattern, just like the hatching pattern, fades in smoothly as the light level rises above the configured threshold. Likewise a procedurally generated halftone pattern is simply being overlaid on the existing texture.
 
-## Chromatic aberration
+### Chromatic aberration
 
 <Image className="aspect-1920/800" src={ChromaticAberrationImg}>
   Note how the out of focus background is stylized.
@@ -55,17 +72,17 @@ The movie uses [chromatic aberration](https://wikipedia.org/wiki/Chromatic_aberr
 
 In our recreation the chromatic aberration increases with distance. In the image above the buildings close to the player are left untouched whereas the buildings far and away are noticeably distorted.
 
-## Portal
+### Portal
 
 <Video className="aspect-1920/800" src="/video/portal.mp4" />
 
-The final major effect we recreated from the movie were the portals. For the recreation we only worried about the visuals of the portal from the front as that's the only angle we planned to use in the short movie.
+The final major effect we recreated from the movie were the portals. For the recreation we only worried about the visuals of the portal from the front as that's the only angle we planned to use in the short film.
 
 <Video src="/video/mc-portal.mp4" />
 
-There are 4 hexagons and 3 thin rings between each, all rotating at increasing speeds at increasing depths. Fast moving streaks were added to further emphasize the exotic nature of the portal.
+There are 4 hexagons and 3 thin rings between each, all rotating at increasing speeds at increasing depths. Fast moving streaks were added to emphasize the exotic nature of the portal.
 
-## Post effects
+### Post effects
 
 <Video src="/video/zombie.mp4">Rendered with the glitch post effect.</Video>
 
@@ -75,9 +92,9 @@ In the spirit of keeping things vanilla we decided to implement visual effects, 
   Another post effect that was implemented in-game.
 </Image>
 
-These post effects were used to indicate Spiderman's [spider-sense](https://marvelcinematicuniverse.fandom.com/wiki/Spider-Sense) getting triggered and also used for impact frames in the short movie.
+These post effects were used to indicate Spiderman's [spider-sense](https://marvelcinematicuniverse.fandom.com/wiki/Spider-Sense) getting triggered and also used for impact frames in the short film.
 
-## Miscellaneous
+### Miscellaneous
 
 <Image src={MiscellaneousImg} />
 
