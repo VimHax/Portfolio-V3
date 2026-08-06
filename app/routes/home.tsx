@@ -1,13 +1,14 @@
 import Hero from "~/components/hero";
+import Effect from "~/components/effect";
 import type { Route } from "./+types/home";
 import { Link, type To } from "react-router";
-import RadialSVG from "~/svgs/radial";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import TechnologiesSection from "~/components/technologies-section";
 import ContactSection from "~/components/contact-section";
 import { getAllWork, type WorkMetadata } from "./work/get-work.server";
-import dateToString from "~/util";
+import dateToString, { stringToColor } from "~/util";
 import ArrowRightSVG from "~/svgs/arrow-right";
+import { twJoin } from "tailwind-merge";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -30,13 +31,17 @@ function Tag({ children }: { children: ReactNode }) {
 }
 
 function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
+  const [hovering, setHovering] = useState(false);
+
   return (
     <Link
-      className="aspect-cinematic relative flex w-full flex-col justify-between rounded-4xl p-16 shadow-2xl"
+      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl p-16 shadow-2xl"
       to={url}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
     >
       <video
-        className="absolute top-0 left-0 h-full w-full rounded-4xl object-cover"
+        className="absolute top-0 left-0 h-full w-full scale-105 rounded-4xl object-cover transition-transform duration-500 ease-out group-hover:scale-100"
         autoPlay
         loop
         muted
@@ -49,9 +54,26 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
         <source src={metadata.video} type="video/mp4" />
       </video>
 
-      <RadialSVG
+      <Effect
         className="absolute top-0 left-0 h-full w-full rounded-4xl"
-        style={{ color: metadata.color }}
+        startColor={stringToColor(metadata.color[0])}
+        endColor={stringToColor(metadata.color[1])}
+        hovering={hovering}
+      />
+
+      <div
+        className={twJoin(
+          "absolute top-0 left-0 h-full w-full rounded-4xl border-5 transition-opacity duration-250",
+          !hovering && "opacity-0",
+        )}
+        style={{ borderColor: `${metadata.color[1]}80` }}
+      />
+
+      <div
+        className={twJoin(
+          "absolute top-0 left-0 h-full w-full rounded-4xl border-5 border-white mix-blend-overlay transition-opacity duration-250",
+          !hovering && "opacity-0",
+        )}
       />
 
       <div className="z-10 flex max-w-2/3 flex-wrap justify-end gap-3 self-end">

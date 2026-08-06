@@ -50,6 +50,9 @@ export function useMDXComponents() {
     ul: (props: ComponentProps<"ul">) => (
       <ul className="list-inside list-disc not-last:mb-5" {...props} />
     ),
+    ol: (props: ComponentProps<"ol">) => (
+      <ol className="list-inside list-decimal not-last:mb-5" {...props} />
+    ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
       <code className="bg-black/7.5 font-mono" {...props} />

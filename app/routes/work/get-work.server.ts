@@ -6,7 +6,7 @@ const WorkMetadata = z
     title: z.string().nonempty(),
     description: z.string().nonempty(),
     video: z.string().nonempty(),
-    color: z.string().nonempty(),
+    color: z.tuple([z.string().nonempty(), z.string().nonempty()]).readonly(),
     date: DateMonth,
     tags: z.array(z.string().nonempty()).nonempty().readonly(),
   })
