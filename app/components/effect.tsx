@@ -1,6 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ImprovedNoise } from "./noise";
-import { interpolate, type Color } from "~/util";
+import { clamp, interpolate, interpolateColor, type Color } from "~/util";
+import { useIntersectionObserver } from "~/hooks";
+
+interface HoverState {
+  hovering: boolean;
+  lastUpdate: number | null;
+}
 
 export default function Effect({
   className,
@@ -13,18 +19,17 @@ export default function Effect({
   endColor: Color;
   hovering: boolean;
 }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  const isHoveringRef = useRef<{
-    hovering: boolean;
-    lastUpdate: number | null;
-  }>({
+  const randomOffset = useMemo(() => Math.round(Math.random() * 1_000_000), []);
+  const [ref, intersectingRef, subscribe] =
+    useIntersectionObserver<HTMLCanvasElement>();
+  const stateRef = useRef<HoverState>({
     hovering: false,
     lastUpdate: null,
   });
 
   useEffect(() => {
-    isHoveringRef.current.hovering = hovering;
-    isHoveringRef.current.lastUpdate = Date.now();
+    stateRef.current.hovering = hovering;
+    stateRef.current.lastUpdate = Date.now();
   }, [hovering]);
 
   useEffect(() => {
@@ -34,14 +39,24 @@ export default function Effect({
     if (maybeCtx === null) return;
     const ctx = maybeCtx;
 
-    const timeOffset = 0;
     const startTime = Date.now();
 
-    function render(
-      getColor: (brightness: number, opacity: number) => string,
-      timeOffset: number,
+    function hoverTransition(time: number) {
+      const duration = 250;
+      return stateRef.current.lastUpdate === null
+        ? 1
+        : clamp((time - stateRef.current.lastUpdate) / duration, 0, 1);
+    }
+
+    function fadeTransition(time: number) {
+      const duration = 1_000;
+      return clamp((time - startTime) / duration, 0, 1);
+    }
+
+    function renderNoise(
+      time: number,
+      getColor: (mix: number, opacity: number) => string,
     ) {
-      const time = Date.now();
       const size = 50;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
@@ -59,45 +74,40 @@ export default function Effect({
         while (y < canvas.height) {
           const height = y === 0 && yOffset !== 0 ? yOffset : size;
 
-          const noise = ImprovedNoise.noise(
-            x / 5,
-            y / 5,
-            time / 1250 + timeOffset,
-          );
-
           const distFromBottom = yIdx / (verticalCount - 1);
-          const opacity = Math.min(
-            Math.max(
-              Math.pow(
-                1.05 * distFromBottom,
-                isHoveringRef.current.lastUpdate === null
-                  ? 6
-                  : isHoveringRef.current.hovering
-                    ? interpolate(
-                        6,
-                        2,
-                        (time - isHoveringRef.current.lastUpdate) / 250,
-                      )
-                    : interpolate(
-                        2,
-                        6,
-                        (time - isHoveringRef.current.lastUpdate) / 250,
-                      ),
+          const transition = hoverTransition(time);
+          const gradientOpacity = clamp(
+            Math.pow(
+              1.05 * distFromBottom,
+              interpolate(
+                6,
+                3,
+                stateRef.current.hovering ? transition : 1 - transition,
               ),
-              0,
             ),
+            0,
             1,
           );
 
-          const fadeOpacity = Math.min((time - startTime) / 1000, 1);
-          const cutoffOpacity = fadeOpacity * opacity;
+          const opacity = gradientOpacity * fadeTransition(time);
 
-          const color = getColor(noise, cutoffOpacity);
-          ctx.strokeStyle = color;
-          ctx.fillStyle = color;
-          ctx.lineWidth = 1;
+          if (opacity > 0) {
+            const frequency = 1 / 2;
+            const speed = 1 / 1_000;
+            const noise = ImprovedNoise.noise(
+              x * frequency,
+              y * frequency,
+              time * speed + randomOffset,
+            );
 
-          ctx.fillRect(x, y, width, height);
+            ctx.lineWidth = 1;
+            ctx.fillStyle = getColor(noise, opacity);
+            ctx.strokeStyle = getColor(noise, opacity * 0.5);
+
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+          }
+
           y += height;
           yIdx++;
         }
@@ -106,24 +116,88 @@ export default function Effect({
       }
     }
 
-    const interval = setInterval(
-      () =>
-        requestAnimationFrame(() => {
-          canvas.width = canvas.clientWidth;
-          canvas.height = canvas.clientHeight;
+    function render(time: number) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
 
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-          render(
-            (b, o) =>
-              `rgba(${interpolate(startColor[0], endColor[0], b)}, ${interpolate(startColor[1], endColor[1], b)}, ${interpolate(startColor[2], endColor[2], b)}, ${o.toFixed(2)})`,
-            timeOffset,
-          );
-        }),
-      1000 / 15,
-    );
+      renderNoise(
+        time,
+        (m, o) =>
+          `rgba(${[...interpolateColor(startColor, endColor, m), clamp(o, 0, 1).toFixed(2)].join(",")})`,
+      );
+    }
 
-    return () => clearInterval(interval);
+    let loop = true;
+    let timeout: NodeJS.Timeout | null = null;
+    let frameHandle: number | null = null;
+    const delay = 1_000 / 15;
+
+    function isActive(time: number): boolean {
+      return fadeTransition(time) < 1 || hoverTransition(time) < 1;
+    }
+
+    function isVisible(): boolean {
+      return !document.hidden && intersectingRef.current;
+    }
+
+    function scheduleFrame() {
+      if (!loop) return;
+      if (timeout !== null) return;
+      if (frameHandle !== null) return;
+
+      const time = Date.now();
+
+      function request() {
+        frameHandle = requestAnimationFrame(() => {
+          frameHandle = null;
+          render(time);
+          if (isVisible()) scheduleFrame();
+        });
+      }
+
+      if (isActive(time)) {
+        request();
+      } else {
+        timeout = setTimeout(() => {
+          timeout = null;
+          request();
+        }, delay);
+      }
+    }
+
+    function unscheduleFrame() {
+      if (timeout !== null) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      if (frameHandle !== null) {
+        cancelAnimationFrame(frameHandle);
+        frameHandle = null;
+      }
+    }
+
+    function onVisibilityUpdate() {
+      if (isVisible()) scheduleFrame();
+      else unscheduleFrame();
+    }
+
+    const controller = new AbortController();
+    document.addEventListener("visibilitychange", onVisibilityUpdate, {
+      signal: controller.signal,
+    });
+
+    const unsubscribe = subscribe(onVisibilityUpdate);
+
+    if (isVisible()) scheduleFrame();
+
+    return () => {
+      loop = false;
+      unsubscribe();
+      controller.abort();
+      unscheduleFrame();
+    };
   }, []);
 
   return <canvas ref={ref} className={className} />;

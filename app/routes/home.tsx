@@ -35,13 +35,13 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
 
   return (
     <Link
-      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl p-16 shadow-2xl"
+      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl p-16 shadow-2xl transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
       to={url}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
       <video
-        className="absolute top-0 left-0 h-full w-full scale-105 rounded-4xl object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+        className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
         autoPlay
         loop
         muted
@@ -55,7 +55,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
       </video>
 
       <Effect
-        className="absolute top-0 left-0 h-full w-full rounded-4xl"
+        className="absolute top-0 left-0 h-full w-full"
         startColor={stringToColor(metadata.color[0])}
         endColor={stringToColor(metadata.color[1])}
         hovering={hovering}
@@ -63,7 +63,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
 
       <div
         className={twJoin(
-          "absolute top-0 left-0 h-full w-full rounded-4xl border-5 transition-opacity duration-250",
+          "absolute top-0 left-0 h-full w-full rounded-4xl border-4 transition-opacity duration-250",
           !hovering && "opacity-0",
         )}
         style={{ borderColor: `${metadata.color[1]}80` }}
@@ -71,7 +71,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
 
       <div
         className={twJoin(
-          "absolute top-0 left-0 h-full w-full rounded-4xl border-5 border-white mix-blend-overlay transition-opacity duration-250",
+          "absolute top-0 left-0 h-full w-full rounded-4xl border-4 border-white mix-blend-overlay transition-opacity duration-250",
           !hovering && "opacity-0",
         )}
       />
