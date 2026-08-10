@@ -1,7 +1,8 @@
 import { data, Outlet } from "react-router";
 import type { Route } from "./+types/layout";
 import { getWork } from "./get-work.server";
-import dateToString from "~/util";
+import dateToString, { stringToColor } from "~/util";
+import Background from "~/components/background";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const work = getWork(url.pathname.slice("/work/".length));
@@ -19,24 +20,32 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
-        <div>
-          <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
-            {dateToString(loaderData.date)}
-          </h2>
+      <div className="full-wide-content -mt-navbar py-navbar relative flex w-full justify-center">
+        <Background
+          className="absolute top-0 left-0 h-full w-full"
+          startColor={stringToColor(loaderData.color[0])}
+          endColor={stringToColor(loaderData.color[1])}
+        />
 
-          <h1 className="font-title -mb-4 max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
-            {loaderData.title}
-          </h1>
+        <div className="my-sub-section w-wide z-10 flex items-end justify-between text-white">
+          <div>
+            <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
+              {dateToString(loaderData.date)}
+            </h2>
+
+            <h1 className="font-title -mb-4 max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
+              {loaderData.title}
+            </h1>
+          </div>
+
+          <p className="-mb-1 max-w-2xs text-right text-xl leading-6 text-balance sm:max-w-xl">
+            {loaderData.description}
+          </p>
         </div>
-
-        <p className="-mb-1 max-w-2xs text-right text-xl leading-6 text-balance opacity-50 sm:max-w-xl">
-          {loaderData.description}
-        </p>
       </div>
 
       <video
-        className="wide-content sm:mb-sub-section lg:aspect-cinematic mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
+        className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
         autoPlay
         loop
         muted

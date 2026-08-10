@@ -1,36 +1,20 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { ImprovedNoise } from "./noise";
-import { clamp, interpolate, interpolateColor, type Color } from "~/util";
+import { clamp, type Color } from "~/util";
 import { useIntersectionObserver } from "~/hooks";
 
-interface HoverState {
-  hovering: boolean;
-  lastUpdate: number | null;
-}
-
-export default function Effect({
+export default function Background({
   className,
   startColor,
   endColor,
-  hovering,
 }: {
   className?: string;
   startColor: Color;
   endColor: Color;
-  hovering: boolean;
 }) {
   const randomOffset = useMemo(() => Math.round(Math.random() * 1_000_000), []);
   const [ref, intersectingRef, subscribe] =
     useIntersectionObserver<HTMLCanvasElement>();
-  const stateRef = useRef<HoverState>({
-    hovering: false,
-    lastUpdate: null,
-  });
-
-  useEffect(() => {
-    stateRef.current.hovering = hovering;
-    stateRef.current.lastUpdate = Date.now();
-  }, [hovering]);
 
   useEffect(() => {
     if (ref.current === null) return;
@@ -41,21 +25,15 @@ export default function Effect({
 
     const startTime = Date.now();
 
-    function hoverTransition(time: number) {
-      const duration = 250;
-      return stateRef.current.lastUpdate === null
-        ? 1
-        : clamp((time - stateRef.current.lastUpdate) / duration, 0, 1);
-    }
-
     function fadeTransition(time: number) {
-      const duration = 1_000;
+      const duration = 3_000;
       return clamp((time - startTime) / duration, 0, 1);
     }
 
     function renderNoise(
       time: number,
-      getColor: (mix: number, opacity: number) => string,
+      offset: number,
+      getColor: (opacity: number) => string,
     ) {
       const size = 50;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
@@ -74,35 +52,29 @@ export default function Effect({
         while (y < canvas.height) {
           const height = y === 0 && yOffset !== 0 ? yOffset : size;
 
-          const distFromBottom = yIdx / (verticalCount - 1);
-          const transition = hoverTransition(time);
-          const gradientOpacity = clamp(
-            Math.pow(
-              1.05 * distFromBottom,
-              interpolate(
-                5,
-                2,
-                stateRef.current.hovering ? transition : 1 - transition,
-              ),
-            ),
-            0,
-            1,
+          const frequency = 1 / 500;
+          const speed = 1 / 5_000;
+          const noise = ImprovedNoise.noise(
+            x * frequency * 3,
+            y * frequency,
+            time * speed + randomOffset + offset,
           );
 
-          const opacity = gradientOpacity * fadeTransition(time);
+          const distFromTop = yIdx / (verticalCount - 1);
+          const gradientOpacity =
+            Math.pow(0.25 + (1 - distFromTop) * 0.75, 3) *
+            clamp(noise * 2.0, 0, 1);
+
+          const fadeOpacity = fadeTransition(time);
+          const opacity =
+            gradientOpacity >= 1 - Math.pow(fadeOpacity, 0.25)
+              ? gradientOpacity * fadeOpacity
+              : 0;
 
           if (opacity > 0) {
-            const speed = 1 / 1_000;
-            const noise = ImprovedNoise.noise(
-              x / 100,
-              y / 500,
-              time * speed + randomOffset,
-            );
-
-            const interpolated = interpolate(noise, 1, opacity);
             ctx.lineWidth = 1;
-            ctx.fillStyle = getColor(noise, interpolated * opacity);
-            ctx.strokeStyle = getColor(noise, interpolated * opacity * 0.5);
+            ctx.fillStyle = getColor(opacity);
+            ctx.strokeStyle = getColor(opacity * 0.5);
 
             ctx.fillRect(x, y, width, height);
             ctx.strokeRect(x, y, width, height);
@@ -124,8 +96,13 @@ export default function Effect({
 
       renderNoise(
         time,
-        (m, o) =>
-          `rgba(${[...interpolateColor(startColor, endColor, m), clamp(o, 0, 1).toFixed(2)].join(",")})`,
+        0,
+        (o) => `rgba(${[...endColor, o.toFixed(2)].join(",")})`,
+      );
+      renderNoise(
+        time,
+        1_000_000,
+        (o) => `rgba(${[...endColor, o.toFixed(2)].join(",")})`,
       );
     }
 
@@ -135,7 +112,7 @@ export default function Effect({
     const delay = 1_000 / 15;
 
     function isActive(time: number): boolean {
-      return fadeTransition(time) < 1 || hoverTransition(time) < 1;
+      return fadeTransition(time) < 1;
     }
 
     function isVisible(): boolean {
@@ -200,5 +177,11 @@ export default function Effect({
     };
   }, []);
 
-  return <canvas ref={ref} className={className} />;
+  return (
+    <canvas
+      ref={ref}
+      className={className}
+      style={{ backgroundColor: `rgb(${startColor.join(",")})` }}
+    />
+  );
 }

@@ -35,7 +35,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
 
   return (
     <Link
-      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl p-16 shadow-2xl transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
+      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl bg-black p-16 shadow-2xl transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
       to={url}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
