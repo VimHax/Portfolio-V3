@@ -1,6 +1,81 @@
 export const date = { year: 2023, month: 11 };
 export const title = "Undercrowned";
-export const description = "A";
+export const description =
+  "Added some visual flair to this exciting 40 creator PVP event with core shaders in Minecraft 1.20.1.";
 export const video = "/video/undercrowned.mp4";
-export const color = "#d94a03";
+export const color = ["#d94800", "#ff9e2d"];
 export const tags = ["Minecraft", "Core Shaders", "GLSL", "Java", "Spigot"];
+
+I was brought on to this project to add some extra style points. To accomplish this I worked on a few decorations that heavily depend on [GLSL shaders](https://wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the Minecraft client) and a server-side [Spigot](https://www.spigotmc.org) plugin written in Java.
+
+This event needed to be readily accessible therefore client-side requirements needed to be minimized and various popular client configurations needed to be considered such as [Lunar Client](https://www.lunarclient.com), [Sodium](https://github.com/CaffeineMC/sodium) and [Apple silicon](https://wikipedia.org/wiki/Apple_silicon) to name a few.
+
+<Twitch id="1980914761">The official livestream of the event.</Twitch>
+
+## Flag interaction animations
+
+<Video src="/video/flag-interactions.mp4">
+  Blue team capturing red team's flag.
+</Video>
+
+When players take flags and capture them we thought an accompanying animation would make these interactions more visually interesting. The flags were placed on top of each respective team's hill so we came up with the idea to use the surface of those hills to display the animations.
+
+## Lobby animations
+
+Added 4 large (`61 x 14`) screens, 8 small (`17 x 7`) screens (one per team) along with `4 + 8 * (5 + 2) = 60` spotlights to the lobby. The lobby serves multiple purposes throughout the event and these are accompanied by different animations in the screens and spotlights.
+
+### Idle state
+
+<Video src="/video/lobby-idle.mp4" />
+
+The default state for the lobby. Minimal movements in the spotlights and the large screens are displaying the 2 logos on repeat.
+
+### Drafting state
+
+<Video src="/video/lobby-drafting.mp4" />
+
+The spotlights come to life, tinted with the colors of all 8 teams. The laser-esque spotlights in the center are performing a wave animation while the spotlights above each team swing vertically.
+
+### Winner state
+
+<Video src="/video/lobby-winner.mp4" />
+
+In this state the large screens are announcing the winning team. The large screens, as well as the spotlights, are tinted with the color of the winning team.
+
+## Holograms
+
+<Video src="/video/holograms.mp4">
+  Clips from [PeteZahHutt](https://youtu.be/Rs6uQXg_qu0).
+</Video>
+
+These futuristic panels were implemented to display leaderboards to the players with style. The panels are also flexible in terms of the content they are able to display.
+
+<Video src="/video/hologram-content.mp4">
+  All sorts of content can be put on display.
+</Video>
+
+The panels have a subtle grid and 3 borders at varying depths. The content is tinted and has a slight flicker. For increased legibility these panels rotate to face the player at all times (but they don't have to).
+
+## Kill feed
+
+<Video src="/video/kill-feed.mp4">
+  Clips from [Feinberg](https://youtu.be/ExIIuyHOkvo).
+</Video>
+
+Player kills shows up on the feed, placed at the top right of the screen. Each line shows the killer and killed with the background set to their team color. After a set time, or if the feed has reached maximum capacity, the oldest line is rotated out.
+
+## Hotbar animations
+
+<Video src="/video/hotbar.mp4">
+  Clips from [Feinberg](https://youtu.be/ExIIuyHOkvo).
+</Video>
+
+The hotbar displays the scores of both teams, tinted with their respective team colors. When the score increases a coin falling animation plays in the hotbar. To keep the animation fast each coin represents 3 points or less (in the case of capturing a flag, for which you receive 25 points, `ceil(25 / 3) = 9` coins fall).
+
+## Escape screen animation
+
+<Video src="/video/escape-undercrowned.mp4">
+  Clips from [SeaPeeKay](https://youtu.be/_u15CHhNyoo).
+</Video>
+
+Whilst it is possible to overlay a texture on the escape menu with some nifty tricks in the resource pack Minecraft does not provide an official way to animate such a texture. Therefore a shader was employed to make this happen. All the frames are available to the shader at all times, so the shader decides what frame to display when, bringing the animation to life.
