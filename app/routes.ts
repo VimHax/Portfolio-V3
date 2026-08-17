@@ -23,6 +23,7 @@ export default [
         "routes/work/spiderverse-in-minecraft/index.mdx",
       ),
       route("undercrowned", "routes/work/undercrowned/index.mdx"),
+      route("skyward", "routes/work/skyward/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;

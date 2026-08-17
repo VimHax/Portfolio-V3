@@ -1,0 +1,124 @@
+export const date = { year: 2025, month: 3 };
+export const title = "Skyward";
+export const description =
+  "Through experimentation I contributed to bringing many ideas to life that were not widely considered possible in Minecraft 1.21.3.";
+export const video = "/video/skyward.mp4";
+export const color = ["#005cff", "#ffce00"];
+export const tags = ["Minecraft", "Core Shaders", "GLSL", "Java", "Spigot"];
+
+I was brought on to this project to make the experience more polished and visually interesting. To accomplish this I worked on features that heavily depend on [GLSL shaders](https://wikipedia.org/wiki/OpenGL_Shading_Language) added to the [resource pack](https://minecraft.wiki/w/Resource_pack) (which gets loaded by the Minecraft client) and a server-side [Paper](https://papermc.io) plugin written in Java.
+
+This event needed to be readily accessible therefore client-side requirements needed to be minimized and various popular client configurations needed to be considered such as [Lunar Client](https://www.lunarclient.com), [Sodium](https://github.com/CaffeineMC/sodium) and [Apple silicon](https://wikipedia.org/wiki/Apple_silicon) to name a few.
+
+<YouTube id="o-q469FcQVQ">A playthrough of Chapter 1 and 2.</YouTube>
+
+## Cutscenes
+
+<Video src="/video/cutscenes.mp4">
+  Clips from [Sparkour](https://youtu.be/FC_keyg7OP0).
+</Video>
+
+We developed a system which is able to play arbitrary videos smoothly. The system was utilized by interleaving the gameplay with cutscenes to enhance the story telling.
+
+### Execution
+
+<Video src="/video/aspect.mp4">
+  Does not stretch the video when aspect ratios don't match.
+</Video>
+
+We were provided with rendered videos which we ran through a script we wrote to encode the video data in to a format the shader would be able to easily decode and play.
+
+The first approach we took for playback required a high bandwidth internet connection. Through some experimentation we found a much better approach which not only does not rely on the network but is also not performance intensive for the client or server.
+
+To further minimize network requirements we came up with a simple lossy compression scheme for the video data. Whilst it is theoretically possible to compress the data even further we chose not to because we had to ensure the decoding remained as fast as possible to keep the playback smooth.
+
+## Party HUD
+
+<Video src="/video/party-hud.mp4">
+  Clips from [Chuck Nasty](https://youtu.be/o-q469FcQVQ).
+</Video>
+
+Implemented a HUD to show the players in your party. Avatars of the players along with their names and tags are rendered. When `F` is pressed the HUD becomes interactive, allowing the party leader to kick members from their party or the allowing party members to leave their party.
+
+### Execution
+
+<Video src="/video/party-hud-interactions.mp4">
+  Buttons have hover and click animations.
+</Video>
+
+Players are able to view the HUD while moving around. Players are also able to view their surroundings while interacting with the HUD. These features ensured the seamless integration of the party HUD in to the rest of the experience.
+
+<Video src="/video/party-hud-resize.mp4">
+  The HUD was built to be fully resizable to be able to fit individual player
+  preferences.
+</Video>
+
+The HUD can theoretically display all sorts of content, and it is not limited to static content either. For example the party HUD renders formatted text, player avatars, icons, buttons, solid color backgrounds etc.
+
+<Video src="/video/party-hud-anchor.mp4">
+  The HUD always positions itself correctly for all resolutions.
+</Video>
+
+To keep things optimized we built a fully custom system that only sends the minimum amount of packets possible to keep the HUD updated. The system is inspired by React; not only by their approach to synchronizing the virtual DOM with the real DOM, but also by their approach to UI components and their state management.
+
+## Objectives HUD
+
+<Video src="/video/objectives-hud.mp4">
+  Clips from [Chiefy](https://youtu.be/p8_Xb1YRWNU).
+</Video>
+
+Objectives players need to complete to progress are shown in this sleek, smoothly animated HUD. When playing the HUD gets updated live to reflect the current objective progress.
+
+<Video src="/video/objectives-hud-closeup.mp4">
+  A closer look at the HUD animations.
+</Video>
+
+## First person animations
+
+<Video src="/video/first-person-animations.mp4">
+  Clips from [Bufo](https://youtu.be/1DOmAkQQNfQ) and [Block
+  Rat](https://youtu.be/eoshdJw0io8).
+</Video>
+
+Players have the ability to scan items they come across and we decided to create a first person scanning animation to accompany this. The same system was also used for the menu opening and closing animations in the lobby.
+
+### Execution
+
+<Video src="/video/first-person-animations-movement.mp4">
+  Players are able to move freely while the animations play.
+</Video>
+
+The animations are capable of involving both of the player's hands. For example this can be utilized to create a reload animation for a weapon.
+
+<Video src="/video/first-person-animations-clip.mp4">
+  Animations do not get clipped by the environment.
+</Video>
+
+The animations respect the vanilla [view bobbing preference](https://minecraft.wiki/w/Options#Accessibility_Settings) players have configured. It is also capable of respecting their [main hand preference](https://minecraft.wiki/w/Options#Skin_Customization).
+
+<Video src="/video/first-person-animations-fov.mp4">
+  Animations are FOV independent.
+</Video>
+
+## Skies
+
+<Video src="/video/skies.mp4">
+  Clips from [Bufo](https://youtu.be/1DOmAkQQNfQ) and [Block
+  Rat](https://youtu.be/eoshdJw0io8).
+</Video>
+
+Throughout the experience the player travels to various places around the universe. For each place we rendered a unique sky. The skies are made up of layers, which all move at varying speeds.
+
+## Escape screen animation
+
+<Video src="/video/escape-skyward.mp4" />
+
+This is not a feat that is possible to achieve with Minecraft resource packs natively, therefore a shader was utilized. The shader was provided access to all the frame data which it then goes through at a fixed speed to bring the animation to life.
+
+## Website
+
+<Video src="/video/website-home-skyward.mp4">The home page.</Video>
+
+A small website was made to provide instructions on how to play the experience.
+
+<Video src="/video/website-play-skyward.mp4">The "How to play" page.</Video>
