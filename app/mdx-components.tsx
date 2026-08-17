@@ -55,7 +55,7 @@ export function useMDXComponents() {
     ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
-      <code className="bg-black/7.5 font-mono" {...props} />
+      <code className="rounded-md bg-black/10 px-1 font-mono" {...props} />
     ),
     Tweet: ({ id }: { id: string }) => {
       const data = useLoaderData();
