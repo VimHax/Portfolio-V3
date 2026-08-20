@@ -1,7 +1,7 @@
 import { data, Outlet } from "react-router";
 import type { Route } from "./+types/layout";
 import { getWork } from "./get-work.server";
-import dateToString, { stringToColor } from "~/util";
+import dateToString, { HeroType, stringToColor } from "~/util";
 import Background from "~/components/background";
 
 export async function loader({ url }: Route.LoaderArgs) {
@@ -44,19 +44,28 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
-      <video
-        className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
-        autoPlay
-        loop
-        muted
-        playsInline
-        disablePictureInPicture
-        disableRemotePlayback
-        x-webkit-airplay="deny"
-        preload="auto"
-      >
-        <source src={loaderData.video} type="video/mp4" />
-      </video>
+      {loaderData.hero.type === HeroType.Image ? (
+        <img
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
+          src={loaderData.hero.src}
+          alt="Hero image"
+          style={{ objectPosition: loaderData.hero.position }}
+        />
+      ) : (
+        <video
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          disableRemotePlayback
+          x-webkit-airplay="deny"
+          preload="auto"
+        >
+          <source src={loaderData.hero.src} type="video/mp4" />
+        </video>
+      )}
 
       <Outlet />
     </>

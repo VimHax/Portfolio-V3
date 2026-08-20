@@ -24,7 +24,7 @@ export function useMDXComponents() {
   return {
     wrapper: ({ children }: { children: ReactNode }) => {
       return (
-        <div className="mb-section sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+        <div className="mdx mb-section sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
           {children}
         </div>
       );
@@ -56,6 +56,49 @@ export function useMDXComponents() {
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
       <code className="rounded-md bg-black/10 px-1 font-mono" {...props} />
+    ),
+    Diagram: ({
+      children,
+      description,
+    }: {
+      children: ReactNode;
+      description?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <div
+          className={twMerge(
+            "mt-8 flex w-full justify-center rounded-2xl bg-black p-16 shadow-2xl sm:rounded-3xl",
+            description ? "mb-3" : "not-last:mb-8",
+          )}
+        >
+          {children}
+        </div>
+        <MediaDescription>{description}</MediaDescription>
+      </>
+    ),
+    Code: ({
+      children,
+      description,
+    }: {
+      children: ReactNode;
+      description?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <div
+          className={twMerge(
+            "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
+            description ? "mb-3" : "not-last:mb-8",
+          )}
+        >
+          <div className="z-10 flex items-center justify-between bg-[#0000000f] px-3 py-2 text-sm text-white/50 backdrop-blur-lg">
+            <h2>Eelios</h2>
+            <h1 className="font-semibold">mandelbrot.ee</h1>
+            <button>Copy</button>
+          </div>
+          {children}
+        </div>
+        <MediaDescription>{description}</MediaDescription>
+      </>
     ),
     Tweet: ({ id }: { id: string }) => {
       const data = useLoaderData();

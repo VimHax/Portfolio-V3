@@ -1,11 +1,27 @@
 import z from "zod";
-import { DateMonth } from "~/util";
+import { DateMonth, HeroType } from "~/util";
+
+const Hero = z.discriminatedUnion("type", [
+  z
+    .strictObject({
+      type: z.literal(HeroType.Image),
+      src: z.string().nonempty(),
+      position: z.string().nonempty(),
+    })
+    .readonly(),
+  z
+    .strictObject({
+      type: z.literal(HeroType.Video),
+      src: z.string().nonempty(),
+    })
+    .readonly(),
+]);
 
 const WorkMetadata = z
   .object({
     title: z.string().nonempty(),
     description: z.string().nonempty(),
-    video: z.string().nonempty(),
+    hero: Hero,
     color: z.tuple([z.string().nonempty(), z.string().nonempty()]).readonly(),
     date: DateMonth,
     tags: z.array(z.string().nonempty()).nonempty().readonly(),

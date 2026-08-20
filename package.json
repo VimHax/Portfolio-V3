@@ -10,10 +10,10 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@mdx-js/react": "^3.1.1",
     "@react-router/node": "8.0.0",
     "@react-router/serve": "8.0.0",
     "clsx": "^2.0.0",
+    "highlight.js": "^11.12.0",
     "isbot": "^5.1.36",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -30,9 +30,13 @@
     "@types/node": "^22",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "playwright": "^1.62.1",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-highlight-code-lines": "^1.2.4",
     "rehype-mdx-import-media": "^1.4.0",
+    "rehype-mermaid": "^3.0.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "vite": "^8.0.3"
@@ -43,5 +47,5 @@
       "prettier-plugin-tailwindcss"
     ]
   },
-  "packageManager": "pnpm@11.10.0+sha512.0b7f8b98060031904c017e3a41eb187a16d40eeb829b95c4f8cb03681761fc4ab53dd219115b9b447f4dce1a05a214764461e7d3703392a9f32f9511ce8c86c8"
+  "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621"
 }

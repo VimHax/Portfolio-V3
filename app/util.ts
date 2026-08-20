@@ -10,6 +10,11 @@ export const DateMonth = z
 
 export type DateMonth = z.infer<typeof DateMonth>;
 
+export enum HeroType {
+  Image = "image",
+  Video = "video",
+}
+
 const months = [
   "January",
   "February",

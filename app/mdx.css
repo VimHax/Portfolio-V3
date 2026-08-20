@@ -1,0 +1,50 @@
+@reference "./app.css";
+
+.mdx .media-style {
+  @apply bg-off-white mt-8 w-full rounded-2xl shadow-2xl sm:rounded-3xl;
+}
+
+.mdx pre,
+.mdx pre code {
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.2;
+  tab-size: 2;
+  hyphens: none;
+}
+
+.mdx pre {
+  aspect-ratio: 16 / 9;
+  margin-top: -36px;
+  padding-top: 36px;
+  padding-bottom: 6px;
+  overflow: auto;
+  font-weight: 500;
+}
+
+.mdx pre > code {
+  float: left;
+  min-width: 100%;
+}
+
+.mdx pre {
+  scrollbar-color: #424240 black;
+}
+
+.mdx .numbered-code-line::before {
+  content: attr(data-line-number);
+
+  display: inline-block;
+  position: sticky;
+  left: 0;
+
+  width: 40px;
+  padding: 0px 10px;
+  color: #424240;
+  text-align: right;
+
+  background-color: black;
+}

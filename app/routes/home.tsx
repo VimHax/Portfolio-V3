@@ -6,7 +6,7 @@ import { useState, type ReactNode } from "react";
 import TechnologiesSection from "~/components/technologies-section";
 import ContactSection from "~/components/contact-section";
 import { getAllWork, type WorkMetadata } from "./work/get-work.server";
-import dateToString, { stringToColor } from "~/util";
+import dateToString, { HeroType, stringToColor } from "~/util";
 import ArrowRightSVG from "~/svgs/arrow-right";
 import { twJoin } from "tailwind-merge";
 
@@ -40,19 +40,28 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <video
-        className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
-        autoPlay
-        loop
-        muted
-        playsInline
-        disablePictureInPicture
-        disableRemotePlayback
-        x-webkit-airplay="deny"
-        preload="auto"
-      >
-        <source src={metadata.video} type="video/mp4" />
-      </video>
+      {metadata.hero.type === HeroType.Image ? (
+        <img
+          className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+          src={metadata.hero.src}
+          alt="Hero image"
+          style={{ objectPosition: metadata.hero.position }}
+        />
+      ) : (
+        <video
+          className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          disableRemotePlayback
+          x-webkit-airplay="deny"
+          preload="auto"
+        >
+          <source src={metadata.hero.src} type="video/mp4" />
+        </video>
+      )}
 
       <Effect
         className="absolute top-0 left-0 h-full w-full"

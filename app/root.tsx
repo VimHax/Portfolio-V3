@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import "./hljs.css";
+import "./mdx.css";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
