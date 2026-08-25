@@ -92,12 +92,12 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
       </div>
 
       <div className="z-10">
-        <h4 className="mb-1 text-xl font-semibold tracking-widest text-white uppercase">
+        <span className="mb-1 block text-xl font-semibold tracking-widest text-white uppercase">
           {dateToString(metadata.date)}
-        </h4>
-        <h3 className="font-title -mb-4 max-w-175 text-8xl leading-23 tracking-tight text-balance text-white">
+        </span>
+        <span className="font-title -mb-4 block max-w-175 text-8xl leading-23 tracking-tight text-balance text-white">
           {metadata.title}
-        </h3>
+        </span>
       </div>
     </Link>
   );

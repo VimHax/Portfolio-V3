@@ -1,7 +1,14 @@
-import type { ComponentProps, ReactNode } from "react";
+import {
+  Fragment,
+  type ComponentProps,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import { EmbeddedTweet } from "./components/react-twitter";
 import { useLoaderData } from "react-router";
+import GitHubLogoSVG from "./svgs/github-logo";
+import ArrowRightSVG from "./svgs/arrow-right";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -41,6 +48,12 @@ export function useMDXComponents() {
         {...props}
       />
     ),
+    h4: (props: ComponentProps<"h4">) => (
+      <h4
+        className="font-title mt-8 mb-5 text-lg tracking-tight sm:mt-12 sm:text-2xl"
+        {...props}
+      />
+    ),
     p: (props: ComponentProps<"p">) => (
       <p className="not-last:mb-5" {...props} />
     ),
@@ -55,7 +68,12 @@ export function useMDXComponents() {
     ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
-      <code className="rounded-md bg-black/10 px-1 font-mono" {...props} />
+      <code className="rounded-md bg-black/10 px-1" {...props} />
+    ),
+    Footnote: ({ children }: { children: ReactNode }) => (
+      <div className="text-sm opacity-50 not-last:mb-5 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+        {children}
+      </div>
     ),
     Diagram: ({
       children,
@@ -78,10 +96,16 @@ export function useMDXComponents() {
     ),
     Code: ({
       children,
+      language,
+      filename,
       description,
+      output,
     }: {
       children: ReactNode;
+      language: "eelios" | "ts";
+      filename: string;
       description?: ReactNode | null | undefined;
+      output: string[] | null;
     }) => (
       <>
         <div
@@ -91,18 +115,76 @@ export function useMDXComponents() {
           )}
         >
           <div className="z-10 flex items-center justify-between bg-[#0000000f] px-3 py-2 text-sm text-white/50 backdrop-blur-lg">
-            <h2>Eelios</h2>
-            <h1 className="font-semibold">mandelbrot.ee</h1>
+            <span>{{ eelios: "Eelios", ts: "TypeScript" }[language]}</span>
+            <span className="font-semibold">{filename}</span>
             <button>Copy</button>
           </div>
           {children}
+          {output !== null && (
+            <div className="border-t border-white/25 p-3">
+              <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
+                Output
+              </span>
+              <pre className="custom leading-[1.2]">
+                <code className="custom font-medium text-white">
+                  {output.map((o, idx) => (
+                    <Fragment key={idx}>
+                      <span className="text-white/50">&gt;</span> {o}
+                      {idx !== output.length - 1 && <br />}
+                    </Fragment>
+                  ))}
+                </code>
+              </pre>
+            </div>
+          )}
         </div>
         <MediaDescription>{description}</MediaDescription>
       </>
     ),
+    GitHub: ({
+      owner,
+      repo,
+      name,
+      description,
+      color,
+    }: {
+      owner: string;
+      repo: string;
+      name: string;
+      description: string;
+      color: string;
+    }) => (
+      <a
+        href={`https://github.com/${owner}/${repo}`}
+        className="group mt-8 flex w-full flex-col gap-8 rounded-3xl bg-linear-45 from-black to-white p-12 text-white shadow-2xl transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50"
+        style={{ "--tw-gradient-to": color } as CSSProperties}
+      >
+        <div className="-mt-5.5 flex items-center justify-between">
+          <div className="flex items-center gap-3 opacity-50">
+            <GitHubLogoSVG className="w-5" />
+            <span className="mt-px text-sm font-semibold tracking-widest uppercase">
+              {owner} <span className="opacity-25">/</span> {repo}
+            </span>
+          </div>
+          <ArrowRightSVG className="w-16 transition-transform duration-250 group-hover:translate-x-2" />
+        </div>
+
+        <div>
+          <span className="font-title mb-2 block text-7xl tracking-tighter">
+            {name}
+          </span>
+          <p className="max-w-100 leading-6 text-balance">{description}</p>
+        </div>
+      </a>
+    ),
     Tweet: ({ id }: { id: string }) => {
       const data = useLoaderData();
-      return <EmbeddedTweet className="my-8 shadow-2xl/15" tweet={data[id]} />;
+      return (
+        <EmbeddedTweet
+          className="mt-8 shadow-2xl/15 not-last:mb-8"
+          tweet={data[id]}
+        />
+      );
     },
     Image: ({
       className,

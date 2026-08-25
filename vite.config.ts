@@ -7,6 +7,7 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import type { HLJSApi } from "highlight.js";
+import ts from "highlight.js/lib/languages/typescript";
 
 function eelios(hljs: HLJSApi) {
   return {
@@ -36,16 +37,20 @@ function eelios(hljs: HLJSApi) {
       },
       {
         className: "type",
-        begin: /\b(String|Number|Boolean|Instruction|Array<[a-zA-Z<>]+>)/,
+        begin: /\b(String|Number|Boolean|Instruction|Array<[a-zA-Z<>]+>)\b/,
       },
       {
         className: "keyword",
+        begin: /\b(print|eval|if|then|else|while|do)\b/,
+      },
+      {
+        className: "built_in",
         begin:
-          /\b(print|len|input|toString|toNumber|toBoolean|isNumber|isBoolean|eval|exec|if|then|else|while|do)/,
+          /\b(len|input|toString|toNumber|toBoolean|isNumber|isBoolean|exec)\b/,
       },
       {
         className: "literal",
-        begin: /\b(false|true)/,
+        begin: /\b(false|true)\b/,
       },
       {
         className: "title.function.invoke",
@@ -66,8 +71,8 @@ export default defineConfig({
       ...mdx({
         rehypePlugins: [
           rehypeMdxImportMedia,
-          [rehypeHighlight, { languages: { eelios } }],
-          rehypeHighlightCodeLines,
+          [rehypeHighlight, { languages: { eelios, ts } }],
+          [rehypeHighlightCodeLines, { showLineNumbers: true }],
           [
             rehypeMermaid,
             {

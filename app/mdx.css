@@ -4,8 +4,8 @@
   @apply bg-off-white mt-8 w-full rounded-2xl shadow-2xl sm:rounded-3xl;
 }
 
-.mdx pre,
-.mdx pre code {
+.mdx pre:not(.custom),
+.mdx pre:not(.custom) code:not(.custom) {
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -16,8 +16,8 @@
   hyphens: none;
 }
 
-.mdx pre {
-  aspect-ratio: 16 / 9;
+.mdx pre:not(.custom) {
+  max-height: 525px;
   margin-top: -36px;
   padding-top: 36px;
   padding-bottom: 6px;
@@ -25,13 +25,17 @@
   font-weight: 500;
 }
 
-.mdx pre > code {
+.mdx pre:not(.custom) > code:not(.custom) {
   float: left;
   min-width: 100%;
 }
 
-.mdx pre {
+.mdx pre:not(.custom) {
   scrollbar-color: #424240 black;
+}
+
+.mdx .highlighted-code-line {
+  background-color: #1a1a1a;
 }
 
 .mdx .numbered-code-line::before {

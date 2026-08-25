@@ -1,8 +1,10 @@
-// https://github.com/highlightjs/highlight.js/blob/0bc57cfcfb7eab3de7b9ed07e51ff02f6dca441f/src/styles/github-dark.css
-// Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
+/*
+https://github.com/highlightjs/highlight.js/blob/0bc57cfcfb7eab3de7b9ed07e51ff02f6dca441f/src/styles/github-dark.css
+Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
+*/
 
 .hljs {
-  color: #c9d1d9;
+  color: #444444;
 }
 
 .hljs-doctag,
@@ -52,7 +54,7 @@
 
 .hljs-built_in,
 .hljs-symbol {
-  color: #ffa657;
+  color: #db889a;
 }
 
 .hljs-comment,

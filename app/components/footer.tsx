@@ -22,7 +22,9 @@ export default function Footer() {
       <div className="flex flex-col justify-between">
         <LogoSVG className="size-20" />
         <div>
-          <h1 className="font-title mb-1 text-5xl">Vimukthi Weerabahu</h1>
+          <span className="font-title mb-1 block text-5xl">
+            Vimukthi Weerabahu
+          </span>
           <p className="text-xl opacity-75">
             A self-taught full stack developer based in Sri Lanka.
           </p>
@@ -31,9 +33,9 @@ export default function Footer() {
 
       <div className="flex gap-32">
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold tracking-widest uppercase opacity-50">
+          <span className="font-semibold tracking-widest uppercase opacity-50">
             Navigation
-          </h1>
+          </span>
           <NavigationLink to="/" name="Home" />
           <NavigationLink to="/work" name="Work" />
           <NavigationLink to="/gallery" name="Gallery" />
@@ -41,9 +43,9 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold tracking-widest uppercase opacity-50">
+          <span className="font-semibold tracking-widest uppercase opacity-50">
             Social
-          </h1>
+          </span>
           <a className="font-title text-5xl" href="mailto:me@vimhax.com">
             Email
           </a>

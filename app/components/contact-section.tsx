@@ -25,7 +25,7 @@ function Contact({
           {icon}
         </div>
         <div className="ml-12 flex items-center">
-          <h3 className="font-title text-5xl">{name}</h3>
+          <span className="font-title text-5xl">{name}</span>
         </div>
       </div>
       <span className="mr-12 text-3xl opacity-50">{value}</span>
