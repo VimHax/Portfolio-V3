@@ -88,6 +88,8 @@ export default defineConfig({
                   secondaryColor: "#b8b8e6",
                   lineColor: "#5a5a80",
                   textColor: "#f5f5ff",
+                  clusterBkg: "#ffffff10",
+                  clusterBorder: "#00000000",
                 },
               },
             },

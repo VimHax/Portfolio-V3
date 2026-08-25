@@ -37,6 +37,10 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
   color: #bd976a;
 }
 
+.hljs-property {
+  color: #b8a965;
+}
+
 .hljs-number,
 .hljs-literal {
   color: #5da994;
@@ -106,7 +110,6 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-char.escape_,
 .hljs-link,
 .hljs-params,
-.hljs-property,
 .hljs-punctuation,
 .hljs-tag {
   color: #444444;

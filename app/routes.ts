@@ -24,6 +24,7 @@ export default [
       ),
       route("undercrowned", "routes/work/undercrowned/index.mdx"),
       route("skyward", "routes/work/skyward/index.mdx"),
+      route("eelios", "routes/work/eelios/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;

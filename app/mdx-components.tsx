@@ -57,6 +57,9 @@ export function useMDXComponents() {
     p: (props: ComponentProps<"p">) => (
       <p className="not-last:mb-5" {...props} />
     ),
+    strong: (props: ComponentProps<"strong">) => (
+      <strong className="font-semibold" {...props} />
+    ),
     a: (props: ComponentProps<"a">) => (
       <a className="text-blue underline" {...props} />
     ),
@@ -70,6 +73,9 @@ export function useMDXComponents() {
     code: (props: ComponentProps<"code">) => (
       <code className="rounded-md bg-black/10 px-1" {...props} />
     ),
+    MediaDescription: ({ children }: { children: ReactNode }) => (
+      <MediaDescription>{children}</MediaDescription>
+    ),
     Footnote: ({ children }: { children: ReactNode }) => (
       <div className="text-sm opacity-50 not-last:mb-5 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
         {children}
@@ -80,19 +86,16 @@ export function useMDXComponents() {
       description,
     }: {
       children: ReactNode;
-      description?: ReactNode | null | undefined;
+      description?: boolean | null | undefined;
     }) => (
-      <>
-        <div
-          className={twMerge(
-            "mt-8 flex w-full justify-center rounded-2xl bg-black p-16 shadow-2xl sm:rounded-3xl",
-            description ? "mb-3" : "not-last:mb-8",
-          )}
-        >
-          {children}
-        </div>
-        <MediaDescription>{description}</MediaDescription>
-      </>
+      <div
+        className={twMerge(
+          "mt-8 flex w-full justify-center rounded-2xl bg-black p-8 shadow-2xl sm:rounded-3xl",
+          description ? "mb-3" : "not-last:mb-8",
+        )}
+      >
+        {children}
+      </div>
     ),
     Code: ({
       children,
@@ -104,42 +107,39 @@ export function useMDXComponents() {
       children: ReactNode;
       language: "eelios" | "ts";
       filename: string;
-      description?: ReactNode | null | undefined;
+      description?: boolean | null | undefined;
       output: string[] | null;
     }) => (
-      <>
-        <div
-          className={twMerge(
-            "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
-            description ? "mb-3" : "not-last:mb-8",
-          )}
-        >
-          <div className="z-10 flex items-center justify-between bg-[#0000000f] px-3 py-2 text-sm text-white/50 backdrop-blur-lg">
-            <span>{{ eelios: "Eelios", ts: "TypeScript" }[language]}</span>
-            <span className="font-semibold">{filename}</span>
-            <button>Copy</button>
-          </div>
-          {children}
-          {output !== null && (
-            <div className="border-t border-white/25 p-3">
-              <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
-                Output
-              </span>
-              <pre className="custom leading-[1.2]">
-                <code className="custom font-medium text-white">
-                  {output.map((o, idx) => (
-                    <Fragment key={idx}>
-                      <span className="text-white/50">&gt;</span> {o}
-                      {idx !== output.length - 1 && <br />}
-                    </Fragment>
-                  ))}
-                </code>
-              </pre>
-            </div>
-          )}
+      <div
+        className={twMerge(
+          "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
+          description ? "mb-3" : "not-last:mb-8",
+        )}
+      >
+        <div className="z-10 flex items-center justify-between bg-[#0000000f] px-3 py-2 text-sm text-white/50 backdrop-blur-lg">
+          <span>{{ eelios: "Eelios", ts: "TypeScript" }[language]}</span>
+          <span className="font-semibold">{filename}</span>
+          <button>Copy</button>
         </div>
-        <MediaDescription>{description}</MediaDescription>
-      </>
+        {children}
+        {output !== null && (
+          <div className="border-t border-white/25 p-3">
+            <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
+              Output
+            </span>
+            <pre className="custom leading-[1.2]">
+              <code className="custom font-medium text-white">
+                {output.map((o, idx) => (
+                  <Fragment key={idx}>
+                    <span className="text-white/50">&gt;</span> {o}
+                    {idx !== output.length - 1 && <br />}
+                  </Fragment>
+                ))}
+              </code>
+            </pre>
+          </div>
+        )}
+      </div>
     ),
     GitHub: ({
       owner,
