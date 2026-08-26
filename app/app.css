@@ -84,6 +84,7 @@
   --color-off-white: #e9e9f2;
   --color-blue: #0094e8;
   --color-red: #db004f;
+  --color-green: #69cf00;
 
   --font-*: initial;
   --font-title: "cabinet-grotesk", serif;
@@ -100,7 +101,7 @@
 
 html,
 body {
-  @apply font-body selection:bg-blue bg-white text-black selection:text-white;
+  @apply font-body selection:bg-blue scroll-smooth bg-white text-black selection:text-white;
   font-synthesis: none;
 }
 

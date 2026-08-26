@@ -114,7 +114,7 @@ Many features of the language are being exercised in the program, some of which 
 - Data types (`String`s, `Number`s, `Array`s), etc.
 
 <Footnote>
-  *These are technically `Instruction`s, but they will be referred to as functions as they indistinguishable from each other for the most part. The only exception is how the parser handles these differently, quirks of which are observable on line `21` of the `mandelbrot.ee` program where the `Instruction`s need to be wrapped in parentheses to nudge the parser in the right direction.
+  *These are technically `Instruction`s, but they will be referred to as functions as they indistinguishable from each other for the most part. The only exception is how the parser handles these differently, quirks of which are observable on line `21` of the [`mandelbrot.ee`](#mandelbrot.ee) program where the `Instruction`s need to be wrapped in parentheses to nudge the parser in the right direction.
 </Footnote>
 
 ### Open source
@@ -137,7 +137,7 @@ Eelios programs are composed of `Instruction`s (typically referred to as "statem
 <Code language="eelios" filename="gimmick.ee" output={["World"]}>
 ```eelios
 [
-  instruction <- print "World", # does NOT execute
+  instruction <- print "World", # does *not* execute
   #    ╰ data type of this variable is `Instruction`
   print "Hello",
   instruction # prints "World" to the output
@@ -172,7 +172,7 @@ print "Hi"
 </Code>
 <MediaDescription>So is this, it uses the recursive nature of the definition.</MediaDescription>
 
-Eelios runs the program by executing the top level `Instruction` (which is the whole program). If the `Instruction` is an array, Eelios executes each sub-`Instruction` in order. As demonstrated by the `gimmick.ee` program, Eelios does not execute `Instruction`s that are not at the top level by default, instead they are treated as data which can potentially be stored, manipulated and executed later.
+Eelios runs the program by executing the top level `Instruction` (which is the whole program). If the `Instruction` is an array, Eelios executes each sub-`Instruction` in order. As demonstrated by the [`gimmick.ee`](#gimmick.ee) program, Eelios does not execute `Instruction`s that are not at the top level by default, instead they are treated as data which can potentially be stored, manipulated and executed later.
 
 The choice of using `[]` (instead of the far more common `{}`) for scopes in Eelios was not for cosmetic purposes, but rather to highlight that these truly are actually just arrays of `Instruction`s that are being executed.
 
@@ -461,7 +461,7 @@ The evaluator attempts to execute the top level `Instruction` (which is what an 
 <Code language="ts" filename="Eelios/src/evaluator/evaluator.ts" description output={null}>
 ```ts showLineNumbers=1160
 public evaluate(): null | Value {
-	return this.evaluateInstructionNode(this.instruction);
+  return this.evaluateInstructionNode(this.instruction);
 }
 ```
 </Code>
@@ -487,7 +487,7 @@ The interpreter starts out in the `Instruction` evaluation mode and switches to 
 
 This is the fundamental difference between `Instruction`s and expressions, `Instruction`s do not produce any data (akin to `void` in other languages but Eelios does not have a `void` data type).
 
-To see how the interpreter switches modes in practice all the points of interest in the simple `function_syntax.ee` program are marked below.
+To see how the interpreter switches modes in practice all the points of interest in the simple [`function_syntax.ee`](#function_syntax.ee) program are marked below.
 
 <Code language="eelios" filename="switching.ee" output={["5"]} description>
 ```eelios

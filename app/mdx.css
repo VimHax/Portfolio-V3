@@ -19,8 +19,8 @@
 .mdx pre:not(.custom) {
   max-height: 525px;
   margin-top: -36px;
-  padding-top: 36px;
-  padding-bottom: 6px;
+  padding-top: calc(8px + 36px);
+  padding-bottom: 8px;
   overflow: auto;
   font-weight: 500;
 }

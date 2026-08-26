@@ -1,14 +1,19 @@
 import {
   Fragment,
+  useEffect,
+  useRef,
+  useState,
   type ComponentProps,
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { twMerge } from "tailwind-merge";
+import { twJoin, twMerge } from "tailwind-merge";
 import { EmbeddedTweet } from "./components/react-twitter";
 import { useLoaderData } from "react-router";
 import GitHubLogoSVG from "./svgs/github-logo";
 import ArrowRightSVG from "./svgs/arrow-right";
+import CopySVG from "./svgs/copy";
+import CheckSVG from "./svgs/check";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -109,38 +114,107 @@ export function useMDXComponents() {
       filename: string;
       description?: boolean | null | undefined;
       output: string[] | null;
-    }) => (
-      <div
-        className={twMerge(
-          "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
-          description ? "mb-3" : "not-last:mb-8",
-        )}
-      >
-        <div className="z-10 flex items-center justify-between bg-[#0000000f] px-3 py-2 text-sm text-white/50 backdrop-blur-lg">
-          <span>{{ eelios: "Eelios", ts: "TypeScript" }[language]}</span>
-          <span className="font-semibold">{filename}</span>
-          <button>Copy</button>
-        </div>
-        {children}
-        {output !== null && (
-          <div className="border-t border-white/25 p-3">
-            <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
-              Output
-            </span>
-            <pre className="custom leading-[1.2]">
-              <code className="custom font-medium text-white">
-                {output.map((o, idx) => (
-                  <Fragment key={idx}>
-                    <span className="text-white/50">&gt;</span> {o}
-                    {idx !== output.length - 1 && <br />}
-                  </Fragment>
-                ))}
-              </code>
-            </pre>
+    }) => {
+      enum AnimationState {
+        Empty,
+        Copy,
+        Check,
+      }
+
+      const mainRef = useRef<HTMLDivElement>(null);
+      const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+      const [state, setState] = useState<AnimationState>(AnimationState.Copy);
+
+      useEffect(
+        () => () => {
+          if (timeoutRef.current !== null) clearTimeout(timeoutRef.current);
+        },
+        [],
+      );
+
+      function onClick() {
+        const el = mainRef.current;
+        if (el === null) return;
+        const codeEl = el.querySelector("pre > code");
+        if (codeEl === null) return;
+        navigator.clipboard.writeText(codeEl.textContent);
+
+        if (timeoutRef.current !== null) return;
+        const emptyDuration = 250;
+        const checkDuration = 2_000;
+        setState(AnimationState.Empty);
+        timeoutRef.current = setTimeout(() => {
+          setState(AnimationState.Check);
+          timeoutRef.current = setTimeout(() => {
+            setState(AnimationState.Empty);
+            timeoutRef.current = setTimeout(() => {
+              timeoutRef.current = null;
+              setState(AnimationState.Copy);
+            }, emptyDuration);
+          }, checkDuration);
+        }, emptyDuration);
+      }
+
+      return (
+        <div
+          id={filename}
+          ref={mainRef}
+          className={twMerge(
+            "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
+            description ? "mb-3" : "not-last:mb-8",
+          )}
+        >
+          <div className="z-10 grid h-9 grid-cols-3 border-b border-white/10 bg-[#0000000f] text-sm text-white/50 backdrop-blur-lg">
+            <div className="flex h-full items-center">
+              <span className="mt-0.5 ml-3">
+                {{ eelios: "Eelios", ts: "TypeScript" }[language]}
+              </span>
+            </div>
+            <div className="flex h-full items-center justify-center">
+              <span className="mt-0.5 font-semibold">{filename}</span>
+            </div>
+            <div className="flex h-full justify-end">
+              <button
+                title="Copy"
+                className="relative aspect-square h-full cursor-pointer transition-colors duration-250 hover:bg-white/10"
+                onClick={onClick}
+              >
+                <CopySVG
+                  className={twJoin(
+                    "absolute top-1/2 left-1/2 size-4 -translate-1/2 scale-75 opacity-0 transition duration-250",
+                    state === AnimationState.Copy && "scale-100 opacity-100",
+                  )}
+                />
+                <CheckSVG
+                  className={twJoin(
+                    "text-green absolute top-1/2 left-1/2 size-4 -translate-1/2 scale-75 opacity-0 transition duration-250",
+                    state === AnimationState.Check && "scale-100 opacity-100",
+                  )}
+                />
+              </button>
+            </div>
           </div>
-        )}
-      </div>
-    ),
+          {children}
+          {output !== null && (
+            <div className="border-t border-white/10 p-3">
+              <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
+                Output
+              </span>
+              <pre className="custom leading-[1.2]">
+                <code className="custom font-medium text-white">
+                  {output.map((o, idx) => (
+                    <Fragment key={idx}>
+                      <span className="text-white/50">&gt;</span> {o}
+                      {idx !== output.length - 1 && <br />}
+                    </Fragment>
+                  ))}
+                </code>
+              </pre>
+            </div>
+          )}
+        </div>
+      );
+    },
     GitHub: ({
       owner,
       repo,
