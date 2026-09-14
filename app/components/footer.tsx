@@ -25,7 +25,7 @@ export default function Footer() {
           <span className="font-title mb-1 block text-5xl">
             Vimukthi Weerabahu
           </span>
-          <p className="text-xl opacity-75">
+          <p className="text-light-blue text-xl">
             A self-taught full stack developer based in Sri Lanka.
           </p>
         </div>
@@ -33,7 +33,7 @@ export default function Footer() {
 
       <div className="flex gap-32">
         <div className="flex flex-col gap-4">
-          <span className="font-semibold tracking-widest uppercase opacity-50">
+          <span className="text-light-blue font-semibold tracking-widest uppercase">
             Navigation
           </span>
           <NavigationLink to="/" name="Home" />
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <span className="font-semibold tracking-widest uppercase opacity-50">
+          <span className="text-light-blue font-semibold tracking-widest uppercase">
             Social
           </span>
           <a className="font-title text-5xl" href="mailto:me@vimhax.com">
@@ -59,7 +59,7 @@ export default function Footer() {
             LinkedIn
           </a>
           <a className="font-title text-5xl" href="https://twitter.com/VimHax">
-            X <span className="opacity-25">/</span> Twitter
+            X <span className="text-white/25">/</span> Twitter
           </a>
         </div>
       </div>

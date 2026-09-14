@@ -4,7 +4,7 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 */
 
 .hljs {
-  color: #444444;
+  color: var(--color-black);
 }
 
 .hljs-doctag,
@@ -13,7 +13,7 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-template-tag,
 .hljs-template-variable,
 .hljs-variable.language_ {
-  color: #4d9375;
+  color: #0c60a5;
 }
 
 .hljs-type {
@@ -24,7 +24,7 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
 .hljs-title.function_ {
-  color: #80a665;
+  color: #0d7579;
 }
 
 .hljs-attr,
@@ -34,11 +34,11 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-selector-attr,
 .hljs-selector-class,
 .hljs-selector-id {
-  color: #bd976a;
+  color: #144266;
 }
 
 .hljs-property {
-  color: #b8a965;
+  color: #a69c4e;
 }
 
 .hljs-number,
@@ -47,13 +47,13 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 }
 
 .hljs-operator {
-  color: #cb7676;
+  color: #cb5c69;
 }
 
 .hljs-regexp,
 .hljs-string,
 .hljs-meta .hljs-string {
-  color: #c98a7d;
+  color: #509546;
 }
 
 .hljs-built_in,
@@ -64,7 +64,7 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-comment,
 .hljs-code,
 .hljs-formula {
-  color: #758575;
+  color: var(--color-light-blue);
 }
 
 .hljs-name,
@@ -112,5 +112,5 @@ Modified to match Vitesse theme, https://github.com/antfu/vscode-theme-vitesse
 .hljs-params,
 .hljs-punctuation,
 .hljs-tag {
-  color: #444444;
+  color: #3a4252;
 }

@@ -8,6 +8,59 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import type { HLJSApi } from "highlight.js";
 import ts from "highlight.js/lib/languages/typescript";
+import llvm from "highlight.js/lib/languages/llvm";
+import c from "highlight.js/lib/languages/c";
+
+function ares(hljs: HLJSApi) {
+  return {
+    contains: [
+      {
+        className: "string",
+        contains: [hljs.BACKSLASH_ESCAPE],
+        variants: [
+          {
+            begin: /"/,
+            end: /"/,
+          },
+        ],
+      },
+      hljs.C_LINE_COMMENT_MODE,
+      {
+        className: "number",
+        begin: /\d+(\.\d+)?/,
+      },
+      {
+        className: "operator",
+        begin:
+          /\s>\s|\s<\s|\+\+|\+|->|--|-|\/|\*|\^|mod|and|not|or|==|!=|>=|<=|=|:|\./,
+      },
+      {
+        className: "punctuation",
+        begin: />|<|\(|\)|\[|\]|\{|\}|;|,/,
+      },
+      {
+        className: "type",
+        begin: /\b(Int|Float|Boolean|String|Array)\b/,
+      },
+      {
+        className: "keyword",
+        begin: /\b(fn|let|mut|if|else|loop|return|break)\b/,
+      },
+      {
+        className: "literal",
+        begin: /\b(false|true)\b/,
+      },
+      {
+        className: "title.function.invoke",
+        begin: /[a-zA-Z_][a-zA-Z0-9_]*(?=\()/,
+      },
+      {
+        className: "variable",
+        begin: /[a-zA-Z_][a-zA-Z0-9_]*/,
+      },
+    ],
+  };
+}
 
 function eelios(hljs: HLJSApi) {
   return {
@@ -25,15 +78,16 @@ function eelios(hljs: HLJSApi) {
       hljs.HASH_COMMENT_MODE,
       {
         className: "number",
-        begin: /(([0-9]+)(\.[0-9]+)?)|(\.[0-9]+)/,
+        begin: /(\d+(\.\d+)?)|(\.\d+)/,
       },
       {
         className: "punctuation",
-        begin: /:|,|\.|\(|\)|\[|\]|((?<=<-\s*)\|)|(\|(?=\s*->))|<-|->|=>/,
+        begin: /,|\(|\)|\[|\]|((?<=<-\s*)\|)|(\|(?=\s*->))/,
       },
       {
         className: "operator",
-        begin: /\+|-|\*|\/|\^|%|&|(?<!<-\s*)\|(?!\s*->)|!|=|!=|<|>|<=|>=/,
+        begin:
+          /:|\.|<-|->|=>|\+|-|\*|\/|\^|%|&|(?<!<-\s*)\|(?!\s*->)|!|=|!=|<|>|<=|>=/,
       },
       {
         className: "type",
@@ -64,6 +118,22 @@ function eelios(hljs: HLJSApi) {
   };
 }
 
+function shell(hljs: HLJSApi) {
+  return {
+    contains: [
+      hljs.HASH_COMMENT_MODE,
+      {
+        className: "keyword",
+        begin: /\$/,
+      },
+      {
+        className: "title.function.invoke",
+        begin: /(-\w+\b)|(--[\w=]+\b)/,
+      },
+    ],
+  };
+}
+
 export default defineConfig({
   plugins: [
     {
@@ -71,7 +141,10 @@ export default defineConfig({
       ...mdx({
         rehypePlugins: [
           rehypeMdxImportMedia,
-          [rehypeHighlight, { languages: { eelios, ts } }],
+          [
+            rehypeHighlight,
+            { languages: { ares, eelios, ts, llvm, c, shell } },
+          ],
           [rehypeHighlightCodeLines, { showLineNumbers: true }],
           [
             rehypeMermaid,
@@ -79,16 +152,17 @@ export default defineConfig({
               strategy: "inline-svg",
               css: "file://" + __dirname + "/mermaid.css",
               mermaidConfig: {
+                flowchart: { diagramPadding: 0 },
                 theme: "base",
                 themeVariables: {
                   fontFamily: '"jetbrains-mono", sans-serif',
-                  primaryColor: "#f5f5ff",
+                  primaryColor: "#b8ddf9",
                   primaryTextColor: "#00001f",
-                  primaryBorderColor: "#f5f5ff",
-                  secondaryColor: "#b8b8e6",
-                  lineColor: "#5a5a80",
+                  primaryBorderColor: "#00000000",
+                  secondaryColor: "#d6e8fc",
+                  lineColor: "#005180",
                   textColor: "#f5f5ff",
-                  clusterBkg: "#ffffff10",
+                  clusterBkg: "#e9f0fe",
                   clusterBorder: "#00000000",
                 },
               },

@@ -9,15 +9,15 @@ export const date = { year: 2020, month: 8 };
 export const title = "Eelios";
 export const description =
   "Created a programming language based on a gimmick in approximately 2 weeks for a competition.";
-export const hero = { type: "image", src: HeroImg, position: "bottom" };
+export const hero = { type: "image", src: HeroImg, position: "center" };
 export const color = ["#14a100", "#c2ff00"];
-export const tags = ["Programming Language", "TypeScript"];
+export const tags = ["Programming Language", "Interpreter", "TypeScript"];
 
 Eelios is a [dynamically typed](https://stackoverflow.com/a/1517670/10685858) [interpreted](<https://wikipedia.org/wiki/Interpreter_(computing)>) programming language. The interpreter is written in TypeScript without any major dependencies and uses Node.js for the runtime.
 
 ### An example program
 
-<Video src="/video/mandelbrot.mp4"/>
+<Video className="shadow-2xl/10!" src="/video/mandelbrot.mp4"/>
 
 The program prompts the user for the maximum iteration depth and render resolution. It then proceeds to render a part of the [Mandelbrot set](https://wikipedia.org/wiki/Mandelbrot_set) to the output using the provided values.
 
@@ -83,7 +83,7 @@ The program prompts the user for the maximum iteration depth and render resoluti
     eval characters[index]
   ],
 
-  # Render the mandelbrot set
+  # Render the Mandelbrot set
   y <- 0,
   while y < renderHeight do [
     line <- "",
@@ -110,11 +110,11 @@ Many features of the language are being exercised in the program, some of which 
 - Functions and closures (`| .. | -> ..` and `( .. ) => ..`),
 - Input / Output (`input ..` and `print ..`),
 - Unary and binary operators (`+`, `-`, `<=`, `&`, etc.),
-- Built-in functions* (`isNumber`, `toNumber`, `len`, etc.),
+- *Built-in functions (`isNumber`, `toNumber`, `len`, etc.),
 - Data types (`String`s, `Number`s, `Array`s), etc.
 
 <Footnote>
-  *These are technically `Instruction`s, but they will be referred to as functions as they indistinguishable from each other for the most part. The only exception is how the parser handles these differently, quirks of which are observable on line `21` of the [`mandelbrot.ee`](#mandelbrot.ee) program where the `Instruction`s need to be wrapped in parentheses to nudge the parser in the right direction.
+  *These are technically `Instruction`s, but they will be referred to as functions as they are indistinguishable from each other for the most part. The only exception is how the parser handles these differently, quirks of which are observable on line `21` of the [`mandelbrot.ee`](#mandelbrot.ee) program where the `Instruction`s need to be wrapped in parentheses to nudge the parser in the right direction.
 </Footnote>
 
 ### Open source
@@ -122,7 +122,6 @@ Many features of the language are being exercised in the program, some of which 
 Eelios is fully open source. The source is available on GitHub. The `README.md` contains comprehensive documentation of the language.
 
 <GitHub name="Eelios" description="A fancy pants programming language." owner="VimHax" repo="Eelios" color="#c2ff00"/>
-{/* <GitHub name="Ares" description="What would Rust with the simplicity of TypeScript look like? This is my take." owner="VimHax" repo="Ares" color="#00ffc1"/> */}
 
 ## The jam
 
@@ -134,7 +133,7 @@ I came across a [programming language jam by Replit](https://web.archive.org/web
 
 Eelios programs are composed of `Instruction`s (typically referred to as "statements" in other languages). However, unlike in other languages, `Instruction`s are treated as data in Eelios, data which can be manipulated at runtime.
 
-<Code language="eelios" filename="gimmick.ee" output={["World"]}>
+<Code language="eelios" filename="gimmick.ee" output={["Hello", "World"]}>
 ```eelios
 [
   instruction <- print "World", # does *not* execute
@@ -366,7 +365,10 @@ The lexer transforms the characters that comprise the source code to tokens. Tok
 
 <Diagram description>
 ```mermaid
-flowchart TD
+flowchart LR
+
+  input[a <- 12 + 23]
+
   subgraph characters[" "]
   s1[a]
   s2[<-]
@@ -383,17 +385,28 @@ flowchart TD
   t5[NumLit]
   end
   
-  s1 e1@--> t1
-  s2 e2@--> t2
-  s3 e3@--> t3
-  s4 e4@--> t4
-  s5 e5@--> t5
+  input e1@--> s1
+  input e2@--> s2
+  input e3@--> s3
+  input e4@--> s4
+  input e5@--> s5
+
+  s1 e6@--> t1
+  s2 e7@--> t2
+  s3 e8@--> t3
+  s4 e9@--> t4
+  s5 e10@--> t5
 
   e1@{ animate: true }
   e2@{ animate: true }
   e3@{ animate: true }
   e4@{ animate: true }
   e5@{ animate: true }
+  e6@{ animate: true }
+  e7@{ animate: true }
+  e8@{ animate: true }
+  e9@{ animate: true }
+  e10@{ animate: true }
 ```
 </Diagram>
 <MediaDescription>The transformation of `a <- 12 + 23` to tokens.</MediaDescription>
@@ -402,7 +415,7 @@ Each transformed token stores its location in the source code. This metadata is 
 
 At this stage basic syntax errors are caught by the lexer. For example `String` literals with missing end quotes, `"Hello World!`. However `a <- 12 + <- 23` will not be flagged by the lexer as all the individual tokens are valid.
 
-<Image className="aspect-1950/600" src={LexerImg} />
+<PaddedImage className="aspect-1753/398" src={LexerImg} />
 
 ### Parser
 
@@ -410,7 +423,7 @@ The parser transforms the tokens to an **A**bstract **S**yntax **T**ree. The AST
 
 <Diagram description>
 ```mermaid
-flowchart TD
+flowchart LR
   subgraph tokens[" "]
   t1["`Ident (a)`"]
   t2["`LtMinus (<-)`"]
@@ -425,19 +438,29 @@ flowchart TD
   n4[BinaryNode]
   n5[AssignInstructionNode]
 
-  n1 --- t1
+  t1 e1@--> n1
 
-  n2 --- t3
+  t3 e2@--> n2
 
-  n3 --- t5
+  t5 e3@--> n3
 
-  n4 --- n2
-  n4 --- t4
-  n4 --- n3
+  n2 e4@--> n4
+  t4 e5@--> n4
+  n3 e6@--> n4
 
-  n5 --- n1
-  n5 --- t2
-  n5 --- n4
+  n1 e7@--> n5
+  t2 e8@--> n5
+  n4 e9@--> n5
+
+  e1@{ animate: true }
+  e2@{ animate: true }
+  e3@{ animate: true }
+  e4@{ animate: true }
+  e5@{ animate: true }
+  e6@{ animate: true }
+  e7@{ animate: true }
+  e8@{ animate: true }
+  e9@{ animate: true }
 ```
 </Diagram>
 <MediaDescription>The AST of `a <- 12 + 23`.</MediaDescription>
@@ -446,12 +469,12 @@ Akin to the lexer, the parser calculates and stores the source code locations fo
 
 The parser understands the entirety of the Eelios syntax and is therefore able to catch all the syntax errors the lexer may have missed. For example the syntax error in `a <- 12 + <- 23`, which the lexer misses, is instead caught by the parser.
 
-<Image className="aspect-1950/750" src={ParserImg} />
+<PaddedImage className="aspect-1728/528" src={ParserImg} />
 
 Both the lexer, and in extension the parser, ignore whitespaces and comments in the source code entirely. For the scope of Eelios this is acceptable, however this decision means the current AST is unable to power a hypothetical automatic code formatter (or at least do it well).
 
 <Footnote>
-  *For the `AssignInstructionNode` in the diagram that would mean the starting position of `LValueVariableNode` (which itself is the starting position of `Ident`) and the ending position of `NumberLiteralNode` (which itself is the ending position of `NumLit`).
+  *For the `AssignInstructionNode` in the diagram that would mean the starting position of `LValueVariableNode` (which itself is the starting position of `Ident`) and the ending position of `BinaryNode` (which itself is the ending position of `NumberLiteralNode`, which itself is the ending position of `NumLit`).
 </Footnote>
 
 ### Evaluator
@@ -473,13 +496,13 @@ The evaluator operates in 2 modes, an `Instruction` evaluation mode (which is th
 
 In this mode, when the evaluator is traversing the AST it's expecting to come across `InstructionNode`s directly, which can be immediately resolved to an `Instruction`, or come across expression nodes which, after undergoing execution, result in an `Instruction`. If this expectation is met the evaluator proceeds to execute the resolved `Instruction` immediately. If unmet the evaluator exits with an error.
 
-<Image className="aspect-2050/700" src={Evaluator1Img}>The error thrown when the expectation is unmet.</Image>
+<PaddedImage className="aspect-1830/493" src={Evaluator1Img}>The error thrown when the expectation is unmet.</PaddedImage>
 
 #### Expression evaluation mode
 
 In this mode the evaluator executes expression nodes it comes across when traversing. If the evaluator is met with an `InstructionNode`, instead of immediately executing it (like in the `Instruction` evaluation mode) the `Instruction` is instead treated as data which it then bubbles back up. When `Instruction`s are being "treated as data" the evaluator stores a reference to the AST node which represents the `Instruction`.
 
-<Image className="aspect-1650/450" src={Evaluator2Img}>The code which stores an `Instruction`.</Image>
+<PaddedImage className="aspect-1598/402" src={Evaluator2Img}>The code which stores an `Instruction`.</PaddedImage>
 
 #### Switching modes
 
@@ -541,7 +564,7 @@ Since `exec` is able to execute `Instruction`s within an expression and all expr
       print
         #(10 Expr) 
         "Hello",
-      #(5 Expr) (11 Ins)
+      #(5 Expr), (11 Ins)
       eval
         #(12 Expr)
         3

@@ -9,7 +9,7 @@ export default function About() {
     <>
       <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
         <h1 className="font-title -mb-6 text-9xl tracking-tight">About</h1>
-        <p className="-mb-1 max-w-75 text-right text-xl leading-6 text-balance opacity-50">
+        <p className="text-light-blue -mb-1 max-w-75 text-right text-xl leading-6 text-balance">
           A self-taught full stack developer based in Sri Lanka.
         </p>
       </div>

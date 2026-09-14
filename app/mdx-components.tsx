@@ -26,7 +26,7 @@ function MediaDescription({
 }) {
   if (!children) return;
   return (
-    <div className="text-center text-sm opacity-50 not-last:mb-8 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+    <div className="text-dark-blue text-center text-sm opacity-50 not-last:mb-8 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
       {children}
     </div>
   );
@@ -43,19 +43,19 @@ export function useMDXComponents() {
     },
     h2: (props: ComponentProps<"h2">) => (
       <h2
-        className="font-title sm:mt-sub-section mt-12 mb-5 text-4xl tracking-tight sm:text-6xl"
+        className="font-title sm:mt-sub-section mt-12 mb-8 text-4xl tracking-tight sm:text-6xl"
         {...props}
       />
     ),
     h3: (props: ComponentProps<"h3">) => (
       <h3
-        className="font-title mt-8 mb-5 text-2xl tracking-tight sm:mt-12 sm:text-4xl"
+        className="font-title mt-8 mb-5 text-2xl tracking-tight sm:mt-12 sm:mb-8 sm:text-4xl"
         {...props}
       />
     ),
     h4: (props: ComponentProps<"h4">) => (
       <h4
-        className="font-title mt-8 mb-5 text-lg tracking-tight sm:mt-12 sm:text-2xl"
+        className="font-title mt-8 mb-5 text-lg tracking-tight sm:mt-12 sm:mb-8 sm:text-2xl"
         {...props}
       />
     ),
@@ -76,13 +76,14 @@ export function useMDXComponents() {
     ),
     li: (props: ComponentProps<"li">) => <li {...props} />,
     code: (props: ComponentProps<"code">) => (
-      <code className="rounded-md bg-black/10 px-1" {...props} />
+      <code className="bg-off-white rounded-md px-1" {...props} />
     ),
+    pre: (props: ComponentProps<"pre">) => <pre className="code" {...props} />,
     MediaDescription: ({ children }: { children: ReactNode }) => (
       <MediaDescription>{children}</MediaDescription>
     ),
     Footnote: ({ children }: { children: ReactNode }) => (
-      <div className="text-sm opacity-50 not-last:mb-5 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
+      <div className="text-dark-blue text-sm opacity-50 not-last:mb-5 sm:text-base [&_code]:text-xs sm:[&_code]:text-sm">
         {children}
       </div>
     ),
@@ -95,7 +96,7 @@ export function useMDXComponents() {
     }) => (
       <div
         className={twMerge(
-          "mt-8 flex w-full justify-center rounded-2xl bg-black p-8 shadow-2xl sm:rounded-3xl",
+          "mt-8 flex max-h-[800px] w-full justify-center rounded-2xl bg-white p-8 shadow-2xl/10 sm:rounded-3xl",
           description ? "mb-3" : "not-last:mb-8",
         )}
       >
@@ -107,12 +108,14 @@ export function useMDXComponents() {
       language,
       filename,
       description,
+      error,
       output,
     }: {
       children: ReactNode;
-      language: "eelios" | "ts";
+      language: "ares" | "eelios" | "ts" | "llvm" | "c" | "shell";
       filename: string;
       description?: boolean | null | undefined;
+      error?: boolean | null | undefined;
       output: string[] | null;
     }) => {
       enum AnimationState {
@@ -160,14 +163,30 @@ export function useMDXComponents() {
           id={filename}
           ref={mainRef}
           className={twMerge(
-            "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-[black] shadow-2xl sm:rounded-3xl",
+            "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-white shadow-2xl/10 sm:rounded-3xl",
             description ? "mb-3" : "not-last:mb-8",
           )}
         >
-          <div className="z-10 grid h-9 grid-cols-3 border-b border-white/10 bg-[#0000000f] text-sm text-white/50 backdrop-blur-lg">
+          <div
+            className={twJoin(
+              "z-10 grid h-9 grid-cols-3 text-sm backdrop-blur-lg",
+              error
+                ? "text-error bg-light-error/75"
+                : "text-light-blue bg-white/75",
+            )}
+          >
             <div className="flex h-full items-center">
               <span className="mt-0.5 ml-3">
-                {{ eelios: "Eelios", ts: "TypeScript" }[language]}
+                {
+                  {
+                    ares: "Ares",
+                    eelios: "Eelios",
+                    ts: "TypeScript",
+                    llvm: "LLVM IR",
+                    c: "C",
+                    shell: "Shell",
+                  }[language]
+                }
               </span>
             </div>
             <div className="flex h-full items-center justify-center">
@@ -176,7 +195,10 @@ export function useMDXComponents() {
             <div className="flex h-full justify-end">
               <button
                 title="Copy"
-                className="relative aspect-square h-full cursor-pointer transition-colors duration-250 hover:bg-white/10"
+                className={twJoin(
+                  "relative aspect-square h-full cursor-pointer transition-colors duration-250",
+                  error ? "hover:bg-error/10" : "hover:bg-off-white",
+                )}
                 onClick={onClick}
               >
                 <CopySVG
@@ -187,7 +209,8 @@ export function useMDXComponents() {
                 />
                 <CheckSVG
                   className={twJoin(
-                    "text-green absolute top-1/2 left-1/2 size-4 -translate-1/2 scale-75 opacity-0 transition duration-250",
+                    "absolute top-1/2 left-1/2 size-4 -translate-1/2 scale-75 opacity-0 transition duration-250",
+                    !error && "text-green",
                     state === AnimationState.Check && "scale-100 opacity-100",
                   )}
                 />
@@ -196,15 +219,15 @@ export function useMDXComponents() {
           </div>
           {children}
           {output !== null && (
-            <div className="border-t border-white/10 p-3">
-              <span className="mb-2 block text-xs font-semibold text-white/50 uppercase">
+            <div className="p-3">
+              <span className="text-light-blue mb-2 block text-xs font-semibold uppercase">
                 Output
               </span>
-              <pre className="custom leading-[1.2]">
-                <code className="custom font-medium text-white">
+              <pre className="leading-[1.2]">
+                <code className="font-medium">
                   {output.map((o, idx) => (
                     <Fragment key={idx}>
-                      <span className="text-white/50">&gt;</span> {o}
+                      <span className="text-light-blue">&gt;</span> {o}
                       {idx !== output.length - 1 && <br />}
                     </Fragment>
                   ))}
@@ -255,7 +278,7 @@ export function useMDXComponents() {
       const data = useLoaderData();
       return (
         <EmbeddedTweet
-          className="mt-8 shadow-2xl/15 not-last:mb-8"
+          className="mt-8 shadow-2xl/10 not-last:mb-8"
           tweet={data[id]}
         />
       );
@@ -279,6 +302,31 @@ export function useMDXComponents() {
           src={src}
           loading="lazy"
         />
+        <MediaDescription>{children}</MediaDescription>
+      </>
+    ),
+    PaddedImage: ({
+      className,
+      src,
+      children,
+    }: {
+      className?: string;
+      src: string;
+      children?: ReactNode | null | undefined;
+    }) => (
+      <>
+        <div
+          className={twJoin(
+            "media-style bg-white! p-8 shadow-2xl/10!",
+            children ? "mb-3" : "not-last:mb-8",
+          )}
+        >
+          <img
+            className={twMerge("aspect-video object-cover", className)}
+            src={src}
+            loading="lazy"
+          />
+        </div>
         <MediaDescription>{children}</MediaDescription>
       </>
     ),

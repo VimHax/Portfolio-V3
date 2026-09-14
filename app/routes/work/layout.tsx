@@ -46,14 +46,14 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 
       {loaderData.hero.type === HeroType.Image ? (
         <img
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-4xl"
           src={loaderData.hero.src}
           alt="Hero image"
           style={{ objectPosition: loaderData.hero.position }}
         />
       ) : (
         <video
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-xl sm:rounded-4xl lg:shadow-2xl"
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-4xl"
           autoPlay
           loop
           muted

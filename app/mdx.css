@@ -4,8 +4,8 @@
   @apply bg-off-white mt-8 w-full rounded-2xl shadow-2xl sm:rounded-3xl;
 }
 
-.mdx pre:not(.custom),
-.mdx pre:not(.custom) code:not(.custom) {
+.mdx pre.code,
+.mdx pre.code code {
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -16,7 +16,7 @@
   hyphens: none;
 }
 
-.mdx pre:not(.custom) {
+.mdx pre.code {
   max-height: 525px;
   margin-top: -36px;
   padding-top: calc(8px + 36px);
@@ -25,17 +25,17 @@
   font-weight: 500;
 }
 
-.mdx pre:not(.custom) > code:not(.custom) {
+.mdx pre.code > code {
   float: left;
   min-width: 100%;
 }
 
-.mdx pre:not(.custom) {
-  scrollbar-color: #424240 black;
+.mdx .highlighted-code-line {
+  background-color: #e7e9f4;
 }
 
-.mdx .highlighted-code-line {
-  background-color: #1a1a1a;
+.mdx .numbered-code-line.highlighted-code-line::before {
+  background-color: var(--color-off-white);
 }
 
 .mdx .numbered-code-line::before {
@@ -47,8 +47,8 @@
 
   min-width: 40px;
   padding: 0px 10px;
-  color: #424240;
+  color: var(--color-light-blue);
   text-align: right;
 
-  background-color: black;
+  background-color: var(--color-white);
 }
