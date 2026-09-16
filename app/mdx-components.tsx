@@ -112,7 +112,7 @@ export function useMDXComponents() {
       output,
     }: {
       children: ReactNode;
-      language: "ares" | "eelios" | "ts" | "llvm" | "c" | "shell";
+      language: "ares" | "eelios" | "ts" | "llvm" | "c" | "shell" | "dart";
       filename: string;
       description?: boolean | null | undefined;
       error?: boolean | null | undefined;
@@ -185,6 +185,7 @@ export function useMDXComponents() {
                     llvm: "LLVM IR",
                     c: "C",
                     shell: "Shell",
+                    dart: "Dart",
                   }[language]
                 }
               </span>
@@ -243,18 +244,28 @@ export function useMDXComponents() {
       repo,
       name,
       description,
-      color,
+      startColor,
+      endColor,
     }: {
       owner: string;
       repo: string;
       name: string;
       description: string;
-      color: string;
+      startColor?: string | null | undefined;
+      endColor: string;
     }) => (
       <a
         href={`https://github.com/${owner}/${repo}`}
-        className="group mt-8 flex w-full flex-col gap-8 rounded-3xl bg-linear-45 from-black to-white p-12 text-white shadow-2xl transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50"
-        style={{ "--tw-gradient-to": color } as CSSProperties}
+        className="group mt-8 flex w-full flex-col gap-8 rounded-3xl bg-linear-45 from-black to-white p-12 text-white shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50"
+        style={
+          {
+            "--tw-gradient-from": startColor ?? undefined,
+            "--tw-gradient-to": endColor,
+            "--tw-shadow-color": startColor
+              ? `color-mix(in oklab, ${startColor} var(--tw-shadow-alpha), transparent)`
+              : undefined,
+          } as CSSProperties
+        }
       >
         <div className="-mt-5.5 flex items-center justify-between">
           <div className="flex items-center gap-3 opacity-50">

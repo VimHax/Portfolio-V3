@@ -7,9 +7,12 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import type { HLJSApi } from "highlight.js";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import ts from "highlight.js/lib/languages/typescript";
 import llvm from "highlight.js/lib/languages/llvm";
 import c from "highlight.js/lib/languages/c";
+import dart from "highlight.js/lib/languages/dart";
 
 function ares(hljs: HLJSApi) {
   return {
@@ -139,11 +142,13 @@ export default defineConfig({
     {
       enforce: "pre",
       ...mdx({
+        remarkPlugins: [remarkMath],
         rehypePlugins: [
           rehypeMdxImportMedia,
+          rehypeKatex,
           [
             rehypeHighlight,
-            { languages: { ares, eelios, ts, llvm, c, shell } },
+            { languages: { ares, eelios, ts, llvm, c, shell, dart } },
           ],
           [rehypeHighlightCodeLines, { showLineNumbers: true }],
           [

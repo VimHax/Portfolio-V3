@@ -134,14 +134,14 @@ Many features of the language are being exercised in the program, some of which 
 - Functions (`fn ..(..) -> .. {..}`),
 - Input / Output (`prompt(..)`, `print(..)` and `println(..)`),
 - Built-in functions (`.to_float()`, `.len()`, `.ceil()`, etc.),
-- Data types (`Int`s, `Float`s, `Array`s)
+- Data types (`Int`s, `Float`s, `Array`s, etc.)
 - Type inference, etc.
 
 ### Open source
 
 Ares is fully open source. The source is available on GitHub.
 
-<GitHub name="Ares" description="What would Rust with the simplicity of TypeScript look like? This is my take." owner="VimHax" repo="Ares" color="#00ffc1"/>
+<GitHub name="Ares" description="What would Rust with the simplicity of TypeScript look like? This is my take." owner="VimHax" repo="Ares" endColor="#00ffc1"/>
 
 ## Type inference
 
@@ -315,7 +315,7 @@ In this example, the compiler is able to deduce that line `3-4` are unreachable 
 
 ### Never type
 
-<Code language="ares" filename="never.ares" output={['2']}>
+<Code language="ares" filename="never.ares" output={['2.0']}>
 ```ares
 fn main() {
   let a = true;
@@ -496,9 +496,9 @@ Both the lexer, and in extension the parser, ignore whitespaces and comments in 
 
 A data type is internally referred to as being "certain" if it is fully known. If the analyzer is unable to resolve all uncertainty an error will be emitted.
 
-The unknown type, `?`, is used as placeholder for a certain type when it is currently unknown. During analysis when enough information is inferred these unknowns will be replaced with their certain types. Every unknown type is associated with a unique identifier to be able to link the same unknown to constraints or other types (this will be visualized as `?a`, `?x`, `?1`, etc.).
+The unknown type, `?`, is used as placeholder for a certain type when it is currently fully unknown. During analysis when enough information is inferred these unknowns will be replaced with their certain types. Every unknown type is associated with a unique identifier to be able to link the same unknown to constraints or other types (this will be visualized as `?a`, `?x`, `?1`, etc.).
 
-The possibility type, `T || U || V || ...`, is a step up from the unknown type. This type represents multiple candidate types, one of which must be the underlying certain type. During analysis these types will also be reduced away to certain types.
+The possibility type, `T || U || V || ...`, is a step up from the unknown type. This type represents multiple candidate types, one of which must be the underlying certain type. During analysis these possibilities will also be reduced away to certain types.
 
 #### Relationships between types
 
@@ -602,7 +602,7 @@ Reusing the same idea it must be the case that `?b` is also a `String`. And with
 
 The code generator traverses the AST (which at this point is enriched with data types) to produce LLVM IR. Lets take a look at what the generated IR looks like for the following program.
 
-<Code language="ares" filename="llvm_ir.ares" output={["3", "2", "5"]}>
+<Code language="ares" filename="llvm_ir.ares" output={["3", "2", "5", "6.6"]}>
 ```ares
 fn sum(a: Int, b: Int) -> Int {
   a + b
@@ -627,10 +627,22 @@ fn getting_the_length() {
   println(length);
 }
 
+fn looping() {
+  let count = 0;
+  let x = loop {
+    if count > 3 {
+      break count.to_float() * 1.1;
+    }
+    count = count + 3;
+  };
+  println(x);
+}
+
 fn main() {
   calling_a_function();
   indexing_an_array();
   getting_the_length();
+  looping();
 }
 ```
 </Code>
@@ -744,11 +756,46 @@ entry:
   ret void
 }
 
+define void @looping() {
+entry:
+  %count = alloca i64, align 8
+  store i64 0, i64* %count, align 4
+  %x = alloca double, align 8
+  %loop-eval = alloca double, align 8
+  br label %loop
+
+loop:                                             ; preds = %if-finally, %entry
+  %var = load i64, i64* %count, align 4
+  %int-cmp = icmp sgt i64 %var, 3
+  br i1 %int-cmp, label %then, label %if-finally
+
+loop-finally:                                     ; preds = %then
+  %loop4 = load double, double* %loop-eval, align 8
+  store double %loop4, double* %x, align 8
+  %var5 = load double, double* %x, align 8
+  call void @println_float(double %var5)
+  ret void
+
+then:                                             ; preds = %loop
+  %var1 = load i64, i64* %count, align 4
+  %res = sitofp i64 %var1 to double
+  %expr = fmul double %res, 1.100000e+00
+  store double %expr, double* %loop-eval, align 8
+  br label %loop-finally
+
+if-finally:                                       ; preds = %loop
+  %var2 = load i64, i64* %count, align 4
+  %expr3 = add i64 %var2, 3
+  store i64 %expr3, i64* %count, align 4
+  br label %loop
+}
+
 define i32 @main() {
 entry:
   call void @calling_a_function()
   call void @indexing_an_array()
   call void @getting_the_length()
+  call void @looping()
   ret i32 0
 }
 ```
@@ -892,7 +939,7 @@ This LLVM IR is then used to generate object code for a target machine, such as 
 
 Both the LLVM IR and the C library above are presented as-is, meaning they can actually be used to reproduce the executable the Ares compiler would have. To achieve this we will mirror the what the compiler does automatically.
 
-<Code language="shell" filename="compile.sh" output={["3", "2", "5"]}>
+<Code language="shell" filename="compile.sh" output={["3", "2", "5", "6.6"]}>
 ```shell
 $ llc llvm_ir.ll --filetype=obj # Generate object code
 $ clang llvm_ir.o lib.c -lm -o llvm_ir # Link object code

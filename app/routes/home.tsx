@@ -2,7 +2,7 @@ import Hero from "~/components/hero";
 import Effect from "~/components/effect";
 import type { Route } from "./+types/home";
 import { Link, type To } from "react-router";
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import TechnologiesSection from "~/components/technologies-section";
 import ContactSection from "~/components/contact-section";
 import { getAllWork, type WorkMetadata } from "./work/get-work.server";
@@ -35,10 +35,15 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
 
   return (
     <Link
-      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl bg-black p-16 shadow-2xl transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
+      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl bg-black p-16 shadow-2xl/25 transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
       to={url}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
+      style={
+        {
+          "--tw-shadow-color": `color-mix(in oklab, ${metadata.color[0]} var(--tw-shadow-alpha), transparent)`,
+        } as CSSProperties
+      }
     >
       {metadata.hero.type === HeroType.Image ? (
         <img
@@ -95,7 +100,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
         <span className="mb-1 block text-xl font-semibold tracking-widest text-white uppercase">
           {dateToString(metadata.date)}
         </span>
-        <span className="font-title -mb-4 block max-w-175 text-8xl leading-23 tracking-tight text-balance text-white">
+        <span className="font-title -mb-4 block max-w-175 -translate-x-1.5 text-8xl leading-23 tracking-tight text-balance text-white">
           {metadata.title}
         </span>
       </div>

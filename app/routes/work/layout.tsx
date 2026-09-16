@@ -3,6 +3,7 @@ import type { Route } from "./+types/layout";
 import { getWork } from "./get-work.server";
 import dateToString, { HeroType, stringToColor } from "~/util";
 import Background from "~/components/background";
+import type { CSSProperties } from "react";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const work = getWork(url.pathname.slice("/work/".length));
@@ -33,7 +34,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
               {dateToString(loaderData.date)}
             </h2>
 
-            <h1 className="font-title -mb-4 max-w-175 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
+            <h1 className="font-title -mb-4 max-w-175 -translate-x-1.5 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
               {loaderData.title}
             </h1>
           </div>
@@ -46,14 +47,19 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 
       {loaderData.hero.type === HeroType.Image ? (
         <img
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-4xl"
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl/25 sm:rounded-4xl"
           src={loaderData.hero.src}
           alt="Hero image"
-          style={{ objectPosition: loaderData.hero.position }}
+          style={
+            {
+              objectPosition: loaderData.hero.position,
+              "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
+            } as CSSProperties
+          }
         />
       ) : (
         <video
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl sm:rounded-4xl"
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl/25 sm:rounded-4xl"
           autoPlay
           loop
           muted
@@ -62,6 +68,11 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           disableRemotePlayback
           x-webkit-airplay="deny"
           preload="auto"
+          style={
+            {
+              "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
+            } as CSSProperties
+          }
         >
           <source src={loaderData.hero.src} type="video/mp4" />
         </video>

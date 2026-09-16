@@ -26,6 +26,7 @@ export default [
       route("skyward", "routes/work/skyward/index.mdx"),
       route("eelios", "routes/work/eelios/index.mdx"),
       route("ares", "routes/work/ares/index.mdx"),
+      route("sonar", "routes/work/sonar/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;
