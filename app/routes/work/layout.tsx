@@ -30,9 +30,9 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 
         <div className="my-sub-section w-wide z-10 flex items-end justify-between text-white">
           <div>
-            <h2 className="mb-2 text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
+            <span className="mb-2 block text-lg font-semibold tracking-widest uppercase sm:mb-2 sm:text-xl">
               {dateToString(loaderData.date)}
-            </h2>
+            </span>
 
             <h1 className="font-title -mb-4 max-w-175 -translate-x-1.5 text-5xl leading-23 tracking-tight text-balance sm:text-8xl">
               {loaderData.title}
