@@ -28,6 +28,7 @@ export default [
       route("ares", "routes/work/ares/index.mdx"),
       route("sonar", "routes/work/sonar/index.mdx"),
       route("notnexus-portfolio", "routes/work/notnexus-portfolio/index.mdx"),
+      route("akridia", "routes/work/akridia/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;

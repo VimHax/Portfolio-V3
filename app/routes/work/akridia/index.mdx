@@ -1,0 +1,35 @@
+import ThumbnailImg from './thumbnail.png';
+
+export const date = { year: 2026, month: 5 };
+export const title = "Akridia";
+export const description =
+  "Contributed to developing an interactive web experience for Akridia, who are building autonomous ISR drones.";
+export const hero = { type: "video", src: "/video/akridia.webm", position: "center" };
+export const color = ["#000000", "#a9453e"];
+export const tags = ["Website", "React Router", "GSAP"];
+
+The website is built with [React Router](https://reactrouter.com) (in [Framework Mode](https://reactrouter.com/start/modes#framework)). It uses [GSAP](https://gsap.com) for most of its complex animations. Visit the link below to explore the website.
+
+<Website url="https://akridia.com" title='Akridia // Autonomous ISR Drones as your Teammates.' description="Akridia is developing a backpack-portable VTOL ISR platform that operates as an autonomous teammate - The Warden. One platform. One operator. Full-spectrum autonomous ISR. From backpack to battlespace in seconds." color='#a9453e' thumbnail={ThumbnailImg} />
+
+## The experience
+
+Below are a few highlights of the website which define the experience.
+
+### Airborn intelligence hub
+
+<Video src="/video/demo.mp4"/>
+
+When the user scrolls down they are they are presented with a guided experience, showcasing how an operator would be able to command the drones to accomplish a mission. This is a multi-stage animation which is paced by the user through their interactions.
+
+### Capabilities
+
+<Video src="/video/capabilities.mp4"/>
+
+This section showcases the capabilities of the Warden. This is a scroll linked animation which fades in the capabilities one at a time whilst changing the hue of the scanning on the left.
+
+### About us
+
+<Video src="/video/physics.mp4"/>
+
+The hero of the [About Us](https://akridia.com/about) page shows the names of the co-founders colliding and bouncing off of the edges of the hero section, the centered title and each other. This was accomplished with a small physics library that was configured to replicate the [bouncing DVD screensaver](https://wikipedia.org/wiki/DVD_screensaver) physics.
