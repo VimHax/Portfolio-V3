@@ -112,7 +112,16 @@ export function useMDXComponents() {
       output,
     }: {
       children: ReactNode;
-      language: "ares" | "eelios" | "ts" | "llvm" | "c" | "shell" | "dart";
+      language:
+        | "ares"
+        | "eelios"
+        | "ts"
+        | "tsx"
+        | "llvm"
+        | "c"
+        | "shell"
+        | "dart"
+        | "css";
       filename: string;
       description?: boolean | null | undefined;
       error?: boolean | null | undefined;
@@ -182,10 +191,12 @@ export function useMDXComponents() {
                     ares: "Ares",
                     eelios: "Eelios",
                     ts: "TypeScript",
+                    tsx: "TSX",
                     llvm: "LLVM IR",
                     c: "C",
                     shell: "Shell",
                     dart: "Dart",
+                    css: "CSS",
                   }[language]
                 }
               </span>
@@ -239,6 +250,54 @@ export function useMDXComponents() {
         </div>
       );
     },
+    Website: ({
+      url,
+      title,
+      description,
+      color,
+      thumbnail,
+    }: {
+      url: string;
+      title: string;
+      description: string;
+      color: string;
+      thumbnail: string;
+    }) => (
+      <a
+        href={url}
+        className="group relative mt-8 block w-full transition-transform duration-250 not-last:mb-8 hover:-translate-y-2"
+      >
+        <img
+          className="aspect-video rounded-3xl bg-white object-cover shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+          src={thumbnail}
+          loading="lazy"
+          style={
+            {
+              "--tw-shadow-color": `color-mix(in oklab, ${color} var(--tw-shadow-alpha), transparent)`,
+            } as CSSProperties
+          }
+        />
+        <div className="absolute bottom-0 left-0 p-5">
+          <div className="relative flex overflow-clip rounded-2xl bg-white/85 backdrop-blur-sm">
+            <div className="absolute top-0 right-0 p-5">
+              <ArrowRightSVG className="-mt-1 w-8 transition-transform duration-250 group-hover:translate-x-1" />
+            </div>
+            <div className="w-1" style={{ backgroundColor: color }} />
+            <div className="p-5">
+              <span className="mb-0.5 block text-sm" style={{ color }}>
+                {new URL(url).hostname}
+              </span>
+              <span className="font-title -mt-1.5 mb-1 block max-w-75 overflow-hidden text-3xl tracking-tighter text-ellipsis whitespace-nowrap">
+                {title}
+              </span>
+              <p className="max-w-100 overflow-hidden text-base leading-5 text-ellipsis whitespace-nowrap">
+                {description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+    ),
     GitHub: ({
       owner,
       repo,

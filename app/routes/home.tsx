@@ -24,7 +24,7 @@ export function meta({}: Route.MetaArgs) {
 
 function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-lg bg-white px-2 py-0.75 font-semibold uppercase">
+    <span className="rounded-lg bg-white/85 px-2 py-0.75 font-semibold uppercase backdrop-blur-lg">
       {children}
     </span>
   );
@@ -63,6 +63,7 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
           disableRemotePlayback
           x-webkit-airplay="deny"
           preload="auto"
+          style={{ objectPosition: metadata.hero.position }}
         >
           <source src={metadata.hero.src} type="video/mp4" />
         </video>
@@ -96,13 +97,18 @@ function Work({ url, metadata }: { url: To; metadata: WorkMetadata }) {
         ))}
       </div>
 
-      <div className="z-10">
-        <span className="mb-1 block text-xl font-semibold tracking-widest text-white uppercase">
-          {dateToString(metadata.date)}
-        </span>
-        <span className="font-title -mb-4 block max-w-175 -translate-x-1.5 text-8xl leading-23 tracking-tight text-balance text-white">
-          {metadata.title}
-        </span>
+      <div className="z-10 flex items-end justify-between">
+        <div>
+          <span className="mb-1 block text-xl font-semibold tracking-widest text-white uppercase">
+            {dateToString(metadata.date)}
+          </span>
+          <span className="font-title -mb-4 block max-w-175 -translate-x-1.5 text-8xl leading-23 tracking-tight text-balance text-white">
+            {metadata.title}
+          </span>
+        </div>
+        <p className="text-right text-xl leading-6 text-balance text-white sm:max-w-xl">
+          {metadata.description}
+        </p>
       </div>
     </Link>
   );

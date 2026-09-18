@@ -27,6 +27,7 @@ export default [
       route("eelios", "routes/work/eelios/index.mdx"),
       route("ares", "routes/work/ares/index.mdx"),
       route("sonar", "routes/work/sonar/index.mdx"),
+      route("notnexus-portfolio", "routes/work/notnexus-portfolio/index.mdx"),
     ]),
   ]),
 ] satisfies RouteConfig;

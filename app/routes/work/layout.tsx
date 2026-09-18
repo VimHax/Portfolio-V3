@@ -70,6 +70,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           preload="auto"
           style={
             {
+              objectPosition: loaderData.hero.position,
               "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
             } as CSSProperties
           }

@@ -13,6 +13,7 @@ import ts from "highlight.js/lib/languages/typescript";
 import llvm from "highlight.js/lib/languages/llvm";
 import c from "highlight.js/lib/languages/c";
 import dart from "highlight.js/lib/languages/dart";
+import css from "highlight.js/lib/languages/css";
 
 function ares(hljs: HLJSApi) {
   return {
@@ -148,7 +149,7 @@ export default defineConfig({
           rehypeKatex,
           [
             rehypeHighlight,
-            { languages: { ares, eelios, ts, llvm, c, shell, dart } },
+            { languages: { ares, eelios, ts, llvm, c, shell, dart, css } },
           ],
           [rehypeHighlightCodeLines, { showLineNumbers: true }],
           [

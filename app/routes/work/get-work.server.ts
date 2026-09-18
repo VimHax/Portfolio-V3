@@ -13,6 +13,7 @@ const Hero = z.discriminatedUnion("type", [
     .strictObject({
       type: z.literal(HeroType.Video),
       src: z.string().nonempty(),
+      position: z.string().nonempty(),
     })
     .readonly(),
 ]);
