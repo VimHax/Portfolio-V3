@@ -62,3 +62,16 @@ export function interpolateColor(a: Color, b: Color, t: number): Color {
     interpolate(a[2], b[2], t),
   ];
 }
+
+export function assert(x: boolean, message?: string): asserts x {
+  if (!x) {
+    throw new Error(
+      message ? `Assertion failed: ${message}` : "Assertion failed.",
+    );
+  }
+}
+
+export function nonNull<T>(x: T): NonNullable<T> {
+  assert(x !== undefined && x !== null, "Value is null or undefined.");
+  return x;
+}

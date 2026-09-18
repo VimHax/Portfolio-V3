@@ -1,4 +1,4 @@
-export default function Gallery() {
+export default function GalleryPage() {
   return (
     <>
       <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
