@@ -7,7 +7,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { twJoin, twMerge } from "tailwind-merge";
+import { twJoin } from "tailwind-merge";
 import { EmbeddedTweet } from "./components/react-twitter";
 import { useLoaderData } from "react-router";
 import GitHubLogoSVG from "./svgs/github-logo";
@@ -106,7 +106,7 @@ export function useMDXComponents() {
       description?: boolean;
     }) => (
       <div
-        className={twMerge(
+        className={twJoin(
           "mt-8 flex max-h-[800px] w-full justify-center rounded-2xl bg-white p-8 shadow-2xl/10 sm:rounded-3xl",
           description ? "mb-3" : "not-last:mb-8",
         )}
@@ -182,7 +182,7 @@ export function useMDXComponents() {
         <div
           id={filename}
           ref={mainRef}
-          className={twMerge(
+          className={twJoin(
             "mt-8 flex w-full flex-col overflow-clip rounded-2xl bg-white shadow-2xl/10 sm:rounded-3xl",
             description ? "mb-3" : "not-last:mb-8",
           )}
@@ -373,7 +373,7 @@ export function useMDXComponents() {
     Image: ({
       src: image,
       resolution = "1920x1080",
-      lightShadow,
+      lightShadow = false,
       children,
     }: {
       src: Image;
@@ -385,7 +385,7 @@ export function useMDXComponents() {
       return (
         <>
           <img
-            className={twMerge(
+            className={twJoin(
               "media-style object-cover",
               lightShadow && "shadow-2xl/10!",
               children ? "mb-3" : "not-last:mb-8",
@@ -423,54 +423,45 @@ export function useMDXComponents() {
       </>
     ),
     Video: ({
-      className,
       src,
+      resolution = "1920x1080",
+      lightShadow = false,
       children,
     }: {
-      className?: string;
       src: string;
+      resolution?: Resolution;
+      lightShadow?: boolean;
       children?: ReactNode | null | undefined;
     }) => {
       const segments = src.split("/");
       const title = segments[segments.length - 1].split(".")[0];
       assert(title in VideoData, `${title} not in video data!`);
+      const data = VideoData[title as keyof typeof VideoData];
+      validateResolution(data, resolution);
       return (
         <>
-          {/* <video
-          className={twMerge(
-            "media-style aspect-video object-cover",
-            children ? "mb-3" : "not-last:mb-8",
-            className,
-          )}
-          autoPlay
-          loop
-          muted
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          x-webkit-airplay="deny"
-          preload="auto"
-        >
-          <source src={src} type="video/mp4" />
-        </video> */}
-
           <VideoPlayer>
             <VideoSkin
-              className={twMerge(
-                "media-style aspect-video h-fit object-cover",
+              className={twJoin(
+                "media-style h-fit",
+                lightShadow && "shadow-2xl/10!",
                 children ? "mb-3" : "not-last:mb-8",
-                className,
               )}
+              style={{ aspectRatio: `${data.width}/${data.height}` }}
+              hasAudio={data.audio}
             >
               <MuxVideo
                 source={{
-                  playbackId: VideoData[title as keyof typeof VideoData].id,
+                  playbackId: data.id,
                 }}
+                crossOrigin="anonymous"
                 autoPlay
+                loop
                 muted
                 playsInline
-                loop
-                crossOrigin="anonymous"
+                disablePictureInPicture
+                disableRemotePlayback
+                x-webkit-airplay="deny"
               />
             </VideoSkin>
           </VideoPlayer>
@@ -480,20 +471,17 @@ export function useMDXComponents() {
       );
     },
     YouTube: ({
-      className,
       id,
       children,
     }: {
-      className?: string;
       id: string;
       children?: ReactNode | null | undefined;
     }) => (
       <>
         <iframe
-          className={twMerge(
+          className={twJoin(
             "media-style aspect-video",
             children ? "mb-3" : "not-last:mb-8",
-            className,
           )}
           src={`https://www.youtube-nocookie.com/embed/${id}`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -504,20 +492,17 @@ export function useMDXComponents() {
       </>
     ),
     Twitch: ({
-      className,
       id,
       children,
     }: {
-      className?: string;
       id: string;
       children?: ReactNode | null | undefined;
     }) => (
       <>
         <iframe
-          className={twMerge(
+          className={twJoin(
             "media-style aspect-video",
             children ? "mb-3" : "not-last:mb-8",
-            className,
           )}
           src={`https://player.twitch.tv/?video=${id}&autoplay=false&parent=vimhax.com`}
           allowFullScreen

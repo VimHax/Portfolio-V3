@@ -1,12 +1,8 @@
 import { Controls, Time, Tooltip } from "@videojs/react";
 import type { ComponentProps } from "react";
 
-import { AirPlayButton } from "~/components/videojs/ui/airplay-button";
 import { ButtonTooltip } from "~/components/videojs/ui/button-tooltip";
-import { CaptionsButton } from "~/components/videojs/ui/captions-button";
-import { CastButton } from "~/components/videojs/ui/cast-button";
 import { FullscreenButton } from "~/components/videojs/ui/fullscreen-button";
-import { PiPButton } from "~/components/videojs/ui/pip-button";
 import { PlayButton } from "~/components/videojs/ui/play-button";
 import { TimeSlider } from "~/components/videojs/ui/time-slider";
 import { VolumePopover } from "~/components/videojs/ui/volume-popover";
@@ -18,11 +14,13 @@ export interface DefaultVideoControlsProps {
   renderThumbnail?: NonNullable<
     ComponentProps<typeof TimeSlider>
   >["renderThumbnail"];
+  hasAudio: boolean;
 }
 
 export function DefaultVideoControls({
   renderThumbnail,
-}: DefaultVideoControlsProps = {}) {
+  hasAudio,
+}: DefaultVideoControlsProps) {
   return (
     <Controls.Root>
       <Controls.Backdrop className={"video-controls-backdrop"} />
@@ -34,7 +32,9 @@ export function DefaultVideoControls({
             <ButtonTooltip side="top">
               <PlayButton />
             </ButtonTooltip>
-            <VolumePopover className={"video-controls-volume-button"} />
+            {hasAudio && (
+              <VolumePopover className={"video-controls-volume-button"} />
+            )}
 
             <Controls.Group className={"video-time-slider-group"}>
               <Time.Value
@@ -49,22 +49,10 @@ export function DefaultVideoControls({
               />
             </Controls.Group>
 
-            <ButtonTooltip side="top">
-              <CaptionsButton className={"video-controls-captions-button"} />
-            </ButtonTooltip>
             <VideoSettingsMenu className={"video-controls-settings-button"} />
           </Controls.Group>
 
           <Controls.Group className={"video-controls-secondary"}>
-            <ButtonTooltip side="top">
-              <CastButton />
-            </ButtonTooltip>
-            <ButtonTooltip side="top">
-              <AirPlayButton />
-            </ButtonTooltip>
-            <ButtonTooltip side="top">
-              <PiPButton />
-            </ButtonTooltip>
             <ButtonTooltip side="top">
               <FullscreenButton />
             </ButtonTooltip>

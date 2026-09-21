@@ -88,26 +88,29 @@ export function nonNull<T>(x: T): NonNullable<T> {
   return x;
 }
 
-export function validateResolution(image: Image, resolution: Resolution) {
+export function validateResolution(
+  source: { readonly width: number; readonly height: number },
+  resolution: Resolution,
+) {
   if (resolution === "1920x1080") {
     assert(
-      image.width === 1920 && image.height === 1080,
-      `Image, ${image.src}, is not 1920x1080!`,
+      source.width === 1920 && source.height === 1080,
+      `${source}, is not 1920x1080!`,
     );
     return;
   }
 
   if (resolution === "1920x800") {
     assert(
-      image.width === 1920 && image.height === 800,
-      `Image, ${image.src}, is not 1920x800!`,
+      source.width === 1920 && source.height === 800,
+      `${source}, is not 1920x800!`,
     );
     return;
   }
 
   const [width, height] = resolution;
   assert(
-    image.width === width && image.height === height,
-    `Image, ${image.src}, is not ${width}x${height}!`,
+    source.width === width && source.height === height,
+    `${source}, is not ${width}x${height}!`,
   );
 }

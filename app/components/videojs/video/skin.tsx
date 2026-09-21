@@ -25,6 +25,7 @@ export interface VideoSkinProps extends Omit<
   renderThumbnail?: NonNullable<
     ComponentProps<typeof DefaultVideoControls>
   >["renderThumbnail"];
+  hasAudio: boolean;
 }
 
 export function VideoSkin({
@@ -32,8 +33,9 @@ export function VideoSkin({
   className,
   renderPoster,
   renderThumbnail,
+  hasAudio,
   ...props
-}: VideoSkinProps = {}) {
+}: VideoSkinProps) {
   return (
     <Container
       className={cn("video-skin", className)}
@@ -47,7 +49,10 @@ export function VideoSkin({
       <ErrorDialog />
       <Title />
 
-      <DefaultVideoControls renderThumbnail={renderThumbnail} />
+      <DefaultVideoControls
+        renderThumbnail={renderThumbnail}
+        hasAudio={hasAudio}
+      />
 
       <VideoHotkeys />
       <VideoGestures />
