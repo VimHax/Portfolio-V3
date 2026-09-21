@@ -1,11 +1,23 @@
 import z from "zod";
-import { DateMonth, HeroType } from "~/util";
+import { DateMonth, HeroType, Image, validateResolution } from "~/util";
 
 const Hero = z.discriminatedUnion("type", [
   z
     .strictObject({
       type: z.literal(HeroType.Image),
-      src: z.string().nonempty(),
+      src: Image.transform((image, ctx) => {
+        try {
+          validateResolution(image, "1920x1080");
+          return image.src;
+        } catch (err) {
+          ctx.issues.push({
+            code: "custom",
+            message: "Not 1920x1080",
+            input: image,
+          });
+          return z.NEVER;
+        }
+      }),
       position: z.string().nonempty(),
     })
     .readonly(),

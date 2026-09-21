@@ -1,5 +1,5 @@
-import SkyCoordinatesImg from "./sky-coordinates.png";
-import SkyStarsImg from "./sky-stars.png";
+import SkyCoordinatesImg from "./sky-coordinates.png?img";
+import SkyStarsImg from "./sky-stars.png?img";
 
 export const date = { year: 2022, month: 9 };
 export const title = "MCProm";
@@ -55,13 +55,13 @@ The layers move at different speeds to give the illusion of distance by simulati
 
 It started off with attempts to incrementally improve the default night sky for the event but this lead to a dead end as only so much can be achieved with this approach. In search for more customization I discovered a way to gain control over the entire sky.
 
-<Image src={SkyCoordinatesImg}>
+<Image src={SkyCoordinatesImg} resolution={[1920, 1010]}>
   A debug shader demonstrating the full control of the sky.
 </Image>
 
 From this point onwards adding the rest of the effects was relatively straightforward. Out of all the effects the twinkling stars were the most difficult to implement since it required me to UV map a sphere (the sky) procedurally.
 
-<Image src={SkyStarsImg}>
+<Image src={SkyStarsImg} resolution={[1920, 1010]}>
   All possible positions for the twinkling stars in the sky.
 </Image>
 

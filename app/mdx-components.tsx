@@ -14,6 +14,7 @@ import GitHubLogoSVG from "./svgs/github-logo";
 import ArrowRightSVG from "./svgs/arrow-right";
 import CopySVG from "./svgs/copy";
 import CheckSVG from "./svgs/check";
+import { validateResolution, type Image, type Resolution } from "./util";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -92,7 +93,7 @@ export function useMDXComponents() {
       description,
     }: {
       children: ReactNode;
-      description?: boolean | null | undefined;
+      description?: boolean;
     }) => (
       <div
         className={twMerge(
@@ -123,8 +124,8 @@ export function useMDXComponents() {
         | "dart"
         | "css";
       filename: string;
-      description?: boolean | null | undefined;
-      error?: boolean | null | undefined;
+      description?: boolean;
+      error?: boolean;
       output: string[] | null;
     }) => {
       enum AnimationState {
@@ -256,48 +257,54 @@ export function useMDXComponents() {
       description,
       color,
       thumbnail,
+      resolution = "1920x1080",
     }: {
       url: string;
       title: string;
       description: string;
       color: string;
-      thumbnail: string;
-    }) => (
-      <a
-        href={url}
-        className="group relative mt-8 block w-full transition-transform duration-250 not-last:mb-8 hover:-translate-y-2"
-      >
-        <img
-          className="aspect-video rounded-3xl bg-white object-cover shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
-          src={thumbnail}
-          loading="lazy"
-          style={
-            {
-              "--tw-shadow-color": `color-mix(in oklab, ${color} var(--tw-shadow-alpha), transparent)`,
-            } as CSSProperties
-          }
-        />
-        <div className="absolute bottom-0 left-0 p-5">
-          <div className="relative flex overflow-clip rounded-2xl bg-white/85 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 p-5">
-              <ArrowRightSVG className="-mt-1 w-8 transition-transform duration-250 group-hover:translate-x-1" />
-            </div>
-            <div className="w-1" style={{ backgroundColor: color }} />
-            <div className="p-5">
-              <span className="mb-0.5 block text-sm" style={{ color }}>
-                {new URL(url).hostname}
-              </span>
-              <span className="font-title -mt-1.5 mb-1 block max-w-75 overflow-hidden text-3xl tracking-tighter text-ellipsis whitespace-nowrap">
-                {title}
-              </span>
-              <p className="max-w-100 overflow-hidden text-base leading-5 text-ellipsis whitespace-nowrap">
-                {description}
-              </p>
+      thumbnail: Image;
+      resolution?: Resolution;
+    }) => {
+      validateResolution(thumbnail, resolution);
+      return (
+        <a
+          href={url}
+          className="group relative mt-8 block w-full transition-transform duration-250 not-last:mb-8 hover:-translate-y-2"
+        >
+          <img
+            className="aspect-video rounded-3xl bg-white object-cover shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+            src={thumbnail.src}
+            loading="lazy"
+            style={
+              {
+                aspectRatio: `${thumbnail.width}/${thumbnail.height}`,
+                "--tw-shadow-color": `color-mix(in oklab, ${color} var(--tw-shadow-alpha), transparent)`,
+              } as CSSProperties
+            }
+          />
+          <div className="absolute bottom-0 left-0 p-5">
+            <div className="relative flex overflow-clip rounded-2xl bg-white/85 backdrop-blur-sm">
+              <div className="absolute top-0 right-0 p-5">
+                <ArrowRightSVG className="-mt-1 w-8 transition-transform duration-250 group-hover:translate-x-1" />
+              </div>
+              <div className="w-1" style={{ backgroundColor: color }} />
+              <div className="p-5">
+                <span className="mb-0.5 block text-sm" style={{ color }}>
+                  {new URL(url).hostname}
+                </span>
+                <span className="font-title -mt-1.5 mb-1 block max-w-75 overflow-hidden text-3xl tracking-tighter text-ellipsis whitespace-nowrap">
+                  {title}
+                </span>
+                <p className="max-w-100 overflow-hidden text-base leading-5 text-ellipsis whitespace-nowrap">
+                  {description}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    ),
+        </a>
+      );
+    },
     GitHub: ({
       owner,
       repo,
@@ -310,7 +317,7 @@ export function useMDXComponents() {
       repo: string;
       name: string;
       description: string;
-      startColor?: string | null | undefined;
+      startColor?: string;
       endColor: string;
     }) => (
       <a
@@ -354,34 +361,38 @@ export function useMDXComponents() {
       );
     },
     Image: ({
-      className,
-      src,
+      src: image,
+      resolution = "1920x1080",
+      lightShadow,
       children,
     }: {
-      className?: string;
-      src: string;
+      src: Image;
+      resolution?: Resolution;
+      lightShadow?: boolean;
       children?: ReactNode | null | undefined;
-    }) => (
-      <>
-        <img
-          className={twMerge(
-            "media-style aspect-video object-cover",
-            children ? "mb-3" : "not-last:mb-8",
-            className,
-          )}
-          src={src}
-          loading="lazy"
-        />
-        <MediaDescription>{children}</MediaDescription>
-      </>
-    ),
+    }) => {
+      validateResolution(image, resolution);
+      return (
+        <>
+          <img
+            className={twMerge(
+              "media-style object-cover",
+              lightShadow && "shadow-2xl/10!",
+              children ? "mb-3" : "not-last:mb-8",
+            )}
+            style={{ aspectRatio: `${image.width}/${image.height}` }}
+            src={image.src}
+            loading="lazy"
+          />
+          <MediaDescription>{children}</MediaDescription>
+        </>
+      );
+    },
     PaddedImage: ({
-      className,
-      src,
+      src: image,
       children,
     }: {
-      className?: string;
-      src: string;
+      src: Image;
       children?: ReactNode | null | undefined;
     }) => (
       <>
@@ -392,8 +403,9 @@ export function useMDXComponents() {
           )}
         >
           <img
-            className={twMerge("aspect-video object-cover", className)}
-            src={src}
+            className="object-cover"
+            style={{ aspectRatio: `${image.width}/${image.height}` }}
+            src={image.src}
             loading="lazy"
           />
         </div>

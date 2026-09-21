@@ -1,12 +1,24 @@
 import z from "zod";
 
+export type Resolution = "1920x1080" | "1920x800" | readonly [number, number];
+
 export type Color = readonly [number, number, number];
 export type Subscription<T extends unknown[] = []> = (...args: T) => void;
 export type Unsubscribe = () => void;
 
+export const Image = z
+  .strictObject({
+    src: z.string().nonempty(),
+    width: z.int().positive(),
+    height: z.int().positive(),
+  })
+  .readonly();
+
 export const DateMonth = z
   .strictObject({ year: z.int().positive(), month: z.int().min(1).max(12) })
   .readonly();
+
+export type Image = z.infer<typeof Image>;
 
 export type DateMonth = z.infer<typeof DateMonth>;
 
@@ -74,4 +86,28 @@ export function assert(x: boolean, message?: string): asserts x {
 export function nonNull<T>(x: T): NonNullable<T> {
   assert(x !== undefined && x !== null, "Value is null or undefined.");
   return x;
+}
+
+export function validateResolution(image: Image, resolution: Resolution) {
+  if (resolution === "1920x1080") {
+    assert(
+      image.width === 1920 && image.height === 1080,
+      `Image, ${image.src}, is not 1920x1080!`,
+    );
+    return;
+  }
+
+  if (resolution === "1920x800") {
+    assert(
+      image.width === 1920 && image.height === 800,
+      `Image, ${image.src}, is not 1920x800!`,
+    );
+    return;
+  }
+
+  const [width, height] = resolution;
+  assert(
+    image.width === width && image.height === height,
+    `Image, ${image.src}, is not ${width}x${height}!`,
+  );
 }

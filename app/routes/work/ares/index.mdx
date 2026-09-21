@@ -1,11 +1,11 @@
-import HeroImg from "./hero.png";
-import AmbiguousImg from './ambiguous.png';
-import ContradictionImg from './contradiction.png';
-import ExpressionIfImg from './expression-if.png';
-import DeadCodeImg from './dead-code.png';
-import InfiniteImg from './infinite.png';
-import UnterminatedImg from './unterminated.png';
-import ParseErrorImg from './parse-error.png';
+import HeroImg from "./hero.png?img";
+import AmbiguousImg from './ambiguous.png?img';
+import ContradictionImg from './contradiction.png?img';
+import ExpressionIfImg from './expression-if.png?img';
+import DeadCodeImg from './dead-code.png?img';
+import InfiniteImg from './infinite.png?img';
+import UnterminatedImg from './unterminated.png?img';
+import ParseErrorImg from './parse-error.png?img';
 import CompilerSVG from "../../../svgs/compiler";
 import InferenceSVG from "../../../svgs/inference";
 
@@ -207,7 +207,7 @@ fn main() {
 ```
 </Code>
 
-<PaddedImage className="aspect-1883/332" src={AmbiguousImg} />
+<PaddedImage src={AmbiguousImg} />
 
 The compiler is having trouble inferring the type of `arr` because its element type is ambiguous (indicated with `?`). Regardless of the fact that `arr`'s elements are never accessed, all ambiguous types need to be resolved.
 
@@ -225,7 +225,7 @@ fn main() {
 ```
 </Code>
 
-<PaddedImage className="aspect-1772/363" src={ContradictionImg} />
+<PaddedImage src={ContradictionImg} />
 
 Here `x` and `y` were inferred to be a `String` and `Boolean`, respectively. `Boolean`s cannot be assigned to `String`s so the compiler emits an error.
 
@@ -273,7 +273,7 @@ fn main() {
 ```
 </Code>
 
-<PaddedImage className="aspect-1772/405" src={ExpressionIfImg} />
+<PaddedImage src={ExpressionIfImg} />
 
 For statements where there are multiple points of resolution it needs to be ensured that they all have matching data types.
 
@@ -309,7 +309,7 @@ fn main() {
 ```
 </Code>
 
-<PaddedImage className="aspect-1839/385" src={DeadCodeImg} />
+<PaddedImage src={DeadCodeImg} />
 
 In this example, the compiler is able to deduce that line `3-4` are unreachable due to the `return` on line `2`.
 
@@ -351,7 +351,7 @@ fn main() {}
 ```
 </Code>
 
-<PaddedImage className="aspect-1910/585" src={InfiniteImg} />
+<PaddedImage src={InfiniteImg} />
 
 Since `infinite` has `Int` as its return type the compiler expects that the function body always returns an `Int` in a finite amount of time.
 
@@ -420,7 +420,7 @@ Each transformed token stores its location in the source code. This metadata is 
 
 At this stage basic syntax errors are caught by the lexer. For example `String` literals with missing end quotes, `"Hello World!`. However `a = 12 + = 23` will not be flagged by the lexer as all the individual tokens are valid.
 
-<PaddedImage className="aspect-1883/651" src={UnterminatedImg} />
+<PaddedImage src={UnterminatedImg} />
 
 ### Parser
 
@@ -474,7 +474,7 @@ Akin to the lexer, the parser calculates and stores the source code locations fo
 
 The parser understands the entirety of the Ares syntax and is therefore able to catch all the syntax errors the lexer may have missed. For example the syntax error in `a = 12 + = 23`, which the lexer misses, is instead caught by the parser.
 
-<PaddedImage className="aspect-1818/504" src={ParseErrorImg} />
+<PaddedImage src={ParseErrorImg} />
 
 Both the lexer, and in extension the parser, ignore whitespaces and comments in the source code entirely. For the current scope of Ares this is acceptable, however this decision means the AST is unable to power a hypothetical automatic code formatter (or at least do it well).
 

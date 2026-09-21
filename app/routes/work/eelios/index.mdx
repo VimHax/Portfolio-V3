@@ -1,9 +1,9 @@
-import HeroImg from "./hero.png";
-import CompetitionImg from "./competition.png";
-import LexerImg from './lexer.png';
-import ParserImg from './parser.png';
-import Evaluator1Img from './evaluator-1.png';
-import Evaluator2Img from './evaluator-2.png';
+import HeroImg from "./hero.png?img";
+import CompetitionImg from "./competition.png?img";
+import LexerImg from './lexer.png?img';
+import ParserImg from './parser.png?img';
+import Evaluator1Img from './evaluator-1.png?img';
+import Evaluator2Img from './evaluator-2.png?img';
 
 export const date = { year: 2020, month: 8 };
 export const title = "Eelios";
@@ -127,7 +127,7 @@ Eelios is fully open source. The source is available on GitHub. The `README.md` 
 
 I came across a [programming language jam by Replit](https://web.archive.org/web/20200817153909/https://repl.it/jam). The spirit of the jam was to "bring fresh and wild ideas to programming languages". This was the opportunity I capitalized on to create this language.
 
-<Image src={CompetitionImg} />
+<Image src={CompetitionImg} resolution={[960, 540]} />
 
 ## The gimmick
 
@@ -415,7 +415,7 @@ Each transformed token stores its location in the source code. This metadata is 
 
 At this stage basic syntax errors are caught by the lexer. For example `String` literals with missing end quotes, `"Hello World!`. However `a <- 12 + <- 23` will not be flagged by the lexer as all the individual tokens are valid.
 
-<PaddedImage className="aspect-1753/398" src={LexerImg} />
+<PaddedImage src={LexerImg} />
 
 ### Parser
 
@@ -469,7 +469,7 @@ Akin to the lexer, the parser calculates and stores the source code locations fo
 
 The parser understands the entirety of the Eelios syntax and is therefore able to catch all the syntax errors the lexer may have missed. For example the syntax error in `a <- 12 + <- 23`, which the lexer misses, is instead caught by the parser.
 
-<PaddedImage className="aspect-1728/528" src={ParserImg} />
+<PaddedImage src={ParserImg} />
 
 Both the lexer, and in extension the parser, ignore whitespaces and comments in the source code entirely. For the scope of Eelios this is acceptable, however this decision means the current AST is unable to power a hypothetical automatic code formatter (or at least do it well).
 
@@ -496,13 +496,13 @@ The evaluator operates in 2 modes, an `Instruction` evaluation mode (which is th
 
 In this mode, when the evaluator is traversing the AST it's expecting to come across `InstructionNode`s directly, which can be immediately resolved to an `Instruction`, or come across expression nodes which, after undergoing execution, result in an `Instruction`. If this expectation is met the evaluator proceeds to execute the resolved `Instruction` immediately. If unmet the evaluator exits with an error.
 
-<PaddedImage className="aspect-1830/493" src={Evaluator1Img}>The error thrown when the expectation is unmet.</PaddedImage>
+<PaddedImage src={Evaluator1Img}>The error thrown when the expectation is unmet.</PaddedImage>
 
 #### Expression evaluation mode
 
 In this mode the evaluator executes expression nodes it comes across when traversing. If the evaluator is met with an `InstructionNode`, instead of immediately executing it (like in the `Instruction` evaluation mode) the `Instruction` is instead treated as data which it then bubbles back up. When `Instruction`s are being "treated as data" the evaluator stores a reference to the AST node which represents the `Instruction`.
 
-<PaddedImage className="aspect-1598/402" src={Evaluator2Img}>The code which stores an `Instruction`.</PaddedImage>
+<PaddedImage src={Evaluator2Img}>The code which stores an `Instruction`.</PaddedImage>
 
 #### Switching modes
 

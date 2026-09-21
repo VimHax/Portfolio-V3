@@ -1,11 +1,11 @@
-import HatchingImg from "./hatching.png";
-import MCHatchingImg from "./mc-hatching.png";
-import HalftonesImg from "./halftones.png";
-import MCHalftonesImg from "./mc-halftones.png";
-import ChromaticAberrationImg from "./chromatic-aberration.png";
-import MCChromaticAberrationImg from "./mc-chromatic-aberration.png";
-import PostEffectImg from "./post-effect.png";
-import MiscellaneousImg from "./miscellaneous.png";
+import HatchingImg from "./hatching.png?img";
+import MCHatchingImg from "./mc-hatching.png?img";
+import HalftonesImg from "./halftones.png?img";
+import MCHalftonesImg from "./mc-halftones.png?img";
+import ChromaticAberrationImg from "./chromatic-aberration.png?img";
+import MCChromaticAberrationImg from "./mc-chromatic-aberration.png?img";
+import PostEffectImg from "./post-effect.png?img";
+import MiscellaneousImg from "./miscellaneous.png?img";
 import getTweet from "../get-tweet.server";
 
 export const date = { year: 2023, month: 6 };
@@ -38,7 +38,7 @@ Additionally since this project wasn't meant to be playable by others we had the
 
 ### Hatching
 
-<Image className="aspect-1920/800" src={HatchingImg} />
+<Image src={HatchingImg} resolution="1920x800"/>
 
 We noticed the movie uses [hatching](https://wikipedia.org/wiki/Hatching) to shade dark areas. To recreate this effect we introduced a cross hatching pattern to blocks below a configurable light level.
 
@@ -50,7 +50,7 @@ We ensured the hatching pattern fades in smoothly as the light level falls below
 
 ### Halftones
 
-<Image className="aspect-1920/800" src={HalftonesImg} />
+<Image src={HalftonesImg} resolution="1920x800" />
 
 For bright areas the movie instead uses [halftones](https://wikipedia.org/wiki/Halftone) for shading. When it comes to the implementation this effect is the same as the hatching effect but with a different pattern and threshold.
 
@@ -62,7 +62,7 @@ The halftone pattern, just like the hatching pattern, fades in smoothly as the l
 
 ### Chromatic aberration
 
-<Image className="aspect-1920/800" src={ChromaticAberrationImg}>
+<Image src={ChromaticAberrationImg} resolution="1920x800">
   Note how the out of focus background is stylized.
 </Image>
 
@@ -88,7 +88,7 @@ There are 4 hexagons and 3 thin rings between each, all rotating at increasing s
 
 In the spirit of keeping things vanilla we decided to implement visual effects, that usually would be applied during the editing stage, in the game itself with [post processing shaders](https://minecraft.wiki/w/Shader#Post-processing_effects).
 
-<Image className="shadow-2xl/10!" src={PostEffectImg}>
+<Image src={PostEffectImg} lightShadow>
   Another post effect that was implemented in-game.
 </Image>
 

@@ -14,6 +14,7 @@ import llvm from "highlight.js/lib/languages/llvm";
 import c from "highlight.js/lib/languages/c";
 import dart from "highlight.js/lib/languages/dart";
 import css from "highlight.js/lib/languages/css";
+import vitePluginImageSize from "./image-size-plugin";
 
 function ares(hljs: HLJSApi) {
   return {
@@ -140,6 +141,7 @@ function shell(hljs: HLJSApi) {
 
 export default defineConfig({
   plugins: [
+    vitePluginImageSize(),
     {
       enforce: "pre",
       ...mdx({
