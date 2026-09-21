@@ -10,6 +10,7 @@ const mux = new Mux({
 interface Video {
   readonly id: string;
   readonly audio: boolean;
+  readonly plus: boolean;
   readonly width: number;
   readonly height: number;
 }
@@ -42,6 +43,9 @@ for await (const video of mux.video.assets.list()) {
     video.playback_ids[0].policy !== "public"
   )
     throw new Error("No ID!");
+
+  if (video.video_quality !== "basic" && video.video_quality !== "plus")
+    throw new Error("Invalid quality!");
 
   // validate title
   if (video.meta === undefined) throw new Error("No meta!");
@@ -80,6 +84,7 @@ for await (const video of mux.video.assets.list()) {
   videos[title] = {
     id: video.playback_ids[0].id,
     audio: hasAudio,
+    plus: video.video_quality === "plus",
     width: videoTrack.max_width,
     height: videoTrack.max_height,
   };

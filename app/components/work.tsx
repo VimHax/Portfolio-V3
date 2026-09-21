@@ -4,6 +4,7 @@ import type { WorkMetadata } from "~/routes/work/get-work.server";
 import dateToString, { HeroType, stringToColor } from "~/util";
 import Effect from "./effect";
 import { twJoin } from "tailwind-merge";
+import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
 
 function Tag({ children }: { children: ReactNode }) {
   return (
@@ -42,8 +43,10 @@ export default function Work({
           style={{ objectPosition: metadata.hero.position }}
         />
       ) : (
-        <video
+        <MuxBackgroundVideo
           className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+          src={`https://stream.mux.com/${metadata.hero.src}.m3u8`}
+          crossOrigin="anonymous"
           autoPlay
           loop
           muted
@@ -51,11 +54,8 @@ export default function Work({
           disablePictureInPicture
           disableRemotePlayback
           x-webkit-airplay="deny"
-          preload="auto"
           style={{ objectPosition: metadata.hero.position }}
-        >
-          <source src={metadata.hero.src} type="video/mp4" />
-        </video>
+        />
       )}
 
       <Effect

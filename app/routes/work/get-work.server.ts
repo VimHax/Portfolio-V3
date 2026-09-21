@@ -1,5 +1,12 @@
 import z from "zod";
-import { DateMonth, HeroType, Image, validateResolution } from "~/util";
+import {
+  assert,
+  DateMonth,
+  HeroType,
+  Image,
+  resolveVideoData,
+  validateResolution,
+} from "~/util";
 
 const Hero = z.discriminatedUnion("type", [
   z
@@ -24,7 +31,25 @@ const Hero = z.discriminatedUnion("type", [
   z
     .strictObject({
       type: z.literal(HeroType.Video),
-      src: z.string().nonempty(),
+      src: z
+        .string()
+        .nonempty()
+        .transform((video, ctx) => {
+          try {
+            const data = resolveVideoData(video);
+            validateResolution(data, "1920x1080");
+            assert(!data.audio, "Cannot have audio!");
+            assert(!data.plus, "Cannot be plus quality!");
+            return data.id;
+          } catch (err) {
+            ctx.issues.push({
+              code: "custom",
+              message: "Invalid hero video",
+              input: video,
+            });
+            return z.NEVER;
+          }
+        }),
       position: z.string().nonempty(),
     })
     .readonly(),

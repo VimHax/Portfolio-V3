@@ -181,6 +181,9 @@ importers:
       '@videojs/react':
         specifier: 10.0.0-rc.2
         version: 10.0.0-rc.2(@videojs/hlsjs-video@10.0.0-rc.2)(@videojs/mux-video@10.0.0-rc.2)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@videojs/spf':
+        specifier: 10.0.0-rc.2
+        version: 10.0.0-rc.2
       clsx:
         specifier: ^2.0.0
         version: 2.1.1

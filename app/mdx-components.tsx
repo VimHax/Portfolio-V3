@@ -16,15 +16,14 @@ import CopySVG from "./svgs/copy";
 import CheckSVG from "./svgs/check";
 import {
   assert,
+  resolveVideoData,
   validateResolution,
   type Image,
   type Resolution,
 } from "./util";
 import { MuxVideo } from "@videojs/react/media/mux-video";
-import { VideoPlayer, Video } from "@videojs/react/video";
+import { VideoPlayer } from "@videojs/react/video";
 import { VideoSkin } from "./components/videojs/video/skin";
-
-import VideoData from "./videos.json";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -433,11 +432,9 @@ export function useMDXComponents() {
       lightShadow?: boolean;
       children?: ReactNode | null | undefined;
     }) => {
-      const segments = src.split("/");
-      const title = segments[segments.length - 1].split(".")[0];
-      assert(title in VideoData, `${title} not in video data!`);
-      const data = VideoData[title as keyof typeof VideoData];
+      const data = resolveVideoData(src);
       validateResolution(data, resolution);
+      assert(data.plus, `${src}, Needs to be plus quality!`);
       return (
         <>
           <VideoPlayer>
@@ -451,9 +448,8 @@ export function useMDXComponents() {
               hasAudio={data.audio}
             >
               <MuxVideo
-                source={{
-                  playbackId: data.id,
-                }}
+                className="object-cover"
+                source={{ playbackId: data.id }}
                 crossOrigin="anonymous"
                 autoPlay
                 loop

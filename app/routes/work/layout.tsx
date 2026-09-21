@@ -4,6 +4,7 @@ import { getWork } from "./get-work.server";
 import dateToString, { HeroType, stringToColor } from "~/util";
 import Background from "~/components/background";
 import type { CSSProperties } from "react";
+import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const work = getWork(url.pathname.slice("/work/".length));
@@ -58,8 +59,10 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           }
         />
       ) : (
-        <video
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl/25 sm:rounded-4xl"
+        <MuxBackgroundVideo
+          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl bg-black object-cover shadow-2xl/25 sm:rounded-4xl"
+          src={`https://stream.mux.com/${loaderData.hero.src}.m3u8`}
+          crossOrigin="anonymous"
           autoPlay
           loop
           muted
@@ -67,16 +70,13 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           disablePictureInPicture
           disableRemotePlayback
           x-webkit-airplay="deny"
-          preload="auto"
           style={
             {
               objectPosition: loaderData.hero.position,
               "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
             } as CSSProperties
           }
-        >
-          <source src={loaderData.hero.src} type="video/mp4" />
-        </video>
+        />
       )}
 
       <Outlet />

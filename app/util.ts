@@ -1,4 +1,13 @@
 import z from "zod";
+import VideoData from "./videos.json";
+
+interface Video {
+  readonly id: string;
+  readonly audio: boolean;
+  readonly plus: boolean;
+  readonly width: number;
+  readonly height: number;
+}
 
 export type Resolution = "1920x1080" | "1920x800" | readonly [number, number];
 
@@ -113,4 +122,11 @@ export function validateResolution(
     source.width === width && source.height === height,
     `${source}, is not ${width}x${height}!`,
   );
+}
+
+export function resolveVideoData(video: string): Video {
+  const segments = video.split("/");
+  const title = segments[segments.length - 1].split(".")[0];
+  assert(title in VideoData, `${title} not in video data!`);
+  return VideoData[title as keyof typeof VideoData];
 }
