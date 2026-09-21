@@ -328,7 +328,7 @@
       .media-playback-status-indicator {
         background-color: color-mix(
           in oklab,
-          var(--media-backdrop) 35%,
+          var(--media-backdrop) 85%,
           transparent
         );
       }

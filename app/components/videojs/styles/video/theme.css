@@ -8,9 +8,9 @@
     );
     --media-controls-gradient: linear-gradient(
       to top in oklab,
-      oklch(from var(--media-backdrop) l c h / 0.4),
-      oklch(from var(--media-backdrop) l c h / 0.2),
-      oklch(from var(--media-backdrop) l c h / 0.5)
+      oklch(from var(--media-backdrop) l c h / 0),
+      oklch(from var(--media-backdrop) l c h / 0),
+      oklch(from var(--media-backdrop) l c h / 0)
     );
     --media-caption-controls-y: calc(var(--media-spacing) * -14);
     --media-slider-preview-offset: calc(var(--media-spacing) * 9);

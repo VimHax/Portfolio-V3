@@ -4,11 +4,11 @@
   /* Default theme tokens. Minimal selectors, preset adaptations, and preferences override these. */
   .media-skin {
     /* Colors. */
-    --media-background: oklch(0 0 0);
-    --media-foreground: oklch(1 0 0);
+    --media-background: var(--color-off-white);
+    --media-foreground: var(--color-black);
     --media-controls: oklch(0 0 0 / 0.35);
     --media-controls-foreground: var(--media-foreground);
-    --media-popover: oklch(1 0 0 / 0.1);
+    --media-popover: color-mix(in oklab, var(--color-white) 85%, transparent);
     --media-popover-foreground: var(--media-foreground);
     --media-primary: var(
       --media-accent-color,
@@ -34,10 +34,10 @@
       )
     );
     --media-muted: oklch(1 0 0 / 0.15);
-    --media-muted-foreground: oklch(1 0 0 / 0.65);
-    --media-border: oklch(0 0 0 / 0.1);
+    --media-muted-foreground: var(--color-black);
+    --media-border: transparent;
     --media-ring: oklch(1 0 0);
-    --media-backdrop: oklch(0 0 0);
+    --media-backdrop: var(--color-white);
     --media-live-color: oklch(0.65 0.22 27);
 
     /* Shadows and surfaces. Preferences switch the backdrop filters off and strengthen the inset highlight. */
@@ -51,7 +51,7 @@
       0 1px 2px -1px rgb(0 0 0 / 0.35);
     --media-shadow-tooltip:
       0 0 0 1px var(--media-border), var(--media-shadow-surface);
-    --media-shadow-separator: 0 1px 0 0 oklch(1 0 0 / 0.075);
+    --media-shadow-separator: 0 1px 0 0 oklch(0 0 0 / 0.075);
     --media-shadow-current-color: oklch(
       from currentColor 0 0 0 / clamp(0, calc((l - 0.5) * 0.5), 0.15)
     );

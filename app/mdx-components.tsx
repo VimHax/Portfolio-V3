@@ -443,8 +443,8 @@ export function useMDXComponents() {
           <VideoPlayer>
             <VideoSkin
               className={twJoin(
-                "media-style h-fit",
-                lightShadow && "shadow-2xl/10!",
+                "mt-8 h-fit w-full",
+                lightShadow ? "shadow-2xl/10" : "shadow-2xl",
                 children ? "mb-3" : "not-last:mb-8",
               )}
               style={{ aspectRatio: `${data.width}/${data.height}` }}

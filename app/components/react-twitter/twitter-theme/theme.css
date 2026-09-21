@@ -55,8 +55,7 @@
     sans-serif;
   --tweet-font-color: rgb(15, 20, 25);
   --tweet-font-color-secondary: rgb(83, 100, 113);
-  --tweet-bg-color: #fff;
-  --tweet-bg-color-hover: rgb(247, 249, 249);
+  --tweet-bg-color: var(--color-white);
   --tweet-quoted-bg-color-hover: rgba(0, 0, 0, 0.03);
   --tweet-color-blue-primary: rgb(29, 155, 240);
   --tweet-color-blue-primary-hover: rgb(26, 140, 216);

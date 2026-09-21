@@ -118,6 +118,14 @@
   --aspect-cinematic: 239/100;
 }
 
+:root {
+  --media-border-radius: 24px;
+  --media-font-family: var(--font-body);
+  --media-border-color: transparent;
+  --media-accent-color: var(--color-black);
+  --media-accent-text-color: var(--color-white);
+}
+
 html,
 body {
   @apply font-body selection:bg-blue bg-white text-black selection:text-white;
