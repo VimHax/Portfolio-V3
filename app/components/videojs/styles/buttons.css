@@ -49,9 +49,11 @@
       }
     }
 
-    .media-button:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-        :not([aria-disabled="true"])
-      ) {
+    .media-button:where(
+        :focus-visible,
+        [aria-expanded="true"],
+        [data-highlighted]
+      ):where(:not([aria-disabled="true"])) {
       background-color: var(--media-accent);
       color: var(--media-accent-foreground);
     }
@@ -137,7 +139,8 @@
     }
 
     @scope (.media-play-button) {
-      &[data-started]:not([data-paused]):not([data-ended]) .media-play-button-pause-icon {
+      &[data-started]:not([data-paused]):not([data-ended])
+        .media-play-button-pause-icon {
         opacity: 1;
         scale: 1;
       }
@@ -327,7 +330,8 @@
     }
 
     @scope (.media-mute-button) {
-      &:not([data-muted]):not([data-volume-level="low"]) .media-mute-button-high-icon {
+      &:not([data-muted]):not([data-volume-level="low"])
+        .media-mute-button-high-icon {
         opacity: 1;
         scale: 1;
       }

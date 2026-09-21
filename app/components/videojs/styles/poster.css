@@ -59,7 +59,8 @@
     inset: 0;
   }
 
-  :where(.media-skin[data-theme="default"]) .media-poster-image:not([src]):not([srcset]) {
+  :where(.media-skin[data-theme="default"])
+    .media-poster-image:not([src]):not([srcset]) {
     visibility: hidden;
   }
 }

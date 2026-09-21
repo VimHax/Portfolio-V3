@@ -13,12 +13,17 @@
     }
 
     .media-popup[data-starting-style] {
-      transform: translate(var(--media-popup-translate-x-distance, 0), var(--media-popup-translate-y-distance, 0));
+      transform: translate(
+        var(--media-popup-translate-x-distance, 0),
+        var(--media-popup-translate-y-distance, 0)
+      );
     }
 
     .media-popup[data-side="bottom"] {
       transform-origin: top;
-      --media-popup-translate-y-distance: calc(var(--media-popup-translate-distance) * -1);
+      --media-popup-translate-y-distance: calc(
+        var(--media-popup-translate-distance) * -1
+      );
     }
 
     .media-popup[data-side="left"] {
@@ -28,7 +33,9 @@
 
     .media-popup[data-side="right"] {
       transform-origin: 0;
-      --media-popup-translate-x-distance: calc(var(--media-popup-translate-distance) * -1);
+      --media-popup-translate-x-distance: calc(
+        var(--media-popup-translate-distance) * -1
+      );
     }
 
     .media-popup[data-side="top"] {

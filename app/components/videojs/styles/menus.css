@@ -1,8 +1,12 @@
 @layer components {
   @scope (.media-skin[data-theme="default"]) {
     .media-menu-back-chevron {
-      width: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9);
-      height: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9);
+      width: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9
+      );
+      height: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9
+      );
       color: var(--media-muted-foreground);
       filter: drop-shadow(0 1px 0 var(--media-shadow-current-color));
       flex-shrink: 0;
@@ -10,7 +14,9 @@
     }
 
     @scope (.media-menu-back-item) {
-      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(:not([aria-disabled="true"]))
+      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
+          :not([aria-disabled="true"])
+        )
         .media-menu-back-chevron {
         color: inherit;
       }
@@ -30,15 +36,21 @@
     }
 
     .media-menu-forward-chevron {
-      width: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9);
-      height: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9);
+      width: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9
+      );
+      height: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 7 / 9
+      );
       color: var(--media-muted-foreground);
       filter: drop-shadow(0 1px 0 var(--media-shadow-current-color));
       flex-shrink: 0;
     }
 
     @scope (.media-menu-trigger-item) {
-      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(:not([aria-disabled="true"]))
+      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
+          :not([aria-disabled="true"])
+        )
         .media-menu-forward-chevron {
         color: inherit;
       }
@@ -46,7 +58,8 @@
 
     @media (hover: hover) {
       @scope (.media-menu-trigger-item) {
-        &:hover:where(:not([aria-disabled="true"])) .media-menu-forward-chevron {
+        &:hover:where(:not([aria-disabled="true"]))
+          .media-menu-forward-chevron {
           color: inherit;
         }
       }
@@ -112,9 +125,11 @@
       display: none;
     }
 
-    .media-menu-radio-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-        :not([aria-disabled="true"])
-      ) {
+    .media-menu-radio-item:where(
+        :focus-visible,
+        [aria-expanded="true"],
+        [data-highlighted]
+      ):where(:not([aria-disabled="true"])) {
       background-color: var(--media-accent);
       color: var(--media-accent-foreground);
     }
@@ -135,9 +150,11 @@
         anchor-name: --media-menu-item-highlight-anchor;
       }
 
-      .media-menu-radio-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-          :not([aria-disabled="true"])
-        ) {
+      .media-menu-radio-item:where(
+          :focus-visible,
+          [aria-expanded="true"],
+          [data-highlighted]
+        ):where(:not([aria-disabled="true"])) {
         transition-duration: var(--media-duration-slow);
         background-color: #0000;
       }
@@ -159,7 +176,9 @@
     }
 
     @scope (.media-menu-radio-item) {
-      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(:not([aria-disabled="true"]))
+      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
+          :not([aria-disabled="true"])
+        )
         .media-menu-radio-item-icon {
         color: inherit;
       }
@@ -167,7 +186,8 @@
 
     @media (hover: hover) {
       @scope (.media-menu-radio-item) {
-        &:hover:where(:not([aria-disabled="true"])) .media-menu-radio-item-icon {
+        &:hover:where(:not([aria-disabled="true"]))
+          .media-menu-radio-item-icon {
           color: inherit;
         }
       }
@@ -204,9 +224,11 @@
       outline-color: var(--media-ring);
     }
 
-    .media-menu-back-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-        :not([aria-disabled="true"])
-      ) {
+    .media-menu-back-item:where(
+        :focus-visible,
+        [aria-expanded="true"],
+        [data-highlighted]
+      ):where(:not([aria-disabled="true"])) {
       background-color: var(--media-accent);
       color: var(--media-accent-foreground);
     }
@@ -223,9 +245,11 @@
         transition-duration: var(--media-duration-instant);
       }
 
-      .media-menu-back-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-          :not([aria-disabled="true"])
-        ) {
+      .media-menu-back-item:where(
+          :focus-visible,
+          [aria-expanded="true"],
+          [data-highlighted]
+        ):where(:not([aria-disabled="true"])) {
         transition-duration: var(--media-duration-slow);
       }
 
@@ -290,22 +314,28 @@
       top: 0;
     }
 
-    .media-menu-content:not([data-submenu])[data-child-open]:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
+    .media-menu-content:not([data-submenu])[data-child-open]:where(
+        :dir(rtl),
+        [dir="rtl"],
+        [dir="rtl"] *
+      ) {
       translate: 100%;
     }
 
-    .media-menu-content[data-submenu]:is([data-starting-style], [data-ending-style]) {
+    .media-menu-content[data-submenu]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
       pointer-events: none;
       filter: blur(var(--media-hidden-blur));
       overflow: hidden;
       translate: 100%;
     }
 
-    .media-menu-content[data-submenu]:is([data-starting-style], [data-ending-style]):where(
-        :dir(rtl),
-        [dir="rtl"],
-        [dir="rtl"] *
-      ) {
+    .media-menu-content[data-submenu]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ):where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
       translate: -100%;
     }
 
@@ -399,7 +429,11 @@
 
       @supports (color: color-mix(in lab, red, red)) {
         .media-menu-separator {
-          border-color: color-mix(in oklab, var(--media-foreground) 25%, transparent);
+          border-color: color-mix(
+            in oklab,
+            var(--media-foreground) 25%,
+            transparent
+          );
         }
       }
     }
@@ -460,9 +494,11 @@
       display: none;
     }
 
-    .media-menu-trigger-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-        :not([aria-disabled="true"])
-      ) {
+    .media-menu-trigger-item:where(
+        :focus-visible,
+        [aria-expanded="true"],
+        [data-highlighted]
+      ):where(:not([aria-disabled="true"])) {
       background-color: var(--media-accent);
       color: var(--media-accent-foreground);
     }
@@ -483,9 +519,11 @@
         anchor-name: --media-menu-item-highlight-anchor;
       }
 
-      .media-menu-trigger-item:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
-          :not([aria-disabled="true"])
-        ) {
+      .media-menu-trigger-item:where(
+          :focus-visible,
+          [aria-expanded="true"],
+          [data-highlighted]
+        ):where(:not([aria-disabled="true"])) {
         transition-duration: var(--media-duration-slow);
         background-color: #0000;
       }
@@ -507,7 +545,9 @@
     }
 
     @scope (.media-menu-trigger-item) {
-      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(:not([aria-disabled="true"]))
+      &:where(:focus-visible, [aria-expanded="true"], [data-highlighted]):where(
+          :not([aria-disabled="true"])
+        )
         .media-menu-trigger-item-icon {
         color: inherit;
       }
@@ -515,7 +555,8 @@
 
     @media (hover: hover) {
       @scope (.media-menu-trigger-item) {
-        &:hover:where(:not([aria-disabled="true"])) .media-menu-trigger-item-icon {
+        &:hover:where(:not([aria-disabled="true"]))
+          .media-menu-trigger-item-icon {
           color: inherit;
         }
       }
@@ -614,7 +655,8 @@
     .media-menu-resizable-popup {
       transition-property: opacity, filter, transform, scale, width, height;
       transition-duration:
-        var(--media-duration-fast), var(--media-duration-fast), var(--media-duration-fast), var(--media-duration-fast),
+        var(--media-duration-fast), var(--media-duration-fast),
+        var(--media-duration-fast), var(--media-duration-fast),
         var(--media-duration-menu), var(--media-duration-menu);
     }
 

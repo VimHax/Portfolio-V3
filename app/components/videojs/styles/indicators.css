@@ -27,8 +27,12 @@
     }
 
     .media-seek-indicator-icon {
-      width: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
-      height: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
+      width: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
+      height: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
       transition-property: translate, opacity;
       transition-duration: 0.15s;
       transition-duration: var(--media-duration-slow);
@@ -49,19 +53,22 @@
     }
 
     @scope (.media-seek-indicator) {
-      &[data-direction="backward"][data-starting-style] .media-seek-indicator-icon {
+      &[data-direction="backward"][data-starting-style]
+        .media-seek-indicator-icon {
         translate: var(--media-hidden-seek-offset) 0;
       }
     }
 
     @scope (.media-seek-indicator) {
-      &[data-direction="forward"][data-starting-style] .media-seek-indicator-icon {
+      &[data-direction="forward"][data-starting-style]
+        .media-seek-indicator-icon {
         translate: calc(var(--media-hidden-seek-offset) * -1) 0;
       }
     }
 
     @scope (.media-seek-indicator) {
-      &:is([data-starting-style], [data-ending-style]) .media-seek-indicator-icon {
+      &:is([data-starting-style], [data-ending-style])
+        .media-seek-indicator-icon {
         opacity: 0;
       }
     }
@@ -95,7 +102,11 @@
 
     @supports (color: color-mix(in lab, red, red)) {
       .media-buffering-indicator:before {
-        background-color: color-mix(in oklab, var(--media-backdrop) 35%, transparent);
+        background-color: color-mix(
+          in oklab,
+          var(--media-backdrop) 35%,
+          transparent
+        );
       }
     }
 
@@ -146,7 +157,11 @@
 
     @supports (color: color-mix(in lab, red, red)) {
       .media-indicator {
-        background-color: color-mix(in oklab, var(--media-backdrop) 25%, transparent);
+        background-color: color-mix(
+          in oklab,
+          var(--media-backdrop) 25%,
+          transparent
+        );
       }
     }
 
@@ -192,7 +207,8 @@
 
     @media (pointer: fine) {
       .media-indicator:is([data-starting-style], [data-ending-style]) {
-        scale: var(--media-hidden-indicator-scale) var(--media-hidden-indicator-scale);
+        scale: var(--media-hidden-indicator-scale)
+          var(--media-hidden-indicator-scale);
         filter: blur(var(--media-hidden-blur));
       }
     }
@@ -211,7 +227,10 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .media-volume-indicator:is([data-min], [data-max]):not([data-starting-style], [data-ending-style]) {
+      .media-volume-indicator:is([data-min], [data-max]):not(
+          [data-starting-style],
+          [data-ending-style]
+        ) {
         transition: transform 0.3s linear(0, -24 20%, 16 40%, -8 60%, 4 80%, 1);
         transform: translateX(0.25px);
       }
@@ -307,7 +326,11 @@
 
     @supports (color: color-mix(in lab, red, red)) {
       .media-playback-status-indicator {
-        background-color: color-mix(in oklab, var(--media-backdrop) 35%, transparent);
+        background-color: color-mix(
+          in oklab,
+          var(--media-backdrop) 35%,
+          transparent
+        );
       }
     }
 
@@ -316,14 +339,22 @@
       transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     }
 
-    .media-playback-status-indicator:is([data-starting-style], [data-ending-style]) {
-      scale: var(--media-hidden-playback-scale) var(--media-hidden-playback-scale);
+    .media-playback-status-indicator:is(
+      [data-starting-style],
+      [data-ending-style]
+    ) {
+      scale: var(--media-hidden-playback-scale)
+        var(--media-hidden-playback-scale);
       opacity: 0;
     }
 
     .media-playback-status-indicator-pause-icon {
-      width: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
-      height: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
+      width: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
+      height: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
       scale: var(--media-hidden-icon-scale) var(--media-hidden-icon-scale);
       opacity: 0;
       transition-property: opacity, scale;
@@ -342,8 +373,12 @@
     }
 
     .media-playback-status-indicator-play-icon {
-      width: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
-      height: calc(var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5);
+      width: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
+      height: calc(
+        var(--media-icon-size, calc(var(--media-spacing) * 4.5)) * 1.5
+      );
       scale: var(--media-hidden-icon-scale) var(--media-hidden-icon-scale);
       opacity: 0;
       transition-property: opacity, scale;
@@ -398,7 +433,8 @@
     }
 
     @scope (.media-status-indicator) {
-      &[data-status="fullscreen"] .media-status-indicator-fullscreen-enter-icon {
+      &[data-status="fullscreen"]
+        .media-status-indicator-fullscreen-enter-icon {
         display: block;
       }
     }
@@ -410,7 +446,8 @@
     }
 
     @scope (.media-status-indicator) {
-      &[data-status="exit-fullscreen"] .media-status-indicator-fullscreen-exit-icon {
+      &[data-status="exit-fullscreen"]
+        .media-status-indicator-fullscreen-exit-icon {
         display: block;
       }
     }

@@ -4,7 +4,9 @@
       pointer-events: none;
       isolation: isolate;
       z-index: 20;
-      min-height: calc(var(--media-control-size) + (calc(var(--media-spacing) * 2)));
+      min-height: calc(
+        var(--media-control-size) + (calc(var(--media-spacing) * 2))
+      );
       transform-origin: top;
       padding-inline: calc(var(--media-spacing) * 6);
       padding-top: calc(var(--media-spacing) * 2.5);

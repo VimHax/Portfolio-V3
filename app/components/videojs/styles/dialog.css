@@ -23,7 +23,11 @@
 
     @supports (color: color-mix(in lab, red, red)) {
       .media-dialog-backdrop {
-        background-color: color-mix(in oklab, var(--media-backdrop) 20%, transparent);
+        background-color: color-mix(
+          in oklab,
+          var(--media-backdrop) 20%,
+          transparent
+        );
       }
     }
 
