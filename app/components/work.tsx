@@ -95,7 +95,7 @@ export default function Work({
             {metadata.title}
           </span>
         </div>
-        <p className="text-right text-xl leading-6 text-balance text-white sm:max-w-xl">
+        <p className="-mb-1 text-right text-xl leading-6 text-balance text-white sm:max-w-xl">
           {metadata.description}
         </p>
       </div>

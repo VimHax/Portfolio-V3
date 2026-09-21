@@ -133,6 +133,29 @@ body {
   scrollbar-color: var(--color-off-white) var(--color-white);
 }
 
+.loading-animation {
+  background-size: 100% 200%;
+  background-repeat: repeat;
+  background-image: linear-gradient(
+    0deg,
+    var(--color-white) 25%,
+    var(--color-off-white) 47.5%,
+    var(--color-off-white) 52.5%,
+    var(--color-white) 75%
+  );
+  animation: vertical 2s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes vertical {
+  0% {
+    background-position: 50% 150%;
+  }
+  100% {
+    background-position: 50% -50%;
+  }
+}
+
 .page-grid {
   --content-width: 768px;
   --wide-width: 1536px;

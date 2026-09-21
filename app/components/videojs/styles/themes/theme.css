@@ -4,7 +4,7 @@
   /* Default theme tokens. Minimal selectors, preset adaptations, and preferences override these. */
   .media-skin {
     /* Colors. */
-    --media-background: var(--color-off-white);
+    --media-background: transparent;
     --media-foreground: var(--color-black);
     --media-controls: oklch(0 0 0 / 0.35);
     --media-controls-foreground: var(--media-foreground);

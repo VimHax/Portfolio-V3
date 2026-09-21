@@ -446,6 +446,9 @@ export function useMDXComponents() {
               )}
               style={{ aspectRatio: `${data.width}/${data.height}` }}
               hasAudio={data.audio}
+              renderPoster={() => (
+                <div className="loading-animation h-full w-full" />
+              )}
             >
               <MuxVideo
                 className="object-cover"
