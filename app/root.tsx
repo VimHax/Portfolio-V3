@@ -10,7 +10,6 @@ import {
 import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
-import "@videojs/react/video/skin.css";
 import "katex/dist/katex.css";
 import "./hljs.css";
 import "./mdx.css";

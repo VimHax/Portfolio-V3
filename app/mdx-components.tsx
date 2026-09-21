@@ -21,7 +21,8 @@ import {
   type Resolution,
 } from "./util";
 import { MuxVideo } from "@videojs/react/media/mux-video";
-import { VideoPlayer, Video, VideoSkin } from "@videojs/react/video";
+import { VideoPlayer, Video } from "@videojs/react/video";
+import { VideoSkin } from "./components/videojs/video/skin";
 
 import VideoData from "./videos.json";
 
