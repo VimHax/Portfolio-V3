@@ -14,7 +14,16 @@ import GitHubLogoSVG from "./svgs/github-logo";
 import ArrowRightSVG from "./svgs/arrow-right";
 import CopySVG from "./svgs/copy";
 import CheckSVG from "./svgs/check";
-import { validateResolution, type Image, type Resolution } from "./util";
+import {
+  assert,
+  validateResolution,
+  type Image,
+  type Resolution,
+} from "./util";
+import { MuxVideo } from "@videojs/react/media/mux-video";
+import { VideoPlayer, Video, VideoSkin } from "@videojs/react/video";
+
+import VideoData from "./videos.json";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -420,9 +429,13 @@ export function useMDXComponents() {
       className?: string;
       src: string;
       children?: ReactNode | null | undefined;
-    }) => (
-      <>
-        <video
+    }) => {
+      const segments = src.split("/");
+      const title = segments[segments.length - 1].split(".")[0];
+      assert(title in VideoData, `${title} not in video data!`);
+      return (
+        <>
+          {/* <video
           className={twMerge(
             "media-style aspect-video object-cover",
             children ? "mb-3" : "not-last:mb-8",
@@ -438,10 +451,33 @@ export function useMDXComponents() {
           preload="auto"
         >
           <source src={src} type="video/mp4" />
-        </video>
-        <MediaDescription>{children}</MediaDescription>
-      </>
-    ),
+        </video> */}
+
+          <VideoPlayer>
+            <VideoSkin
+              className={twMerge(
+                "media-style aspect-video h-fit object-cover",
+                children ? "mb-3" : "not-last:mb-8",
+                className,
+              )}
+            >
+              <MuxVideo
+                source={{
+                  playbackId: VideoData[title as keyof typeof VideoData].id,
+                }}
+                autoPlay
+                muted
+                playsInline
+                loop
+                crossOrigin="anonymous"
+              />
+            </VideoSkin>
+          </VideoPlayer>
+
+          <MediaDescription>{children}</MediaDescription>
+        </>
+      );
+    },
     YouTube: ({
       className,
       id,
