@@ -416,7 +416,7 @@ export function useMDXComponents() {
         >
           <OptimizedImage
             image={image}
-            sizes={[{ size: 768, unit: "px" }]}
+            sizes={[{ size: 768 - 32 * 2, unit: "px" }]}
             className="object-contain"
             style={{ aspectRatio: `${image.width}/${image.height}` }}
             loading="lazy"

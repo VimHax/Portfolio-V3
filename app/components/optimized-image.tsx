@@ -5,6 +5,8 @@ const imageSizes = [
   16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048,
   3840,
 ] as const;
+const baseQuality = 85 as const;
+const maxQuality = 100 as const;
 
 type Widths = (typeof imageSizes)[number];
 
@@ -28,7 +30,7 @@ function computeSizes(imageWidth: number, minWidth: number): Widths[] {
 
 function generateURL(
   image: Image,
-  quality: 75 | 100,
+  quality: typeof baseQuality | typeof maxQuality,
   width: (typeof imageSizes)[number],
 ) {
   return `/_vercel/image?url=${encodeURIComponent(image.src)}&q=${quality}&w=${width}`;
@@ -38,7 +40,7 @@ export function optimizeImageSrc(image: Image) {
   if (import.meta.env.DEV) return image.src;
   const finalSizes = computeSizes(image.width, 0);
   assert(finalSizes.length > 0);
-  return generateURL(image, 100, finalSizes[finalSizes.length - 1]);
+  return generateURL(image, maxQuality, finalSizes[finalSizes.length - 1]);
 }
 
 export default function OptimizedImage({ image, sizes, ...props }: ImageProps) {
@@ -52,7 +54,7 @@ export default function OptimizedImage({ image, sizes, ...props }: ImageProps) {
     ),
   );
   const finalSizes = computeSizes(image.width, minSize);
-  const getURL = (size: Widths) => generateURL(image, 75, size);
+  const getURL = (size: Widths) => generateURL(image, baseQuality, size);
 
   return (
     <img

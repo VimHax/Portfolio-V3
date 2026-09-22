@@ -7,6 +7,6 @@
     ],
     "domains": [],
     "minimumCacheTTL": 60,
-    "qualities": [75, 100]
+    "qualities": [85, 100]
   }
 }
