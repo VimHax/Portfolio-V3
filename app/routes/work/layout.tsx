@@ -61,6 +61,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
             src={loaderData.hero.src}
             alt="Hero image"
             style={{ objectPosition: loaderData.hero.position }}
+            fetchPriority="high"
           />
         ) : (
           <MuxBackgroundVideo

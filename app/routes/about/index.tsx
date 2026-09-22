@@ -19,6 +19,7 @@ export default function AboutPage() {
           src={MeImg}
           alt="Image of Vimukthi Weerabahu"
           className="absolute -top-25 left-1/2 h-[calc(100%+100px)] -translate-x-1/2"
+          fetchPriority="high"
         />
       </div>
 
