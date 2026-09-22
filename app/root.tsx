@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import { assert } from "./util";
 import "katex/dist/katex.css";
 import "./hljs.css";
 import "./mdx.css";
@@ -22,6 +23,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  assert(import.meta.env.VITE_DOMAIN !== undefined, "VITE_DOMAIN is missing!");
   return (
     <html lang="en">
       <head>

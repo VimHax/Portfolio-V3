@@ -285,7 +285,7 @@ export function useMDXComponents() {
           <OptimizedImage
             image={thumbnail}
             sizes={[{ size: 768, unit: "px" }]}
-            className="aspect-video rounded-3xl bg-white object-contain shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+            className="loading-animation aspect-video rounded-3xl object-contain shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
             loading="lazy"
             style={
               {
@@ -362,15 +362,12 @@ export function useMDXComponents() {
         </div>
       </a>
     ),
-    Tweet: ({ id }: { id: string }) => {
-      const data = useLoaderData();
-      return (
-        <EmbeddedTweet
-          className="mt-8 shadow-2xl/10 not-last:mb-8"
-          tweet={data[id]}
-        />
-      );
-    },
+    Tweet: ({ id }: { id: string }) => (
+      <EmbeddedTweet
+        className="mt-8 shadow-2xl/10 not-last:mb-8"
+        tweet={useLoaderData()[id]}
+      />
+    ),
     Image: ({
       src: image,
       resolution = "1920x1080",
@@ -389,8 +386,8 @@ export function useMDXComponents() {
             image={image}
             sizes={[{ size: 768, unit: "px" }]}
             className={twJoin(
-              "media-style object-contain",
-              lightShadow && "shadow-2xl/10!",
+              "loading-animation mt-8 w-full rounded-2xl object-contain sm:rounded-3xl",
+              lightShadow ? "shadow-2xl/10" : "shadow-2xl",
               children ? "mb-3" : "not-last:mb-8",
             )}
             style={{ aspectRatio: `${image.width}/${image.height}` }}
@@ -410,7 +407,7 @@ export function useMDXComponents() {
       <>
         <div
           className={twJoin(
-            "media-style bg-white! p-8 shadow-2xl/10!",
+            "mt-8 w-full rounded-2xl bg-white p-8 shadow-2xl/10 sm:rounded-3xl",
             children ? "mb-3" : "not-last:mb-8",
           )}
         >
@@ -483,7 +480,7 @@ export function useMDXComponents() {
       <>
         <iframe
           className={twJoin(
-            "media-style aspect-video",
+            "loading-animation mt-8 aspect-video w-full rounded-2xl shadow-2xl sm:rounded-3xl",
             children ? "mb-3" : "not-last:mb-8",
           )}
           src={`https://www.youtube-nocookie.com/embed/${id}`}
@@ -504,10 +501,10 @@ export function useMDXComponents() {
       <>
         <iframe
           className={twJoin(
-            "media-style aspect-video",
+            "loading-animation mt-8 aspect-video w-full rounded-2xl shadow-2xl sm:rounded-3xl",
             children ? "mb-3" : "not-last:mb-8",
           )}
-          src={`https://player.twitch.tv/?video=${id}&autoplay=false&parent=vimhax.com`}
+          src={`https://player.twitch.tv/?video=${id}&autoplay=false&parent=${import.meta.env.VITE_DOMAIN}`}
           allowFullScreen
         ></iframe>
         <MediaDescription>{children}</MediaDescription>

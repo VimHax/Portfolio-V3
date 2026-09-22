@@ -1,9 +1,5 @@
 @reference "./app.css";
 
-.mdx .media-style {
-  @apply bg-off-white mt-8 w-full rounded-2xl shadow-2xl sm:rounded-3xl;
-}
-
 .mdx pre.code,
 .mdx pre.code code {
   direction: ltr;
