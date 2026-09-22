@@ -5,6 +5,7 @@ import dateToString, { HeroType, stringToColor } from "~/util";
 import Background from "~/components/background";
 import type { CSSProperties } from "react";
 import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
+import OptimizedImage from "~/components/optimized-image";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const work = getWork(url.pathname.slice("/work/".length));
@@ -56,9 +57,10 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           }
         />
         {loaderData.hero.type === HeroType.Image ? (
-          <img
+          <OptimizedImage
+            image={loaderData.hero.src}
+            sizes={[{ size: 1536, unit: "px" }]}
             className="z-10 h-full w-full rounded-4xl object-cover"
-            src={loaderData.hero.src}
             alt="Hero image"
             style={{ objectPosition: loaderData.hero.position }}
             fetchPriority="high"

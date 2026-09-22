@@ -24,6 +24,7 @@ import {
 import { MuxVideo } from "@videojs/react/media/mux-video";
 import { VideoPlayer } from "@videojs/react/video";
 import { VideoSkin } from "./components/videojs/video/skin";
+import OptimizedImage from "./components/optimized-image";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -281,9 +282,10 @@ export function useMDXComponents() {
           href={url}
           className="group relative mt-8 block w-full transition-transform duration-250 not-last:mb-8 hover:-translate-y-2"
         >
-          <img
-            className="aspect-video rounded-3xl bg-white object-cover shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
-            src={thumbnail.src}
+          <OptimizedImage
+            image={thumbnail}
+            sizes={[{ size: 768, unit: "px" }]}
+            className="aspect-video rounded-3xl bg-white object-contain shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
             loading="lazy"
             style={
               {
@@ -383,14 +385,15 @@ export function useMDXComponents() {
       validateResolution(image, resolution);
       return (
         <>
-          <img
+          <OptimizedImage
+            image={image}
+            sizes={[{ size: 768, unit: "px" }]}
             className={twJoin(
-              "media-style object-cover",
+              "media-style object-contain",
               lightShadow && "shadow-2xl/10!",
               children ? "mb-3" : "not-last:mb-8",
             )}
             style={{ aspectRatio: `${image.width}/${image.height}` }}
-            src={image.src}
             loading="lazy"
           />
           <MediaDescription>{children}</MediaDescription>
@@ -411,10 +414,11 @@ export function useMDXComponents() {
             children ? "mb-3" : "not-last:mb-8",
           )}
         >
-          <img
-            className="object-cover"
+          <OptimizedImage
+            image={image}
+            sizes={[{ size: 768, unit: "px" }]}
+            className="object-contain"
             style={{ aspectRatio: `${image.width}/${image.height}` }}
-            src={image.src}
             loading="lazy"
           />
         </div>

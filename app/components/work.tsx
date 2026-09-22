@@ -5,6 +5,7 @@ import dateToString, { HeroType, stringToColor } from "~/util";
 import Effect from "./effect";
 import { twJoin } from "tailwind-merge";
 import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
+import OptimizedImage from "./optimized-image";
 
 function Tag({ children }: { children: ReactNode }) {
   return (
@@ -41,9 +42,10 @@ export default function Work({
 
       <div className="absolute top-0.5 left-0.5 h-[calc(100%-4px)] w-[calc(100%-4px)] overflow-clip rounded-4xl">
         {metadata.hero.type === HeroType.Image ? (
-          <img
+          <OptimizedImage
+            image={metadata.hero.src}
+            sizes={[{ size: 1536, unit: "px" }]}
             className="h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
-            src={metadata.hero.src}
             alt="Hero image"
             style={{ objectPosition: metadata.hero.position }}
           />

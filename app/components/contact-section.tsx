@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import GitHubLogoSVG from "~/svgs/github-logo";
 import MailSVG from "~/svgs/mail";
-import LinkedInImg from "./linkedin.png";
 import XLogoSVG from "~/svgs/x-logo";
+import OptimizedImage from "./optimized-image";
+
+import LinkedInImg from "./linkedin.png?img";
 
 function Contact({
   icon,
@@ -54,7 +56,13 @@ export default function ContactSection() {
         />
         <hr className="border-dark-blue/5" />
         <Contact
-          icon={<img className="size-12 object-contain" src={LinkedInImg} />}
+          icon={
+            <OptimizedImage
+              className="size-12 object-contain"
+              image={LinkedInImg}
+              sizes={[{ size: 48, unit: "px" }]}
+            />
+          }
           name="LinkedIn"
           value="Vimukthi Weerabahu"
           url="https://www.linkedin.com/in/vimukthi-weerabahu"

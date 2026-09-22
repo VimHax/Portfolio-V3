@@ -1,8 +1,9 @@
 import TechnologiesSection from "~/components/technologies-section";
 import Content from "./content.mdx";
 import ContactSection from "~/components/contact-section";
+import OptimizedImage from "~/components/optimized-image";
 
-import MeImg from "./me.png";
+import MeImg from "./me.png?img";
 
 export default function AboutPage() {
   return (
@@ -15,10 +16,11 @@ export default function AboutPage() {
       </div>
 
       <div className="wide-content mb-sub-section aspect-cinematic relative rounded-4xl bg-linear-to-r from-[#ebb5ab] to-[#ffc7a4]">
-        <img
-          src={MeImg}
+        <OptimizedImage
+          image={MeImg}
+          sizes={[{ size: 1536, unit: "px" }]}
           alt="Image of Vimukthi Weerabahu"
-          className="absolute -top-25 left-1/2 h-[calc(100%+100px)] -translate-x-1/2"
+          className="absolute -top-25 left-1/2 h-[calc(100%+100px)] -translate-x-1/2 object-cover"
           fetchPriority="high"
         />
       </div>

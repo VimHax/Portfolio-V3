@@ -12,19 +12,17 @@ const Hero = z.discriminatedUnion("type", [
   z
     .strictObject({
       type: z.literal(HeroType.Image),
-      src: Image.transform((image, ctx) => {
-        try {
-          validateResolution(image, "1920x1080");
-          return image.src;
-        } catch (err) {
-          ctx.issues.push({
-            code: "custom",
-            message: "Not 1920x1080",
-            input: image,
-          });
-          return z.NEVER;
-        }
-      }),
+      src: Image.refine(
+        (image) => {
+          try {
+            validateResolution(image, "1920x1080");
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        { error: "Not 1920x1080" },
+      ),
       position: z.string().nonempty(),
     })
     .readonly(),

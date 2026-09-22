@@ -7,8 +7,9 @@ import ReactRouterLogo from "~/svgs/react-router-logo";
 import JavaLogo from "~/svgs/java-logo";
 import NextJSLogo from "~/svgs/nextjs-logo";
 import SupabaseLogo from "~/svgs/supabase-logo";
+import OptimizedImage from "./optimized-image";
 
-import SpigotImg from "./spigot.png";
+import SpigotImg from "./spigot.png?img";
 
 function Technology({
   url,
@@ -59,7 +60,13 @@ export default function TechnologiesSection() {
         </Technology>
         <Technology
           url="https://spigotmc.org"
-          icon={<img className="h-16" src={SpigotImg} />}
+          icon={
+            <OptimizedImage
+              image={SpigotImg}
+              sizes={[{ size: 88, unit: "px" }]}
+              className="w-22 object-contain"
+            />
+          }
         >
           Spigot
         </Technology>
