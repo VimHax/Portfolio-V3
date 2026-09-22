@@ -25,41 +25,47 @@ export default function Work({
 
   return (
     <Link
-      className="group aspect-cinematic relative flex w-full flex-col justify-between overflow-clip rounded-4xl bg-black p-16 shadow-2xl/25 transition duration-250 hover:-translate-y-2 hover:shadow-2xl/50"
+      className="group aspect-cinematic relative flex w-full flex-col justify-between rounded-4xl p-16 transition-transform duration-250 hover:-translate-y-2"
       to={url}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
-      style={
-        {
-          "--tw-shadow-color": `color-mix(in oklab, ${metadata.color[0]} var(--tw-shadow-alpha), transparent)`,
-        } as CSSProperties
-      }
     >
-      {metadata.hero.type === HeroType.Image ? (
-        <img
-          className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
-          src={metadata.hero.src}
-          alt="Hero image"
-          style={{ objectPosition: metadata.hero.position }}
-        />
-      ) : (
-        <MuxBackgroundVideo
-          className="absolute top-0 left-0 h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
-          src={`https://stream.mux.com/${metadata.hero.src}.m3u8`}
-          crossOrigin="anonymous"
-          autoPlay
-          loop
-          muted
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          x-webkit-airplay="deny"
-          style={{ objectPosition: metadata.hero.position }}
-        />
-      )}
+      <div
+        className="dark-loading-animation absolute top-0.75 left-0.75 h-[calc(100%-6px)] w-[calc(100%-6px)] rounded-4xl shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+        style={
+          {
+            "--tw-shadow-color": `color-mix(in oklab, ${metadata.color[0]} var(--tw-shadow-alpha), transparent)`,
+          } as CSSProperties
+        }
+      />
+
+      <div className="absolute top-0.5 left-0.5 h-[calc(100%-4px)] w-[calc(100%-4px)] overflow-clip rounded-4xl">
+        {metadata.hero.type === HeroType.Image ? (
+          <img
+            className="h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+            src={metadata.hero.src}
+            alt="Hero image"
+            style={{ objectPosition: metadata.hero.position }}
+          />
+        ) : (
+          <MuxBackgroundVideo
+            className="h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
+            src={`https://stream.mux.com/${metadata.hero.src}.m3u8`}
+            crossOrigin="anonymous"
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            disableRemotePlayback
+            x-webkit-airplay="deny"
+            style={{ objectPosition: metadata.hero.position }}
+          />
+        )}
+      </div>
 
       <Effect
-        className="absolute top-0 left-0 h-full w-full"
+        className="absolute top-px left-px h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-4xl"
         startColor={stringToColor(metadata.color[0])}
         endColor={stringToColor(metadata.color[1])}
         hovering={hovering}
@@ -70,14 +76,7 @@ export default function Work({
           "absolute top-0 left-0 h-full w-full rounded-4xl border-4 transition-opacity duration-250",
           !hovering && "opacity-0",
         )}
-        style={{ borderColor: `${metadata.color[1]}80` }}
-      />
-
-      <div
-        className={twJoin(
-          "absolute top-0 left-0 h-full w-full rounded-4xl border-4 border-white mix-blend-overlay transition-opacity duration-250",
-          !hovering && "opacity-0",
-        )}
+        style={{ borderColor: `hsl(from ${metadata.color[1]} h s 60)` }}
       />
 
       <div className="z-10 flex max-w-2/3 flex-wrap justify-end gap-3 self-end">

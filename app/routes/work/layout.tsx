@@ -46,38 +46,38 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
-      {loaderData.hero.type === HeroType.Image ? (
-        <img
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl object-cover shadow-2xl/25 sm:rounded-4xl"
-          src={loaderData.hero.src}
-          alt="Hero image"
+      <div className="wide-content sm:mb-sub-section lg:aspect-cinematic relative z-10 -mt-29 mb-8 flex aspect-video">
+        <div
+          className="dark-loading-animation absolute top-px left-px h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-4xl shadow-2xl/25"
           style={
             {
-              objectPosition: loaderData.hero.position,
               "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
             } as CSSProperties
           }
         />
-      ) : (
-        <MuxBackgroundVideo
-          className="wide-content sm:mb-sub-section lg:aspect-cinematic z-10 -mt-29 mb-8 aspect-video rounded-2xl bg-black object-cover shadow-2xl/25 sm:rounded-4xl"
-          src={`https://stream.mux.com/${loaderData.hero.src}.m3u8`}
-          crossOrigin="anonymous"
-          autoPlay
-          loop
-          muted
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          x-webkit-airplay="deny"
-          style={
-            {
-              objectPosition: loaderData.hero.position,
-              "--tw-shadow-color": `color-mix(in oklab, ${loaderData.color[0]} var(--tw-shadow-alpha), transparent)`,
-            } as CSSProperties
-          }
-        />
-      )}
+        {loaderData.hero.type === HeroType.Image ? (
+          <img
+            className="z-10 h-full w-full rounded-4xl object-cover"
+            src={loaderData.hero.src}
+            alt="Hero image"
+            style={{ objectPosition: loaderData.hero.position }}
+          />
+        ) : (
+          <MuxBackgroundVideo
+            className="z-10 h-full w-full rounded-4xl object-cover"
+            src={`https://stream.mux.com/${loaderData.hero.src}.m3u8`}
+            crossOrigin="anonymous"
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            disableRemotePlayback
+            x-webkit-airplay="deny"
+            style={{ objectPosition: loaderData.hero.position }}
+          />
+        )}
+      </div>
 
       <Outlet />
     </>

@@ -147,6 +147,21 @@ body {
   animation-timing-function: linear;
 }
 
+.dark-loading-animation {
+  --light: color-mix(in oklab, var(--color-black) 90%, var(--color-white));
+  background-size: 100% 200%;
+  background-repeat: repeat;
+  background-image: linear-gradient(
+    0deg,
+    var(--color-black) 25%,
+    var(--light) 47.5%,
+    var(--light) 52.5%,
+    var(--color-black) 75%
+  );
+  animation: vertical 2s infinite;
+  animation-timing-function: linear;
+}
+
 @keyframes vertical {
   0% {
     background-position: 50% 150%;
