@@ -7,7 +7,6 @@
     ],
     "domains": [],
     "minimumCacheTTL": 60,
-    "formats": ["image/avif", "image/webp", "image/png"],
     "qualities": [75, 100]
   }
 }
