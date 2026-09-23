@@ -292,7 +292,10 @@ export function useMDXComponents() {
         >
           <OptimizedImage
             image={thumbnail}
-            sizes={[{ size: 768, unit: "px" }]}
+            sizes={[
+              { maxWidth: 768, size: 100, unit: "vw" },
+              { size: 768, unit: "px" },
+            ]}
             className="loading-animation aspect-video rounded-t-2xl object-contain sm:rounded-t-3xl"
             loading="lazy"
           />
@@ -385,7 +388,10 @@ export function useMDXComponents() {
         <>
           <OptimizedImage
             image={image}
-            sizes={[{ size: 768, unit: "px" }]}
+            sizes={[
+              { maxWidth: 768, size: 100, unit: "vw" },
+              { size: 768, unit: "px" },
+            ]}
             className={twJoin(
               "loading-animation mt-8 w-full rounded-2xl object-contain sm:rounded-3xl",
               lightShadow ? "shadow-2xl/10" : "shadow-2xl",
@@ -414,7 +420,10 @@ export function useMDXComponents() {
         >
           <OptimizedImage
             image={image}
-            sizes={[{ size: 768 - 32 * 2, unit: "px" }]}
+            sizes={[
+              { maxWidth: 768, size: 100, unit: "vw" },
+              { size: 768 - 32 * 2, unit: "px" },
+            ]}
             className="object-contain"
             style={{ aspectRatio: `${image.width}/${image.height}` }}
             loading="lazy"

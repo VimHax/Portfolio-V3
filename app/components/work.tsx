@@ -46,7 +46,10 @@ export default function Work({
         {metadata.hero.type === HeroType.Image ? (
           <OptimizedImage
             image={metadata.hero.src}
-            sizes={[{ size: 1536, unit: "px" }]}
+            sizes={[
+              { maxWidth: 1536, size: 100, unit: "vw" },
+              { size: 1536, unit: "px" },
+            ]}
             className="h-full w-full scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100"
             alt="Hero image"
             style={{ objectPosition: metadata.hero.position }}
@@ -83,7 +86,7 @@ export default function Work({
         style={{ borderColor: `hsl(from ${metadata.color[1]} h s 60)` }}
       />
 
-      <div className="z-10 flex max-w-2/3 flex-wrap justify-end gap-3 self-end">
+      <div className="z-10 flex max-w-2/3 flex-wrap justify-end gap-1.5 self-end sm:gap-2 xl:gap-3">
         {metadata.tags.map((tag, idx) => (
           <Tag key={idx}>{tag}</Tag>
         ))}
