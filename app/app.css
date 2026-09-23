@@ -205,3 +205,10 @@ body {
     grid-column: wide-start / wide-end;
   }
 }
+
+.footer-wide-content {
+  grid-column: full-start / full-end;
+  @media (min-width: 80rem) {
+    grid-column: wide-start / wide-end;
+  }
+}

@@ -8,19 +8,23 @@ import MeImg from "./me.png?img";
 export default function AboutPage() {
   return (
     <>
-      <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
-        <h1 className="font-title -mb-6 text-9xl tracking-tight">About</h1>
-        <p className="text-light-blue -mb-1 max-w-75 text-right text-xl leading-6 text-balance">
-          A self-taught full stack developer based in Sri Lanka.
-        </p>
+      <div className="mt-sub-section full-wide-content mb-sub-section flex w-full justify-center px-12 @5xl:mb-4 @7xl:mb-8">
+        <div className="max-w-wide flex w-full flex-col items-center @5xl:flex-row @5xl:items-end @5xl:justify-between">
+          <h1 className="font-title -mt-2.75 mb-6 text-center text-8xl tracking-tight sm:-mt-3.75 sm:mb-8 sm:text-9xl @5xl:-mt-2.75 @5xl:-mb-4.5 @5xl:text-left @5xl:text-8xl @7xl:-mt-3.75 @7xl:-mb-6.25 @7xl:text-9xl">
+            About
+          </h1>
+          <p className="text-light-blue -mb-0.75 max-w-60 text-center text-base leading-5 sm:max-w-75 sm:text-lg sm:text-balance @5xl:text-right @7xl:-mb-1 @7xl:text-xl @7xl:leading-6">
+            A self-taught full stack developer based in Sri Lanka.
+          </p>
+        </div>
       </div>
 
-      <div className="wide-content mb-sub-section aspect-cinematic relative rounded-4xl bg-linear-to-r from-[#ebb5ab] to-[#ffc7a4]">
+      <div className="hero-wide-content @5xl:aspect-cinematic @content:aspect-video @content:rounded-4xl relative mb-12 flex aspect-square bg-linear-to-r from-[#ebb5ab] to-[#ffc7a4] sm:mb-16 sm:rounded-3xl">
         <OptimizedImage
           image={MeImg}
           sizes={[{ size: 1536, unit: "px" }]}
           alt="Image of Vimukthi Weerabahu"
-          className="absolute -top-25 left-1/2 h-[calc(100%+100px)] -translate-x-1/2 object-cover"
+          className="absolute -top-14 left-1/2 h-[calc(100%+56px)] -translate-x-1/2 object-cover @5xl:-top-25 @5xl:h-[calc(100%+100px)]"
           fetchPriority="high"
         />
       </div>

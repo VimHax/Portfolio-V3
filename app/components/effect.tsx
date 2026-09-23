@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useRef } from "react";
 import { ImprovedNoise } from "./noise";
-import { clamp, interpolate, interpolateColor, type Color } from "~/util";
+import {
+  clamp,
+  getScaleFactor,
+  interpolate,
+  interpolateColor,
+  type Color,
+} from "~/util";
 import { useIntersectionObserver } from "~/hooks";
 
 interface HoverState {
@@ -57,8 +63,8 @@ export default function Effect({
       time: number,
       getColor: (mix: number, opacity: number) => string,
     ) {
-      const largeScreen = window.innerWidth > 640;
-      const size = largeScreen ? 50 : 35;
+      const scaleFactor = getScaleFactor();
+      const size = scaleFactor * 50;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
       const verticalHalfCount = Math.ceil(
@@ -77,12 +83,17 @@ export default function Effect({
 
           const distFromBottom = yIdx / (verticalCount - 1);
           const transition = hoverTransition(time);
+          const [a, b, c] = [
+            [1.05, 3, 1.75],
+            [1.05, 2.5, 1.5],
+            [1.05, 5, 2],
+          ][window.innerWidth < 640 ? 0 : window.innerWidth < 1024 ? 1 : 2];
           const gradientOpacity = clamp(
             Math.pow(
-              1.05 * distFromBottom,
+              a * distFromBottom,
               interpolate(
-                5,
-                2,
+                b,
+                c,
                 stateRef.current.hovering ? transition : 1 - transition,
               ),
             ),
@@ -95,7 +106,7 @@ export default function Effect({
           if (opacity > 0) {
             const speed = 1 / 1_000;
             const noise = ImprovedNoise.noise(
-              (largeScreen ? x : 1.5 * x) / 100,
+              x / scaleFactor / 100,
               y / 500,
               time * speed + randomOffset,
             );

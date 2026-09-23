@@ -130,3 +130,9 @@ export function resolveVideoData(video: string): Video {
   assert(title in VideoData, `${title} not in video data!`);
   return VideoData[title as keyof typeof VideoData];
 }
+
+export function getScaleFactor() {
+  return (
+    0.5 + 0.5 * (clamp(window.innerWidth - 640, 0, 1536 - 640) / (1536 - 640))
+  );
+}

@@ -59,13 +59,15 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
       <div className="wide-content mb-section">
         <div className="mb-8 flex items-end justify-between">
-          <h2 className="font-title text-7xl tracking-tight">Work</h2>
+          <h2 className="font-title text-6xl tracking-tight sm:text-7xl">
+            Work
+          </h2>
           <Link
-            className="font-title mb-1 border-b-2 border-solid text-5xl tracking-tight"
+            className="font-title mb-0.5 border-b-2 border-solid text-3xl tracking-tight sm:mb-1 sm:text-5xl"
             to="/work"
           >
             All work
-            <ArrowRightSVG className="ml-5 inline-block size-10" />
+            <ArrowRightSVG className="ml-3 inline-block size-8 sm:ml-5 sm:size-10" />
           </Link>
         </div>
 

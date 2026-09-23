@@ -25,12 +25,16 @@ export async function loader({}: Route.LoaderArgs) {
 export default function WorkPage({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <div className="wide-content mt-sub-section mb-8 flex items-end justify-between">
-        <h1 className="font-title -mb-6 text-9xl tracking-tight">Work</h1>
+      <div className="full-wide-content mt-sub-section mb-8 flex w-full justify-center px-4 sm:px-12">
+        <div className="max-w-wide w-full">
+          <h1 className="font-title -mt-2 -mb-3.5 text-7xl tracking-tight sm:-mt-2.75 sm:-mb-4.5 sm:text-8xl xl:-mt-3.75 xl:-mb-6.25 xl:text-9xl">
+            Work
+          </h1>
+        </div>
       </div>
 
       <div className="wide-content mb-section">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 sm:gap-8">
           {loaderData.map(({ id, work }, idx) => (
             <Work key={idx} url={`/work/${id}`} metadata={work} />
           ))}

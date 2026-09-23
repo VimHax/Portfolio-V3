@@ -246,16 +246,18 @@ export function useMDXComponents() {
               <span className="text-light-blue mb-2 block text-[10px] font-semibold uppercase sm:text-xs">
                 Output
               </span>
-              <pre className="leading-[1.2]">
-                <code className="font-medium">
-                  {output.map((o, idx) => (
-                    <Fragment key={idx}>
-                      <span className="text-light-blue">&gt;</span> {o}
-                      {idx !== output.length - 1 && <br />}
-                    </Fragment>
-                  ))}
-                </code>
-              </pre>
+              <div className="w-full overflow-x-auto">
+                <pre className="leading-[1.2]">
+                  <code className="font-medium">
+                    {output.map((o, idx) => (
+                      <Fragment key={idx}>
+                        <span className="text-light-blue">&gt;</span> {o}
+                        {idx !== output.length - 1 && <br />}
+                      </Fragment>
+                    ))}
+                  </code>
+                </pre>
+              </div>
             </div>
           )}
         </div>

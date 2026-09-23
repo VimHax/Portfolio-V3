@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { ImprovedNoise } from "./noise";
-import { clamp, type Color } from "~/util";
+import { clamp, getScaleFactor, type Color } from "~/util";
 import { useIntersectionObserver } from "~/hooks";
 
 export default function Background({
@@ -35,8 +35,8 @@ export default function Background({
       offset: number,
       getColor: (opacity: number) => string,
     ) {
-      const largeScreen = window.innerWidth > 640;
-      const size = largeScreen ? 50 : 35;
+      const scaleFactor = getScaleFactor();
+      const size = scaleFactor * 50;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
       const verticalHalfCount = Math.ceil(
@@ -53,7 +53,7 @@ export default function Background({
         while (y < canvas.height) {
           const height = y === 0 && yOffset !== 0 ? yOffset : size;
 
-          const frequency = (largeScreen ? 1 : 1.5) / 500;
+          const frequency = 1 / scaleFactor / 500;
           const speed = 1 / 5_000;
           const noise = ImprovedNoise.noise(
             x * frequency * 3,
