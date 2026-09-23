@@ -14,6 +14,7 @@ import { assert } from "./util";
 import "katex/dist/katex.css";
 import "./hljs.css";
 import "./mdx.css";
+import "./background.css";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -32,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="pattern">
+      <body className="background-pattern">
         <main className="page-grid">
           <Navbar />
           {children}

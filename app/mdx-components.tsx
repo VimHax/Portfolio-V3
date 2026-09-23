@@ -47,14 +47,14 @@ export function useMDXComponents() {
   return {
     wrapper: ({ children }: { children: ReactNode }) => {
       return (
-        <div className="mdx mb-section sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
+        <div className="mdx mb-section text-base sm:text-lg [&_code]:text-sm sm:[&_code]:text-base">
           {children}
         </div>
       );
     },
     h2: (props: ComponentProps<"h2">) => (
       <h2
-        className="font-title sm:mt-sub-section mt-12 mb-8 text-4xl tracking-tight sm:text-6xl"
+        className="font-title mt-12 mb-8 text-4xl tracking-tight sm:mt-16 sm:text-6xl"
         {...props}
       />
     ),
@@ -107,7 +107,7 @@ export function useMDXComponents() {
     }) => (
       <div
         className={twJoin(
-          "mt-8 flex max-h-[800px] w-full justify-center rounded-2xl bg-white p-8 shadow-2xl/10 sm:rounded-3xl",
+          "mt-8 flex max-h-[800px] w-full justify-center rounded-2xl bg-white p-4 shadow-2xl/10 sm:rounded-3xl sm:p-8",
           description ? "mb-3" : "not-last:mb-8",
         )}
       >
@@ -160,7 +160,7 @@ export function useMDXComponents() {
         if (el === null) return;
         const codeEl = el.querySelector("pre > code");
         if (codeEl === null) return;
-        navigator.clipboard.writeText(codeEl.textContent);
+        void navigator.clipboard.writeText(codeEl.textContent);
 
         if (timeoutRef.current !== null) return;
         const emptyDuration = 250;
@@ -189,7 +189,7 @@ export function useMDXComponents() {
         >
           <div
             className={twJoin(
-              "z-10 grid h-9 grid-cols-3 text-sm backdrop-blur-lg",
+              "z-10 grid h-9 grid-cols-3 text-xs backdrop-blur-lg sm:text-sm",
               error
                 ? "text-error bg-light-error/75"
                 : "text-light-blue bg-white/75",
@@ -243,7 +243,7 @@ export function useMDXComponents() {
           {children}
           {output !== null && (
             <div className="p-3">
-              <span className="text-light-blue mb-2 block text-xs font-semibold uppercase">
+              <span className="text-light-blue mb-2 block text-[10px] font-semibold uppercase sm:text-xs">
                 Output
               </span>
               <pre className="leading-[1.2]">
@@ -280,37 +280,34 @@ export function useMDXComponents() {
       return (
         <a
           href={url}
-          className="group relative mt-8 block w-full transition-transform duration-250 not-last:mb-8 hover:-translate-y-2"
+          className="group relative mt-8 block w-full rounded-2xl shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50 sm:rounded-3xl"
+          style={
+            {
+              aspectRatio: `${thumbnail.width}/${thumbnail.height}`,
+              "--tw-shadow-color": `color-mix(in oklab, ${color} var(--tw-shadow-alpha), transparent)`,
+            } as CSSProperties
+          }
         >
           <OptimizedImage
             image={thumbnail}
             sizes={[{ size: 768, unit: "px" }]}
-            className="loading-animation aspect-video rounded-3xl object-contain shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+            className="loading-animation aspect-video rounded-t-2xl object-contain sm:rounded-t-3xl"
             loading="lazy"
-            style={
-              {
-                aspectRatio: `${thumbnail.width}/${thumbnail.height}`,
-                "--tw-shadow-color": `color-mix(in oklab, ${color} var(--tw-shadow-alpha), transparent)`,
-              } as CSSProperties
-            }
           />
-          <div className="absolute bottom-0 left-0 p-5">
-            <div className="relative flex overflow-clip rounded-2xl bg-white/85 backdrop-blur-sm">
-              <div className="absolute top-0 right-0 p-5">
-                <ArrowRightSVG className="-mt-1 w-8 transition-transform duration-250 group-hover:translate-x-1" />
-              </div>
-              <div className="w-1" style={{ backgroundColor: color }} />
-              <div className="p-5">
-                <span className="mb-0.5 block text-sm" style={{ color }}>
-                  {new URL(url).hostname}
-                </span>
-                <span className="font-title -mt-1.5 mb-1 block max-w-75 overflow-hidden text-3xl tracking-tighter text-ellipsis whitespace-nowrap">
-                  {title}
-                </span>
-                <p className="max-w-100 overflow-hidden text-base leading-5 text-ellipsis whitespace-nowrap">
-                  {description}
-                </p>
-              </div>
+          <div className="rounded-b-2xl bg-white sm:rounded-b-3xl">
+            <div className="p-4 sm:p-8">
+              <span
+                className="mb-2 block text-sm sm:text-base"
+                style={{ color }}
+              >
+                {new URL(url).hostname}
+              </span>
+              <span className="font-title -mt-1.5 mb-3 block text-2xl leading-6 tracking-tighter sm:text-3xl sm:leading-7">
+                {title}
+              </span>
+              <p className="text-sm leading-4 text-black/50 sm:text-base sm:leading-5">
+                {description}
+              </p>
             </div>
           </div>
         </a>
@@ -333,7 +330,7 @@ export function useMDXComponents() {
     }) => (
       <a
         href={`https://github.com/${owner}/${repo}`}
-        className="group mt-8 flex w-full flex-col gap-8 rounded-3xl bg-linear-45 from-black to-white p-12 text-white shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50"
+        className="group mt-8 flex w-full flex-col gap-8 rounded-3xl bg-linear-45 from-black to-white p-8 text-white shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50 sm:p-12"
         style={
           {
             "--tw-gradient-from": startColor ?? undefined,
@@ -344,21 +341,23 @@ export function useMDXComponents() {
           } as CSSProperties
         }
       >
-        <div className="-mt-5.5 flex items-center justify-between">
+        <div className="-mt-3.5 flex items-center justify-between sm:-mt-5.5">
           <div className="flex items-center gap-3 opacity-50">
-            <GitHubLogoSVG className="w-5" />
-            <span className="mt-px text-sm font-semibold tracking-widest uppercase">
+            <GitHubLogoSVG className="w-4 sm:w-5" />
+            <span className="mt-px text-xs font-semibold tracking-widest uppercase sm:text-sm">
               {owner} <span className="opacity-25">/</span> {repo}
             </span>
           </div>
-          <ArrowRightSVG className="w-16 transition-transform duration-250 group-hover:translate-x-2" />
+          <ArrowRightSVG className="w-12 transition-transform duration-250 group-hover:translate-x-2 sm:w-16" />
         </div>
 
         <div>
-          <span className="font-title mb-2 block text-7xl tracking-tighter">
+          <span className="font-title mb-2 block text-6xl tracking-tighter sm:text-7xl">
             {name}
           </span>
-          <p className="max-w-100 leading-6 text-balance">{description}</p>
+          <p className="max-w-100 text-sm leading-4 text-balance sm:text-lg sm:leading-6">
+            {description}
+          </p>
         </div>
       </a>
     ),
@@ -407,7 +406,7 @@ export function useMDXComponents() {
       <>
         <div
           className={twJoin(
-            "mt-8 w-full rounded-2xl bg-white p-8 shadow-2xl/10 sm:rounded-3xl",
+            "mt-8 w-full rounded-2xl bg-white p-4 shadow-2xl/10 sm:rounded-3xl sm:p-8",
             children ? "mb-3" : "not-last:mb-8",
           )}
         >

@@ -57,7 +57,8 @@ export default function Effect({
       time: number,
       getColor: (mix: number, opacity: number) => string,
     ) {
-      const size = 50;
+      const largeScreen = window.innerWidth > 640;
+      const size = largeScreen ? 50 : 35;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
       const verticalHalfCount = Math.ceil(
@@ -94,7 +95,7 @@ export default function Effect({
           if (opacity > 0) {
             const speed = 1 / 1_000;
             const noise = ImprovedNoise.noise(
-              x / 100,
+              (largeScreen ? x : 1.5 * x) / 100,
               y / 500,
               time * speed + randomOffset,
             );

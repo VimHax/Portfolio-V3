@@ -27,7 +27,8 @@ export default function Hero({ className }: { className?: string }) {
       offset: number,
       getColor: (opacity: number) => string,
     ) {
-      const size = 50;
+      const largeScreen = window.innerWidth > 640;
+      const size = largeScreen ? 50 : 35;
       const xOffset = Math.ceil(canvas.width / 2 - size / 2) % size;
       const yOffset = Math.ceil(canvas.height / 2 - size / 2) % size;
       const verticalHalfCount = Math.ceil(
@@ -44,7 +45,7 @@ export default function Hero({ className }: { className?: string }) {
         while (y < canvas.height) {
           const height = y === 0 && yOffset !== 0 ? yOffset : size;
 
-          const frequency = 1 / 500;
+          const frequency = (largeScreen ? 1 : 1.5) / 500;
           const speed = 1 / 5_000;
           const noise = ImprovedNoise.noise(
             x * frequency,

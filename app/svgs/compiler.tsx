@@ -8,10 +8,10 @@ const CompilerSVG = (props: SVGProps<SVGSVGElement>) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     className="flowchart"
     style={{
-      maxWidth: "657.638px",
+      maxWidth: "587.638px",
       backgroundColor: "transparent",
     }}
-    viewBox="8 8 657.6375732421875 707.5999755859375"
+    viewBox="43 43 587.637573242 637.599975586"
     role="graphics-document document"
     aria-roledescription="flowchart-v2"
     {...props}

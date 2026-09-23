@@ -34,6 +34,10 @@
   background-color: var(--color-off-white);
 }
 
+.mdx .numbered-code-line {
+  padding-right: 12px;
+}
+
 .mdx .numbered-code-line::before {
   content: attr(data-line-number);
 

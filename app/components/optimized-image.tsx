@@ -11,14 +11,14 @@ const maxQuality = 100 as const;
 type Widths = (typeof imageSizes)[number];
 
 interface Size {
-  readonly condition?: string;
+  readonly maxWidth?: number;
   readonly size: number;
   readonly unit: "px" | "vw";
 }
 
 type ImageProps = Omit<React.ComponentProps<"img">, "src" | "sizes"> & {
   image: Image;
-  sizes: readonly [Size, ...Size[]];
+  sizes: readonly [...Size[], Omit<Size, "maxWidth">];
 };
 
 function computeSizes(imageWidth: number, minWidth: number): Widths[] {
@@ -33,6 +33,7 @@ function generateURL(
   quality: typeof baseQuality | typeof maxQuality,
   width: (typeof imageSizes)[number],
 ) {
+  if (import.meta.env.DEV) return `${image.src}?q=${quality}&w=${width}`;
   return `/_vercel/image?url=${encodeURIComponent(image.src)}&q=${quality}&w=${width}`;
 }
 
@@ -46,8 +47,6 @@ export function optimizeImageSrc(image: Image) {
 export default function OptimizedImage({ image, sizes, ...props }: ImageProps) {
   assert(sizes.length > 0, "sizes is 0.");
 
-  if (import.meta.env.DEV) return <img src={image.src} {...props} />;
-
   const minSize = Math.min(
     ...sizes.map(({ size, unit }) =>
       unit === "vw" ? minDeviceSize * size * 0.01 : size,
@@ -59,10 +58,10 @@ export default function OptimizedImage({ image, sizes, ...props }: ImageProps) {
   return (
     <img
       sizes={sizes
-        .map(({ condition, size, unit }) =>
-          condition === undefined
-            ? `${size}${unit}`
-            : `(${condition}) ${size}${unit}`,
+        .map((entry) =>
+          "maxWidth" in entry && entry.maxWidth !== undefined
+            ? `(max-width: ${entry.maxWidth}px) ${entry.size}${entry.unit}`
+            : `${entry.size}${entry.unit}`,
         )
         .join(", ")}
       srcSet={finalSizes.map((size) => `${getURL(size)} ${size}w`).join(", ")}

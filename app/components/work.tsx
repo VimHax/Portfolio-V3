@@ -32,10 +32,12 @@ export default function Work({
       onMouseLeave={() => setHovering(false)}
     >
       <div
-        className="dark-loading-animation absolute top-0.75 left-0.75 h-[calc(100%-6px)] w-[calc(100%-6px)] rounded-4xl shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
+        className="loading-animation absolute top-0.75 left-0.75 h-[calc(100%-6px)] w-[calc(100%-6px)] rounded-4xl shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50"
         style={
           {
             "--tw-shadow-color": `color-mix(in oklab, ${metadata.color[0]} var(--tw-shadow-alpha), transparent)`,
+            "--loading-color-start": `hsl(from ${metadata.color[0]} h s 5)`,
+            "--loading-color-end": `hsl(from ${metadata.color[0]} h s 10)`,
           } as CSSProperties
         }
       />
