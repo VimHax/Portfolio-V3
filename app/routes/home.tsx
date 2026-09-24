@@ -7,6 +7,8 @@ import { getAllWork } from "./work/get-work.server";
 import ArrowRightSVG from "~/svgs/arrow-right";
 import Work from "~/components/work";
 import { nonNull } from "~/util";
+import GalleryData from "./gallery/data";
+import GalleryItem from "./gallery/item";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -57,25 +59,44 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
-      <div className="wide-content mb-section">
-        <div className="mb-8 flex items-end justify-between">
-          <h2 className="font-title text-6xl tracking-tight sm:text-7xl">
+      <div className="full-wide-content mb-8 flex w-full justify-center px-4 sm:px-12">
+        <div className="max-w-wide flex w-full items-end justify-between">
+          <h2 className="font-title text-5xl tracking-tight sm:text-7xl">
             Work
           </h2>
           <Link
-            className="font-title mb-0.5 border-b-2 border-solid text-3xl tracking-tight sm:mb-1 sm:text-5xl"
+            className="font-title border-b-2 border-solid text-2xl tracking-tight sm:mb-1 sm:text-5xl"
             to="/work"
           >
             All work
-            <ArrowRightSVG className="ml-3 inline-block size-8 sm:ml-5 sm:size-10" />
+            <ArrowRightSVG className="ml-3 inline-block size-6 sm:ml-5 sm:size-10" />
           </Link>
         </div>
+      </div>
+      <div className="wide-content mb-section flex flex-col gap-8">
+        {loaderData.map(({ id, work }, idx) => (
+          <Work key={idx} url={`/work/${id}`} metadata={work} />
+        ))}
+      </div>
 
-        <div className="flex flex-col gap-8">
-          {loaderData.map(({ id, work }, idx) => (
-            <Work key={idx} url={`/work/${id}`} metadata={work} />
-          ))}
+      <div className="full-wide-content mb-8 flex w-full justify-center px-4 sm:px-12">
+        <div className="max-w-wide flex w-full items-end justify-between">
+          <h2 className="font-title text-5xl tracking-tight sm:text-7xl">
+            Gallery
+          </h2>
+          <Link
+            className="font-title border-b-2 border-solid text-2xl tracking-tight sm:mb-1 sm:text-5xl"
+            to="/gallery"
+          >
+            All items
+            <ArrowRightSVG className="ml-3 inline-block size-6 sm:ml-5 sm:size-10" />
+          </Link>
         </div>
+      </div>
+      <div className="wide-content mb-section grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-8">
+        {GalleryData.slice(0, 4).map((item, idx) => (
+          <GalleryItem key={idx} {...item} />
+        ))}
       </div>
 
       <TechnologiesSection />

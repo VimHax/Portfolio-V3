@@ -29,12 +29,12 @@ const GalleryData: readonly GalleryItem[] = [
     },
   },
   {
-    title: "Minecraft clone",
+    title: "3-body problem",
     description:
-      "A very basic Minecraft clone written in C++ using OpenGL. Followed the popular Learn OpenGL book to achieve this.",
+      "A visualization of one of the special periodic solutions to the 3-body problem, the figure 8, made with P5JS.",
     media: {
       type: MediaType.Video,
-      video: resolveVideoDataFromTitle("mc-clone"),
+      video: resolveVideoDataFromTitle("3-body"),
     },
   },
   {
@@ -47,12 +47,12 @@ const GalleryData: readonly GalleryItem[] = [
     },
   },
   {
-    title: "3-body problem",
+    title: "Minecraft clone",
     description:
-      "A visualization of one of the special periodic solutions to the 3-body problem, the figure 8, made with P5JS.",
+      "A very basic Minecraft clone written in C++ using OpenGL. Followed the popular Learn OpenGL book to achieve this.",
     media: {
       type: MediaType.Video,
-      video: resolveVideoDataFromTitle("3-body"),
+      video: resolveVideoDataFromTitle("mc-clone"),
     },
   },
   {
