@@ -1,7 +1,7 @@
 import z from "zod";
 import VideoData from "./videos.json";
 
-interface Video {
+export interface Video {
   readonly id: string;
   readonly audio: boolean;
   readonly plus: boolean;
@@ -127,6 +127,10 @@ export function validateResolution(
 export function resolveVideoData(video: string): Video {
   const segments = video.split("/");
   const title = segments[segments.length - 1].split(".")[0];
+  return resolveVideoDataFromTitle(title);
+}
+
+export function resolveVideoDataFromTitle(title: string): Video {
   assert(title in VideoData, `${title} not in video data!`);
   return VideoData[title as keyof typeof VideoData];
 }

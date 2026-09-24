@@ -282,7 +282,7 @@ export function useMDXComponents() {
       return (
         <a
           href={url}
-          className="group relative mt-8 block w-full rounded-2xl shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50 sm:rounded-3xl"
+          className="group relative mt-8 block w-full rounded-2xl bg-white p-1 shadow-2xl/25 transition duration-250 not-last:mb-8 hover:-translate-y-2 hover:shadow-2xl/50 sm:rounded-3xl sm:p-2"
           style={
             {
               aspectRatio: `${thumbnail.width}/${thumbnail.height}`,
@@ -296,11 +296,11 @@ export function useMDXComponents() {
               { maxWidth: 768, size: 100, unit: "vw" },
               { size: 768, unit: "px" },
             ]}
-            className="loading-animation aspect-video rounded-t-2xl object-contain sm:rounded-t-3xl"
+            className="loading-animation aspect-video rounded-xl object-contain sm:rounded-2xl"
             loading="lazy"
           />
-          <div className="rounded-b-2xl bg-white sm:rounded-b-3xl">
-            <div className="p-4 sm:p-8">
+          <div className="rounded-b-2xl sm:rounded-b-3xl">
+            <div className="p-4 sm:p-6">
               <span
                 className="mb-2 block text-sm sm:text-base"
                 style={{ color }}
@@ -462,7 +462,7 @@ export function useMDXComponents() {
               )}
             >
               <MuxVideo
-                className="object-cover"
+                className="object-contain"
                 source={{ playbackId: data.id }}
                 crossOrigin="anonymous"
                 autoPlay

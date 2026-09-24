@@ -141,6 +141,13 @@
   }
 }
 
+.gallery-video {
+  --media-border-radius: 20px;
+  @media (min-width: 40rem) {
+    --media-border-radius: 24px;
+  }
+}
+
 html,
 body {
   @apply font-body selection:bg-blue @container bg-white text-black selection:text-white;
