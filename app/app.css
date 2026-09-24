@@ -150,7 +150,6 @@
 
 html,
 body {
-  @apply font-body selection:bg-blue @container bg-white text-black selection:text-white;
   font-synthesis: none;
   scrollbar-color: var(--color-off-white) var(--color-white);
 }

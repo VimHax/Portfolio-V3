@@ -11,6 +11,7 @@
     "generate": "node --env-file=.env generate-video-data.ts"
   },
   "dependencies": {
+    "@base-ui/react": "^1.8.0",
     "@react-router/node": "8.0.0",
     "@react-router/serve": "8.0.0",
     "@videojs/core": "10.0.0-rc.2",

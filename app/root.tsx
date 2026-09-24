@@ -33,8 +33,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="background-pattern">
-        <main className="page-grid">
+      <body className="font-body selection:bg-blue relative text-black selection:text-white">
+        <main className="background-pattern page-grid @container isolate">
           <Navbar />
           {children}
           <Footer />

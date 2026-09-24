@@ -3,11 +3,11 @@ import LogoSVG from "~/svgs/logo";
 
 function NavigationLink({ to, name }: { to: To; name: string }) {
   return (
-    <NavLink className="font-title text-3xl sm:text-5xl" to={to}>
+    <NavLink className="font-title text-3xl sm:text-5xl" to={to} end>
       {({ isActive }) => (
         <>
           {isActive && (
-            <div className="mr-3 mb-1.5 -ml-5 inline-block size-1.5 rounded-full bg-white sm:mb-3 sm:size-2" />
+            <div className="pointer-events-none mr-3 mb-1.5 -ml-5 inline-block size-1.5 rounded-full bg-white sm:mb-3 sm:size-2" />
           )}
           {name}
         </>

@@ -99,10 +99,12 @@ export default function Work({
           </span>
           <span
             className={twJoin(
-              "font-title block max-w-60 tracking-tight text-balance text-white sm:-mt-1 sm:-mb-2.5 sm:max-w-110 sm:text-6xl sm:leading-14 md:max-w-130 md:text-7xl md:leading-16 lg:-translate-x-1.5 xl:-mb-3 xl:max-w-175 xl:text-8xl xl:leading-21",
-              metadata.title.split(" ").some((word) => word.length >= 9)
+              "font-title block tracking-tight text-balance text-white sm:-mt-1 sm:-mb-2.5 sm:text-6xl sm:leading-14 md:text-7xl md:leading-16 lg:-translate-x-1.5 xl:-mb-3 xl:text-8xl xl:leading-21",
+              metadata.title.includes(" ") || metadata.title.length >= 9
                 ? "-mt-1 -mb-1.75 text-4xl leading-9"
                 : "-mt-0.75 -mb-1.75 text-5xl leading-11",
+              metadata.title.includes(" ") &&
+                "max-w-60 sm:max-w-110 md:max-w-130 xl:max-w-180",
             )}
           >
             {metadata.title}

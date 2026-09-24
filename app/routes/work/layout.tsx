@@ -40,9 +40,11 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
             <h1
               className={twJoin(
                 "font-title mb-6 text-center tracking-tight text-balance sm:mb-8 sm:text-8xl sm:leading-21 lg:-mb-2.25 lg:-translate-x-1.5 lg:text-left lg:text-7xl lg:leading-16 xl:-mb-3 xl:text-8xl xl:leading-21",
-                loaderData.title.split(" ").some((word) => word.length >= 9)
+                loaderData.title.includes(" ") || loaderData.title.length >= 9
                   ? "text-6xl leading-14"
                   : "text-7xl leading-16",
+                loaderData.title.includes(" ") &&
+                  "max-w-100 sm:max-w-180 lg:max-w-130 xl:max-w-180",
               )}
             >
               {loaderData.title}
