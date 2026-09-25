@@ -25,7 +25,7 @@ const Animate: React.FC<Props> = ({ children, initial, animation }) => {
     const target = nonNull(scope.current);
 
     let unobserved = false;
-    observeTarget(target, {
+    const observed = observeTarget(target, {
       skip: () => {
         unobserved = true;
       },
@@ -35,6 +35,7 @@ const Animate: React.FC<Props> = ({ children, initial, animation }) => {
         return animation(animate, target);
       },
     });
+    unobserved = !observed;
 
     return () => {
       if (unobserved) return;

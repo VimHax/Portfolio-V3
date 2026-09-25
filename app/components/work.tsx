@@ -36,6 +36,7 @@ export default function Work({
       to={url}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
+      viewTransition
     >
       <div
         className="loading-animation absolute top-0.75 left-0.75 h-[calc(100%-6px)] w-[calc(100%-6px)] rounded-3xl shadow-2xl/25 transition-shadow duration-250 group-hover:shadow-2xl/50 @2xl:rounded-4xl"

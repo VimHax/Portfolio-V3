@@ -68,6 +68,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             <Link
               className="font-title border-b-2 border-solid text-2xl tracking-tight sm:mb-1 sm:text-5xl"
               to="/work"
+              viewTransition
             >
               All work
               <ArrowRightSVG className="ml-3 inline-block size-6 sm:ml-5 sm:size-10" />
@@ -92,6 +93,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             <Link
               className="font-title border-b-2 border-solid text-2xl tracking-tight sm:mb-1 sm:text-5xl"
               to="/gallery"
+              viewTransition
             >
               All items
               <ArrowRightSVG className="ml-3 inline-block size-6 sm:ml-5 sm:size-10" />

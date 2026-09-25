@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import Transitioning from "./components/transitioning";
 import { assert } from "./util";
 import "photoswipe/dist/photoswipe.css";
 import "katex/dist/katex.css";
@@ -40,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {children}
           <Footer />
         </main>
+        <Transitioning />
         <ScrollRestoration />
         <Scripts />
       </body>

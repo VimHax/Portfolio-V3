@@ -1,4 +1,10 @@
-import { Link, useLocation, useResolvedPath, type To } from "react-router";
+import {
+  Link,
+  useLocation,
+  useResolvedPath,
+  useViewTransitionState,
+  type To,
+} from "react-router";
 import { twJoin, twMerge } from "tailwind-merge";
 import LogoSVG from "~/svgs/logo";
 import MenuSVG from "~/svgs/menu";
@@ -35,6 +41,7 @@ function NavigationLink({
           className="font-title block w-fit text-5xl tracking-tighter sm:text-6xl"
           to={to}
           onClick={() => dialog.close()}
+          viewTransition
         >
           {isActive && (
             <div className="pointer-events-none mr-3 mb-3 -ml-5 inline-block size-1.5 rounded-full bg-black sm:mb-4 sm:size-2" />
@@ -84,6 +91,7 @@ function Inner({
         className="hover:bg-dark-blue/10 flex items-center rounded-l-2xl px-3.5 transition-colors duration-300"
         to="/"
         onClick={() => close?.close()}
+        viewTransition
       >
         <LogoSVG className="size-6" />
       </Link>
@@ -145,8 +153,12 @@ function Inner({
 }
 
 export default function Navbar() {
+  const isTransitioning = useViewTransitionState("/", { relative: "path" });
   return (
-    <div className="pointer-events-none sticky top-0 z-50 flex w-full justify-center pt-4 sm:pt-8">
+    <div
+      className="pointer-events-none sticky top-0 z-50 flex w-full justify-center pt-4 sm:pt-8"
+      style={{ viewTimelineName: isTransitioning ? "navbar" : "none" }}
+    >
       <Inner className="pointer-events-auto" />
     </div>
   );

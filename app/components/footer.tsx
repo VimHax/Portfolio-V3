@@ -6,7 +6,12 @@ import FadeIn from "./fade-in";
 function NavigationLink({ to, name }: { to: To; name: string }) {
   return (
     <FadeUp>
-      <NavLink className="font-title text-3xl sm:text-5xl" to={to} end>
+      <NavLink
+        className="font-title text-3xl sm:text-5xl"
+        to={to}
+        end
+        viewTransition
+      >
         {({ isActive }) => (
           <>
             {isActive && (

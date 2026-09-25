@@ -164,6 +164,28 @@ body {
   scrollbar-color: var(--color-off-white) var(--color-white);
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+  animation: 500ms linear both fade-out;
+}
+
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: 500ms linear both fade-in;
+}
+
 .loading-animation {
   background-size: 100% 200%;
   background-repeat: repeat;

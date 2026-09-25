@@ -12,8 +12,9 @@ type Task = {
 };
 
 const queue: Task[] = [];
-const speed = 125;
+const speed = 50;
 let queueTimeout: NodeJS.Timeout | null = null;
+let isTransitioning = false;
 
 function enqueue(task: Task) {
   queue.push(task);
@@ -33,7 +34,7 @@ function enqueue(task: Task) {
       void task.run();
     }
 
-    start(queue.length > 5 || !canRun ? 0 : speed);
+    start(queue.length > 10 || !canRun ? 0 : speed);
   }
 
   start(speed);
@@ -110,6 +111,8 @@ const processEntries = debounce(() => {
     return;
   }
 
+  if (isTransitioning) return;
+
   // order intersections
   let orderedIntersections: Element[];
   {
@@ -152,7 +155,7 @@ const processEntries = debounce(() => {
   }
 
   intersections.clear();
-}, 100);
+}, 10);
 
 if (typeof window !== "undefined") {
   observer = new IntersectionObserver((entries) => {
@@ -165,22 +168,28 @@ if (typeof window !== "undefined") {
   });
 }
 
-export function observeTarget(target: Element, data: AnimationData) {
-  assert(!animations.has(target), "Target already observed.");
+export function observeTarget(target: Element, data: AnimationData): boolean {
+  if (animations.has(target)) return false;
   const animation = new Animation(data);
   // skip if above the viewport
   const rect = target.getBoundingClientRect();
   if (rect.y + rect.height < 0) {
     animation.skip();
-    return;
+    return false;
   }
   // initialize immediately if not initial load
   if (!initial) void animation.initialize();
   animations.set(target, animation);
   nonNull(observer).observe(target);
+  return true;
 }
 
 export function unobserveTarget(target: Element) {
   animations.delete(target);
   nonNull(observer).unobserve(target);
+}
+
+export function setTransitioning(value: boolean) {
+  isTransitioning = value;
+  if (!value) processEntries();
 }
