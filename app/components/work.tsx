@@ -107,12 +107,10 @@ export default function Work({
           </FadeIn>
           <span
             className={twJoin(
-              "font-title block tracking-tight text-balance text-white @2xl:-mt-1 @2xl:-mb-2.5 @2xl:text-6xl @2xl:leading-14 @3xl:text-7xl @3xl:leading-16 @5xl:-translate-x-1.5 @7xl:-mb-3 @7xl:text-8xl @7xl:leading-21",
+              "font-title block tracking-tight text-balance whitespace-pre text-white @2xl:-mt-1 @2xl:-mb-2.5 @2xl:text-6xl @2xl:leading-14 @3xl:text-7xl @3xl:leading-16 @5xl:-translate-x-1.5 @7xl:-mb-3 @7xl:text-8xl @7xl:leading-21",
               metadata.title.includes(" ") || metadata.title.length >= 9
                 ? "-mt-1 -mb-1.75 text-[42px] leading-10"
                 : "-mt-1 -mb-2.5 text-6xl leading-14",
-              metadata.title.includes(" ") &&
-                "max-w-60 @2xl:max-w-110 @3xl:max-w-130 @7xl:max-w-180",
             )}
           >
             <Title title={metadata.title} />
