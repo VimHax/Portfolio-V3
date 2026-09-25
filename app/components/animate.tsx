@@ -2,8 +2,9 @@ import { observeTarget, unobserveTarget } from "./animations";
 import { nonNull } from "../util";
 import type { EasingDefinition } from "motion";
 import { useAnimate } from "motion/react";
-import { type ReactElement, useLayoutEffect, useRef } from "react";
+import { type ReactElement, useEffect } from "react";
 import { Slot } from "radix-ui";
+import { useLocation } from "react-router";
 
 type Animate = ReturnType<typeof useAnimate<Element>>[1];
 
@@ -17,38 +18,30 @@ interface Props {
 }
 
 const Animate: React.FC<Props> = ({ children, initial, animation }) => {
-  const addedRef = useRef(false);
-  const unobservedRef = useRef(false);
+  const location = useLocation();
   const [scope, animate] = useAnimate<HTMLElement>();
 
-  if (typeof window !== "undefined") {
-    useLayoutEffect(() => {
-      if (addedRef.current) return;
-      addedRef.current = true;
+  useEffect(() => {
+    const target = nonNull(scope.current);
 
-      const target = nonNull(scope.current);
+    let unobserved = false;
+    observeTarget(target, {
+      skip: () => {
+        unobserved = true;
+      },
+      initial: () => initial(animate, target),
+      start: () => {
+        unobserved = true;
+        return animation(animate, target);
+      },
+    });
 
-      observeTarget(target, {
-        skip: () => {
-          unobservedRef.current = true;
-        },
-        initial: () => initial(animate, target),
-        start: () => {
-          unobservedRef.current = true;
-          return animation(animate, target);
-        },
-      });
-    }, []);
-
-    useLayoutEffect(() => {
-      return () => {
-        addedRef.current = false;
-        if (unobservedRef.current) return;
-        unobservedRef.current = true;
-        unobserveTarget(nonNull(scope.current));
-      };
-    }, []);
-  }
+    return () => {
+      if (unobserved) return;
+      unobserved = true;
+      unobserveTarget(target);
+    };
+  }, [location.key]);
 
   return <Slot.Root ref={scope}>{children}</Slot.Root>;
 };

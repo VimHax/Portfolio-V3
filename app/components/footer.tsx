@@ -1,4 +1,4 @@
-import { NavLink, useLocation, type To } from "react-router";
+import { NavLink, type To } from "react-router";
 import LogoSVG from "~/svgs/logo";
 import FadeUp from "./fade-up";
 import FadeIn from "./fade-in";
@@ -21,12 +21,8 @@ function NavigationLink({ to, name }: { to: To; name: string }) {
 }
 
 export default function Footer() {
-  const location = useLocation();
   return (
-    <footer
-      key={location.key}
-      className="footer-wide-content xl:mb-section py-section flex w-full flex-col items-center justify-between gap-16 bg-black text-white shadow-2xl xl:flex-row xl:items-stretch xl:gap-0 xl:rounded-4xl xl:p-16"
-    >
+    <footer className="footer-wide-content xl:mb-section py-section flex w-full flex-col items-center justify-between gap-16 bg-black text-white shadow-2xl xl:flex-row xl:items-stretch xl:gap-0 xl:rounded-4xl xl:p-16">
       <div className="flex flex-col items-center gap-8 sm:gap-12 xl:items-start xl:justify-between xl:gap-0">
         <FadeUp>
           <LogoSVG className="size-25 sm:size-30 xl:size-20" />

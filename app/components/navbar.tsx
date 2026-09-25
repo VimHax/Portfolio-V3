@@ -30,7 +30,7 @@ function NavigationLink({
   const isActive = locationPathname === toPathname;
   return (
     <FadeUp>
-      <div className="flex w-65 items-center justify-stretch gap-2 sm:w-100 sm:gap-4">
+      <div className="flex w-65 items-center justify-stretch gap-2 opacity-0 sm:w-100 sm:gap-4">
         <Link
           className="font-title block w-fit text-5xl tracking-tighter sm:text-6xl"
           to={to}
@@ -57,7 +57,7 @@ function ContactLink({ icon, url }: { icon: ReactNode; url: string }) {
     <FadeIn>
       <a
         href={url}
-        className="hover:bg-dark-blue/10 flex size-13 items-center justify-center rounded-2xl bg-white/85 shadow-2xl transition-colors duration-300"
+        className="hover:bg-dark-blue/10 flex size-13 items-center justify-center rounded-2xl bg-white/85 opacity-0 shadow-2xl transition-colors duration-300"
       >
         {icon}
       </a>
