@@ -1,17 +1,35 @@
-import { data, Outlet } from "react-router";
+import { data, Link, Outlet } from "react-router";
 import type { Route } from "./+types/layout";
-import { getWork } from "./get-work.server";
-import dateToString, { HeroType, stringToColor } from "~/util";
+import { getAllWork, getWork } from "./get-work.server";
+import dateToString, {
+  HeroType,
+  nonNull,
+  shuffle,
+  stringToColor,
+} from "~/util";
 import Background from "~/components/background";
-import type { CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
 import OptimizedImage from "~/components/optimized-image";
 import { twJoin } from "tailwind-merge";
+import ArrowRightSVG from "~/svgs/arrow-right";
+import Work from "~/components/work";
+import ContactSection from "~/components/contact-section";
 
 export async function loader({ url }: Route.LoaderArgs) {
-  const work = getWork(url.pathname.slice("/work/".length));
+  const id = url.pathname.slice("/work/".length);
+  const work = getWork(id);
   if (work === null) throw data("Work not found! URL: " + url, { status: 404 });
-  return work;
+
+  const allWork = getAllWork();
+  const related = Object.keys(allWork)
+    .filter((x) => x !== id)
+    .map((id) => ({
+      id,
+      work: nonNull(allWork[id]),
+    }));
+
+  return { ...work, related };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -22,6 +40,11 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Layout({ loaderData }: Route.ComponentProps) {
+  const [client, setClient] = useState(false);
+  const related = useMemo(() => shuffle(loaderData.related).slice(0, 4), []);
+
+  useEffect(() => setClient(true), []);
+
   return (
     <>
       <div className="full-wide-content -mt-navbar py-navbar relative flex w-full justify-center px-12 lg:mb-4 xl:mb-8">
@@ -98,6 +121,36 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
       </div>
 
       <Outlet />
+
+      <div className="full-wide-content mb-8 flex w-full justify-center px-4 sm:px-12">
+        <div className="max-w-wide flex w-full items-end justify-between">
+          <h2 className="font-title text-5xl tracking-tight sm:text-7xl">
+            Related
+          </h2>
+          <Link
+            className="font-title border-b-2 border-solid text-2xl tracking-tight sm:mb-1 sm:text-5xl"
+            to="/work"
+          >
+            All work
+            <ArrowRightSVG className="ml-3 inline-block size-6 sm:ml-5 sm:size-10" />
+          </Link>
+        </div>
+      </div>
+      <div className="wide-content mb-section grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-8">
+        {client
+          ? related.map(({ id, work }, idx) => (
+              <Work key={idx} url={`/work/${id}`} metadata={work} />
+            ))
+          : Array(4)
+              .fill(null)
+              .map((_, idx) => (
+                <div key={idx} className="@container">
+                  <div className="loading-animation @5xl:aspect-cinematic aspect-3/4 w-full rounded-3xl shadow-2xl/10 @2xl:aspect-video @2xl:rounded-4xl" />
+                </div>
+              ))}
+      </div>
+
+      <ContactSection />
     </>
   );
 }
