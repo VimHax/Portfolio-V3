@@ -25,13 +25,6 @@ export async function loader({}: Route.LoaderArgs) {
   return selected.map((id) => ({ id, work: nonNull(work[id]) }));
 }
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "VimHax" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
 export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <>
