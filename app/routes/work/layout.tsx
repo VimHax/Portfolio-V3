@@ -17,9 +17,13 @@ import Work from "~/components/work";
 import ContactSection from "~/components/contact-section";
 
 export async function loader({ url }: Route.LoaderArgs) {
-  const id = url.pathname.slice("/work/".length);
+  const segments = url.pathname.split("/").filter((x) => x.length !== 0);
+  const notFoundError = () =>
+    data("Work not found! URL: " + url, { status: 404 });
+  if (segments.length !== 2) throw notFoundError();
+  const id = segments[1];
   const work = getWork(id);
-  if (work === null) throw data("Work not found! URL: " + url, { status: 404 });
+  if (work === null) throw notFoundError();
 
   const allWork = getAllWork();
   const related = Object.keys(allWork)
