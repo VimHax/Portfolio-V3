@@ -141,6 +141,16 @@
   }
 }
 
+.pswp--custom-bg {
+  --pswp-bg: var(--color-white);
+  --pswp-icon-color: var(--color-black);
+  --pswp-icon-color-secondary: var(--color-black);
+}
+
+.pswp__icn-shadow {
+  display: none;
+}
+
 .gallery-video {
   --media-border-radius: 20px;
   @media (min-width: 40rem) {

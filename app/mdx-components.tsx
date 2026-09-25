@@ -24,7 +24,8 @@ import {
 import { MuxVideo } from "@videojs/react/media/mux-video";
 import { VideoPlayer } from "@videojs/react/video";
 import { VideoSkin } from "./components/videojs/video/skin";
-import OptimizedImage from "./components/optimized-image";
+import OptimizedImage, { optimizeImageSrc } from "./components/optimized-image";
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 declare global {
   type MDXProvidedComponents = ReturnType<typeof useMDXComponents>;
@@ -384,22 +385,58 @@ export function useMDXComponents() {
       children?: ReactNode | null | undefined;
     }) => {
       validateResolution(image, resolution);
+      const [rounded, setRounded] = useState(true);
       return (
         <>
-          <OptimizedImage
-            image={image}
-            sizes={[
-              { maxWidth: 768, size: 100, unit: "vw" },
-              { size: 768, unit: "px" },
-            ]}
-            className={twJoin(
-              "loading-animation mt-8 w-full rounded-2xl object-contain sm:rounded-3xl",
-              lightShadow ? "shadow-2xl/10" : "shadow-2xl",
-              children ? "mb-3" : "not-last:mb-8",
-            )}
-            style={{ aspectRatio: `${image.width}/${image.height}` }}
-            loading="lazy"
-          />
+          <Gallery
+            options={{
+              zoom: false,
+              easing: "cubic-bezier(0.74, 0.0, 0.07, 1)",
+              showAnimationDuration: 500,
+              hideAnimationDuration: 500,
+              zoomAnimationDuration: 500,
+              paddingFn: (viewportSize) =>
+                viewportSize.x < 640
+                  ? { top: 0, bottom: 0, left: 0, right: 0 }
+                  : { top: 50, bottom: 50, left: 50, right: 50 },
+              mainClass: "pswp--custom-bg",
+              secondaryZoomLevel: 1.5,
+              wheelToZoom: true,
+              closeSVG:
+                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>',
+            }}
+            onBeforeOpen={(instance) => {
+              instance.on("beforeOpen", () => setRounded(false));
+              instance.on("closingAnimationEnd", () => setRounded(true));
+            }}
+          >
+            <Item
+              original={optimizeImageSrc(image)}
+              thumbnail={optimizeImageSrc(image)}
+              width={image.width}
+              height={image.height}
+            >
+              {({ ref, open }) => (
+                <OptimizedImage
+                  ref={ref}
+                  image={image}
+                  sizes={[
+                    { maxWidth: 768, size: 100, unit: "vw" },
+                    { size: 768, unit: "px" },
+                  ]}
+                  className={twJoin(
+                    "loading-animation mt-8 w-full object-contain transition-[border-radius]",
+                    rounded && "rounded-2xl sm:rounded-3xl",
+                    lightShadow ? "shadow-2xl/10" : "shadow-2xl",
+                    children ? "mb-3" : "not-last:mb-8",
+                  )}
+                  style={{ aspectRatio: `${image.width}/${image.height}` }}
+                  loading="lazy"
+                  onClick={open}
+                />
+              )}
+            </Item>
+          </Gallery>
           <MediaDescription>{children}</MediaDescription>
         </>
       );

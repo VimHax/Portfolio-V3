@@ -23,8 +23,10 @@
     "highlight.js": "^11.12.0",
     "isbot": "^5.1.36",
     "katex": "^0.16.47",
+    "photoswipe": "^5.4.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-photoswipe-gallery": "^4.1.2",
     "react-router": "8.0.0",
     "swr": "^2.2.4",
     "tailwind-merge": "^3.6.0",
@@ -60,5 +62,5 @@
       "prettier-plugin-tailwindcss"
     ]
   },
-  "packageManager": "pnpm@12.4.2+sha512.08adc6613180275c7c9edada39dcf08c9c61ad4e7eaf330a4f3461f102b0f907423454d117f98e72d47fef0616070644d7bffc973a6a57f5090a6d7c368b07c9"
+  "packageManager": "pnpm@12.6.0"
 }

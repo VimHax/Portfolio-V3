@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { assert } from "./util";
+import "photoswipe/dist/photoswipe.css";
 import "katex/dist/katex.css";
 import "./hljs.css";
 import "./mdx.css";
