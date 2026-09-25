@@ -8,9 +8,11 @@ import type { ReactNode } from "react";
 import MailSVG from "~/svgs/mail";
 import GitHubLogoSVG from "~/svgs/github-logo";
 import OptimizedImage from "./optimized-image";
+import XLogoSVG from "~/svgs/x-logo";
+import FadeUp from "./fade-up";
+import FadeIn from "./fade-in";
 
 import LinkedInImg from "./linkedin.png?img";
-import XLogoSVG from "~/svgs/x-logo";
 
 function NavigationLink({
   dialog,
@@ -27,35 +29,39 @@ function NavigationLink({
   const toPathname = path.pathname.toLowerCase();
   const isActive = locationPathname === toPathname;
   return (
-    <div className="flex w-65 items-center justify-stretch gap-2 sm:w-100 sm:gap-4">
-      <Link
-        className="font-title block w-fit text-5xl tracking-tighter sm:text-6xl"
-        to={to}
-        onClick={() => dialog.close()}
-      >
-        {isActive && (
-          <div className="pointer-events-none mr-3 mb-3 -ml-5 inline-block size-1.5 rounded-full bg-black sm:mb-4 sm:size-2" />
-        )}
-        {name}
-      </Link>
-      <div
-        className={twJoin(
-          "w-full border-t",
-          isActive ? "border-black" : "border-off-white",
-        )}
-      />
-    </div>
+    <FadeUp>
+      <div className="flex w-65 items-center justify-stretch gap-2 sm:w-100 sm:gap-4">
+        <Link
+          className="font-title block w-fit text-5xl tracking-tighter sm:text-6xl"
+          to={to}
+          onClick={() => dialog.close()}
+        >
+          {isActive && (
+            <div className="pointer-events-none mr-3 mb-3 -ml-5 inline-block size-1.5 rounded-full bg-black sm:mb-4 sm:size-2" />
+          )}
+          {name}
+        </Link>
+        <div
+          className={twJoin(
+            "w-full border-t",
+            isActive ? "border-black" : "border-off-white",
+          )}
+        />
+      </div>
+    </FadeUp>
   );
 }
 
 function ContactLink({ icon, url }: { icon: ReactNode; url: string }) {
   return (
-    <a
-      href={url}
-      className="hover:bg-dark-blue/10 flex size-13 items-center justify-center rounded-2xl bg-white/85 shadow-2xl transition-colors duration-300"
-    >
-      {icon}
-    </a>
+    <FadeIn>
+      <a
+        href={url}
+        className="hover:bg-dark-blue/10 flex size-13 items-center justify-center rounded-2xl bg-white/85 shadow-2xl transition-colors duration-300"
+      >
+        {icon}
+      </a>
+    </FadeIn>
   );
 }
 

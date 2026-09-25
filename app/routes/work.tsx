@@ -3,6 +3,7 @@ import type { Route } from "./+types/work";
 import { getAllWork } from "./work/get-work.server";
 import Work from "~/components/work";
 import ContactSection from "~/components/contact-section";
+import Title from "~/components/title";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -28,7 +29,7 @@ export default function WorkPage({ loaderData }: Route.ComponentProps) {
       <div className="full-wide-content mt-sub-section mb-8 flex w-full justify-center px-4 sm:px-12">
         <div className="max-w-wide w-full">
           <h1 className="font-title -mt-2 -mb-3.5 text-7xl tracking-tight sm:-mt-2.75 sm:-mb-4.5 sm:text-8xl xl:-mt-3.75 xl:-mb-6.25 xl:text-9xl">
-            Work
+            <Title title="Work" />
           </h1>
         </div>
       </div>

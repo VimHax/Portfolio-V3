@@ -6,12 +6,17 @@ import Effect from "./effect";
 import { twJoin } from "tailwind-merge";
 import { MuxBackgroundVideo } from "@videojs/react/media/mux-background-video";
 import OptimizedImage from "./optimized-image";
+import FadeUp from "./fade-up";
+import Title from "./title";
+import FadeIn from "./fade-in";
 
 function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-lg bg-white/85 px-2 py-0.75 text-xs font-semibold uppercase backdrop-blur-lg @2xl:text-sm @7xl:text-base">
-      {children}
-    </span>
+    <FadeIn>
+      <span className="rounded-lg bg-white/85 px-2 py-0.75 text-xs font-semibold uppercase backdrop-blur-lg @2xl:text-sm @7xl:text-base">
+        {children}
+      </span>
+    </FadeIn>
   );
 }
 
@@ -26,6 +31,7 @@ export default function Work({
 
   const content = (
     <Link
+      key={metadata.title}
       className="group @5xl:aspect-cinematic relative flex aspect-3/4 w-full flex-col justify-between rounded-3xl p-8 transition-transform duration-250 hover:-translate-y-2 @2xl:aspect-video @2xl:rounded-4xl @2xl:p-8 @3xl:p-12 @7xl:p-16"
       to={url}
       onMouseEnter={() => setHovering(true)}
@@ -94,9 +100,11 @@ export default function Work({
 
       <div className="z-10 @5xl:flex @5xl:items-end @5xl:justify-between">
         <div className="mb-4 @3xl:mb-6 @5xl:mb-0">
-          <span className="mb-2 block text-xs font-semibold tracking-widest text-white uppercase @2xl:text-base @3xl:text-lg @7xl:mb-2 @7xl:text-xl">
-            {dateToString(metadata.date)}
-          </span>
+          <FadeIn>
+            <span className="mb-2 block text-xs font-semibold tracking-widest text-white uppercase @2xl:text-base @3xl:text-lg @7xl:mb-2 @7xl:text-xl">
+              {dateToString(metadata.date)}
+            </span>
+          </FadeIn>
           <span
             className={twJoin(
               "font-title block tracking-tight text-balance text-white @2xl:-mt-1 @2xl:-mb-2.5 @2xl:text-6xl @2xl:leading-14 @3xl:text-7xl @3xl:leading-16 @5xl:-translate-x-1.5 @7xl:-mb-3 @7xl:text-8xl @7xl:leading-21",
@@ -107,15 +115,21 @@ export default function Work({
                 "max-w-60 @2xl:max-w-110 @3xl:max-w-130 @7xl:max-w-180",
             )}
           >
-            {metadata.title}
+            <Title title={metadata.title} />
           </span>
         </div>
-        <p className="-mb-1 text-sm leading-5 text-balance text-white @2xl:max-w-xl @2xl:text-lg @5xl:text-right @7xl:text-xl @7xl:leading-6">
-          {metadata.description}
-        </p>
+        <FadeIn>
+          <p className="-mb-1 text-sm leading-5 text-balance text-white @2xl:max-w-xl @2xl:text-lg @5xl:text-right @7xl:text-xl @7xl:leading-6">
+            {metadata.description}
+          </p>
+        </FadeIn>
       </div>
     </Link>
   );
 
-  return <div className="@container">{content}</div>;
+  return (
+    <FadeUp>
+      <div className="@container">{content}</div>
+    </FadeUp>
+  );
 }

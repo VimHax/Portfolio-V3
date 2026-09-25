@@ -10,19 +10,25 @@ import { TweetActions } from "./tweet-actions.js";
 import { TweetReplies } from "./tweet-replies.js";
 import { QuotedTweet } from "./quoted-tweet/index.js";
 import { enrichTweet } from "../utils.js";
-import { useMemo } from "react";
+import { useMemo, type RefObject } from "react";
 
 type Props = {
+  ref?: RefObject<HTMLDivElement>;
   className?: string;
   tweet: Tweet;
   components?: Omit<TwitterComponents, "TweetNotFound">;
 };
 
-export const EmbeddedTweet = ({ className, tweet: t, components }: Props) => {
+export const EmbeddedTweet = ({
+  ref,
+  className,
+  tweet: t,
+  components,
+}: Props) => {
   // useMemo does nothing for RSC but it helps when the component is used in the client (e.g by SWR)
   const tweet = useMemo(() => enrichTweet(t), [t]);
   return (
-    <TweetContainer className={className}>
+    <TweetContainer ref={ref} className={className}>
       <TweetHeader tweet={tweet} components={components} />
       {tweet.in_reply_to_status_id_str && <TweetInReplyTo tweet={tweet} />}
       <TweetBody tweet={tweet} />

@@ -3,6 +3,8 @@ import GitHubLogoSVG from "~/svgs/github-logo";
 import MailSVG from "~/svgs/mail";
 import XLogoSVG from "~/svgs/x-logo";
 import OptimizedImage from "./optimized-image";
+import FadeIn from "./fade-in";
+import FadeUp from "./fade-up";
 
 import LinkedInImg from "./linkedin.png?img";
 
@@ -23,19 +25,27 @@ function Contact({
       href={url}
     >
       <div className="flex h-full">
-        <div className="border-dark-blue/5 flex aspect-square h-full items-center justify-center border-r">
-          {icon}
-        </div>
+        <FadeIn>
+          <div className="border-dark-blue/5 flex aspect-square h-full items-center justify-center border-r">
+            {icon}
+          </div>
+        </FadeIn>
         <div className="ml-7 flex flex-col justify-center sm:ml-12">
-          <span className="font-title -mb-2 text-3xl sm:mb-0 sm:text-4xl lg:text-5xl">
-            {name}
-          </span>
-          <span className="text-light-blue text-xl sm:hidden">{value}</span>
+          <FadeIn>
+            <span className="font-title -mb-2 text-3xl sm:mb-0 sm:text-4xl lg:text-5xl">
+              {name}
+            </span>
+          </FadeIn>
+          <FadeIn>
+            <span className="text-light-blue text-xl sm:hidden">{value}</span>
+          </FadeIn>
         </div>
       </div>
-      <span className="text-light-blue hidden sm:mr-12 sm:block sm:text-2xl lg:text-3xl">
-        {value}
-      </span>
+      <FadeIn>
+        <span className="text-light-blue hidden sm:mr-12 sm:block sm:text-2xl lg:text-3xl">
+          {value}
+        </span>
+      </FadeIn>
     </a>
   );
 }
@@ -45,14 +55,16 @@ export default function ContactSection() {
     <>
       <div className="full-wide-content mb-8 flex w-full justify-center px-4 sm:px-12">
         <div className="max-w-wide w-full">
-          <h2 className="font-title text-5xl tracking-tight sm:text-7xl">
-            Contact
-          </h2>
+          <FadeIn>
+            <h2 className="font-title text-5xl tracking-tight sm:text-7xl">
+              Contact
+            </h2>
+          </FadeIn>
         </div>
       </div>
 
-      <div className="wide-content mb-section">
-        <div className="flex flex-col rounded-4xl shadow-2xl/10">
+      <FadeUp>
+        <div className="wide-content mb-section flex flex-col rounded-4xl shadow-2xl/10">
           <Contact
             icon={<MailSVG className="size-10 lg:size-12" />}
             name="Email"
@@ -91,7 +103,7 @@ export default function ContactSection() {
             url="https://twitter.com/VimHax"
           />
         </div>
-      </div>
+      </FadeUp>
     </>
   );
 }

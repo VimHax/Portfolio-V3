@@ -14,6 +14,7 @@ export type Resolution = "1920x1080" | "1920x800" | readonly [number, number];
 export type Color = readonly [number, number, number];
 export type Subscription<T extends unknown[] = []> = (...args: T) => void;
 export type Unsubscribe = () => void;
+type AnyFunction = (...args: any[]) => any;
 
 export const Image = z
   .strictObject({
@@ -95,6 +96,17 @@ export function assert(x: boolean, message?: string): asserts x {
 export function nonNull<T>(x: T): NonNullable<T> {
   assert(x !== undefined && x !== null, "Value is null or undefined.");
   return x;
+}
+
+export function debounce<T extends AnyFunction>(
+  f: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
+  let timer: NodeJS.Timeout | null = null;
+  return (...args: Parameters<T>) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => f(...args), delay);
+  };
 }
 
 export function validateResolution(
