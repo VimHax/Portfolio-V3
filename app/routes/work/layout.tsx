@@ -43,7 +43,7 @@ export async function loader({ url }: Route.LoaderArgs) {
 export function meta({ loaderData }: Route.MetaArgs) {
   return generateMetadata({
     route: `/work/${loaderData.id}`,
-    title: `${loaderData.title} | VimHax`,
+    title: `${loaderData.title.replace("\n", " ")} | VimHax`,
     description: loaderData.description,
     color: loaderData.color[1],
     embed: loaderData.embed,
