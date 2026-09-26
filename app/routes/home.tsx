@@ -11,6 +11,7 @@ import GalleryData from "./gallery/data";
 import GalleryItem from "./gallery/item";
 import Title from "~/components/title";
 import FadeIn from "~/components/fade-in";
+import FadeUp from "~/components/fade-up";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -31,24 +32,57 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       <div className="full-wide-content mb-sub-section -mt-navbar relative flex justify-center">
         <Hero className="absolute top-0 left-0 h-full w-full mix-blend-hard-light" />
 
-        <div className="relative my-64">
-          <h1 className="font-title z-20 text-center text-6xl leading-12 tracking-tight text-balance mix-blend-overlay sm:max-w-260 sm:text-8xl sm:leading-19 xl:max-w-350 xl:text-9xl xl:leading-24">
-            <Title title="Every detail accounted for." />
+        <div className="relative my-64 flex flex-col items-center">
+          <h1 className="font-title pointer-events-none max-w-150 text-center text-7xl leading-15 tracking-tight text-balance mix-blend-overlay sm:max-w-200 sm:text-8xl sm:leading-19 xl:max-w-270 xl:text-9xl xl:leading-24">
+            <Title title="Vimukthi Weerabahu" />
           </h1>
 
-          <div className="absolute top-0 left-0 h-full w-full">
-            <div className="font-title z-10 text-center text-6xl leading-12 tracking-tight text-balance mix-blend-overlay select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
-              <Title title="Every detail accounted for." delay={0.1} />
+          <FadeUp>
+            <p className="z-10 my-8 max-w-100 text-center text-lg leading-snug text-balance sm:max-w-150 xl:text-xl">
+              Hello! I'm a full stack developer based in Sri Lanka. I have +5
+              years of broad experience having worked on websites, backends,
+              programming languages, shaders etc.
+            </p>
+          </FadeUp>
+
+          <div className="z-10 flex gap-4">
+            <FadeUp>
+              <button
+                className="flex h-13 cursor-pointer items-center rounded-2xl bg-white/50 px-5 text-lg shadow-2xl backdrop-blur-sm transition-colors duration-300 hover:bg-white xl:text-xl"
+                onClick={() =>
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth", block: "center" })
+                }
+              >
+                Let's collaborate
+              </button>
+            </FadeUp>
+            <FadeUp>
+              <Link
+                to="/about"
+                className="flex h-13 items-center rounded-2xl bg-white/50 px-5 text-lg shadow-2xl backdrop-blur-sm transition-colors duration-300 hover:bg-white xl:text-xl"
+              >
+                Learn more
+              </Link>
+            </FadeUp>
+          </div>
+
+          <div className="absolute top-0 left-0 w-full">
+            <div className="font-title pointer-events-none z-10 text-center text-7xl leading-15 tracking-tight text-balance mix-blend-overlay sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
+              <Title title="Vimukthi Weerabahu" delay={0.2} />
             </div>
           </div>
 
-          <div className="absolute top-0 left-0 h-full w-full">
-            <div className="font-title z-10 text-center text-6xl leading-12 tracking-tight text-balance opacity-20 select-none sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
-              <Title title="Every detail accounted for." delay={0.1} />
+          <div className="absolute top-0 left-0 w-full">
+            <div className="font-title z-20 text-center text-7xl leading-15 tracking-tight text-balance opacity-50 sm:text-8xl sm:leading-19 xl:text-9xl xl:leading-24">
+              <Title title="Vimukthi Weerabahu" delay={0.4} />
             </div>
           </div>
         </div>
       </div>
+
+      <TechnologiesSection />
 
       <div className="full-wide-content mb-8 flex w-full justify-center px-4 sm:px-12">
         <div className="max-w-wide flex w-full items-end justify-between">
@@ -99,8 +133,6 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           <GalleryItem key={idx} {...item} />
         ))}
       </div>
-
-      <TechnologiesSection />
 
       <ContactSection />
     </>

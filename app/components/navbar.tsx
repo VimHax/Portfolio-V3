@@ -38,19 +38,19 @@ function NavigationLink({
     <FadeUp>
       <div className="flex w-65 items-center justify-stretch gap-2 opacity-0 sm:w-100 sm:gap-4">
         <Link
-          className="font-title block w-fit text-5xl tracking-tighter sm:text-6xl"
+          className="font-title peer group hover:text-light-blue block w-fit text-5xl tracking-tighter transition-colors duration-300 sm:text-6xl"
           to={to}
           onClick={() => dialog.close()}
           viewTransition
         >
           {isActive && (
-            <div className="pointer-events-none mr-3 mb-3 -ml-5 inline-block size-1.5 rounded-full bg-black sm:mb-4 sm:size-2" />
+            <div className="group-hover:bg-light-blue pointer-events-none mr-3 mb-3 -ml-5 inline-block size-1.5 rounded-full bg-black transition-colors duration-300 sm:mb-4 sm:size-2" />
           )}
           {name}
         </Link>
         <div
           className={twJoin(
-            "w-full border-t",
+            "peer-hover:border-off-white w-full border-t transition-colors duration-300",
             isActive ? "border-black" : "border-off-white",
           )}
         />

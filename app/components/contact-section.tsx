@@ -64,7 +64,10 @@ export default function ContactSection() {
       </div>
 
       <FadeUp>
-        <div className="wide-content mb-section flex flex-col rounded-4xl shadow-2xl/10">
+        <div
+          id="contact"
+          className="wide-content mb-section flex flex-col rounded-4xl shadow-2xl/10"
+        >
           <Contact
             icon={<MailSVG className="size-10 lg:size-12" />}
             name="Email"
