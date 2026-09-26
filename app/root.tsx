@@ -13,6 +13,7 @@ import Footer from "./components/footer";
 import Transitioning from "./components/transitioning";
 import { assert, nonNull } from "./util";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/remix";
 import "photoswipe/dist/photoswipe.css";
 import "katex/dist/katex.css";
 import "./hljs.css";
@@ -80,6 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
