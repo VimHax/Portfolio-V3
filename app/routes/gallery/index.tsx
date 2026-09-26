@@ -2,6 +2,21 @@ import ContactSection from "~/components/contact-section";
 import GalleryData from "./data";
 import GalleryItem from "./item";
 import Title from "~/components/title";
+import type { Route } from "./+types";
+import generateMetadata from "~/metadata";
+
+import EmbedImg from "./embed.png";
+
+export function meta({}: Route.MetaArgs) {
+  return generateMetadata({
+    route: "/gallery",
+    title: "Gallery | VimHax",
+    description: "Explore my smaller scale works.",
+    color: "#db004f",
+    embed: EmbedImg,
+    keywords: [],
+  });
+}
 
 export default function GalleryPage() {
   return (

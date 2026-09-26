@@ -39,7 +39,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
           <FadeUp>
             <p className="z-10 my-8 max-w-100 text-center text-lg leading-snug text-balance sm:max-w-150 xl:text-xl">
-              Hello! I'm a full stack developer based in Sri Lanka. I have +5
+              Hello! I'm a full-stack developer based in Sri Lanka. I have +5
               years of broad experience having worked on websites, backends,
               programming languages, shaders etc.
             </p>

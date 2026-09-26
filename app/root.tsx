@@ -11,8 +11,9 @@ import type { Route } from "./+types/root";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import Transitioning from "./components/transitioning";
-import { assert, nonNull } from "./util";
+import { assert } from "./util";
 import { Analytics } from "@vercel/analytics/react";
+import generateMetadata from "./metadata";
 import "./speed-insights";
 import "photoswipe/dist/photoswipe.css";
 import "katex/dist/katex.css";
@@ -30,35 +31,14 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function meta({}: Route.MetaArgs) {
-  const title = "VimHax";
-  const description = "A full-stack developer based in Sri Lanka.";
-  const siteName = "VimHax";
-  const domain = nonNull(import.meta.env.VITE_DOMAIN);
-  const baseURL = `https://${domain}`;
-  const twitterTag = `@VimHax`;
-  return [
-    { title },
-    {
-      name: "description",
-      content: description,
-    },
-    { name: "theme-color", content: "#db004f" },
-    { tagName: "link", rel: "canonical", href: baseURL },
-    // { name: "keywords", content: keywords.join(", ") },
-
-    { name: "og:title", content: title },
-    { name: "og:description", content: description },
-    { name: "og:url", content: baseURL },
-    { name: "og:image", content: baseURL + EmbedImg },
-    { name: "og:site_name", content: siteName },
-
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:site", content: twitterTag },
-    { name: "twitter:creator", content: twitterTag },
-    { name: "twitter:image", content: baseURL + EmbedImg },
-  ];
+  return generateMetadata({
+    route: "",
+    title: "VimHax",
+    description: "A full-stack developer based in Sri Lanka.",
+    color: "#db004f",
+    embed: EmbedImg,
+    keywords: [],
+  });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {

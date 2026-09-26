@@ -61,6 +61,7 @@ const WorkMetadata = z
     color: z.tuple([z.string().nonempty(), z.string().nonempty()]).readonly(),
     date: DateMonth,
     tags: z.array(z.string().nonempty()).nonempty().readonly(),
+    embed: z.string().nonempty(),
   })
   .readonly();
 

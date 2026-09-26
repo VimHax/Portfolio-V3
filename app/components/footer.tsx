@@ -38,7 +38,7 @@ export default function Footer() {
               Vimukthi Weerabahu
             </span>
             <p className="text-light-blue max-w-65 text-center text-base sm:max-w-none sm:text-xl xl:text-left">
-              A self-taught full stack developer based in Sri Lanka.
+              A self-taught full-stack developer based in Sri Lanka.
             </p>
           </div>
         </FadeIn>

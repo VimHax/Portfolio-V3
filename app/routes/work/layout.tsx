@@ -18,6 +18,7 @@ import ContactSection from "~/components/contact-section";
 import FadeIn from "~/components/fade-in";
 import Title from "~/components/title";
 import FadeUp from "~/components/fade-up";
+import generateMetadata from "~/metadata";
 
 export async function loader({ url }: Route.LoaderArgs) {
   const segments = url.pathname.split("/").filter((x) => x.length !== 0);
@@ -36,14 +37,18 @@ export async function loader({ url }: Route.LoaderArgs) {
       work: nonNull(allWork[id]),
     }));
 
-  return { ...work, related };
+  return { id, ...work, related };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  return [
-    { title: `${loaderData.title} | VimHax` },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return generateMetadata({
+    route: `/work/${loaderData.id}`,
+    title: `${loaderData.title} | VimHax`,
+    description: loaderData.description,
+    color: loaderData.color[1],
+    embed: loaderData.embed,
+    keywords: [...loaderData.tags],
+  });
 }
 
 export function shouldRevalidate() {

@@ -1,3 +1,4 @@
+import type { Route } from "./+types";
 import TechnologiesSection from "~/components/technologies-section";
 import Content from "./content.mdx";
 import ContactSection from "~/components/contact-section";
@@ -5,8 +6,21 @@ import OptimizedImage from "~/components/optimized-image";
 import Title from "~/components/title";
 import FadeIn from "~/components/fade-in";
 import FadeUp from "~/components/fade-up";
+import generateMetadata from "~/metadata";
 
 import MeImg from "./me.png?img";
+import EmbedImg from "./embed.png";
+
+export function meta({}: Route.MetaArgs) {
+  return generateMetadata({
+    route: "/about",
+    title: "About | VimHax",
+    description: "Learn more information about me.",
+    color: "#db004f",
+    embed: EmbedImg,
+    keywords: [],
+  });
+}
 
 export default function AboutPage() {
   return (
@@ -18,7 +32,7 @@ export default function AboutPage() {
           </h1>
           <FadeIn>
             <p className="text-light-blue -mb-0.75 max-w-60 text-center text-base leading-5 sm:max-w-75 sm:text-lg sm:text-balance @5xl:text-right @7xl:-mb-1 @7xl:text-xl @7xl:leading-6">
-              A self-taught full stack developer based in Sri Lanka.
+              A self-taught full-stack developer based in Sri Lanka.
             </p>
           </FadeIn>
         </div>

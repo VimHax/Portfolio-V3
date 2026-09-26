@@ -1,9 +1,12 @@
 import { assert, nonNull } from "~/util";
-import type { Route } from "./+types/work";
-import { getAllWork } from "./work/get-work.server";
+import type { Route } from "./+types";
+import { getAllWork } from "./get-work.server";
 import Work from "~/components/work";
 import ContactSection from "~/components/contact-section";
 import Title from "~/components/title";
+import generateMetadata from "~/metadata";
+
+import EmbedImg from "./embed.png";
 
 export async function loader({}: Route.LoaderArgs) {
   const work = getAllWork();
@@ -21,6 +24,17 @@ export async function loader({}: Route.LoaderArgs) {
   ];
   assert(selected.length === Object.entries(work).length);
   return selected.map((id) => ({ id, work: nonNull(work[id]) }));
+}
+
+export function meta({}: Route.MetaArgs) {
+  return generateMetadata({
+    route: "/work",
+    title: "Work | VimHax",
+    description: "Explore my professional and personal work.",
+    color: "#db004f",
+    embed: EmbedImg,
+    keywords: [],
+  });
 }
 
 export default function WorkPage({ loaderData }: Route.ComponentProps) {

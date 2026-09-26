@@ -1,3 +1,4 @@
+import EmbedImg from './embed.png';
 import HatchingImg from "./hatching.png?img";
 import MCHatchingImg from "./mc-hatching.png?img";
 import HalftonesImg from "./halftones.png?img";
@@ -15,6 +16,7 @@ export const description =
 export const hero = { type: "video", src: "/video/spiderverse.mp4", position: "center" };
 export const color = ["#002eae", "#e0201f"];
 export const tags = ["Minecraft", "Core Shaders", "GLSL", "Personal Work"];
+export const embed = EmbedImg;
 
 export async function loader() {
   return { tweet: await getTweet("1668340004240920576") };
